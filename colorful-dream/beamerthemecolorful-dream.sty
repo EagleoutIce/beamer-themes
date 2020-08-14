@@ -1,0 +1,343 @@
+%% -----------------------------------------------------------------------------
+%% Version: 1.0
+%% Author:  Florian Sihler, 14.08.2020
+%%
+%% This package is a beamer theme to be used with the latex beamer-class.
+%% I've started the development on WiSe2019/2020, this is the ported and
+%% standalone version.
+%% 
+%%                      ulm university, SoSe2020
+
+
+%% Development notes:
+%%    All internal commands and registers will be prefixed with 'btcd@'
+%%
+
+
+%% packet options
+%% -----------------------------------------------------------------------------
+
+% font
+\newif\ifbtcd@usefont@ \btcd@usefont@true
+\DeclareOption{nofont}{\btcd@usefont@false} \DeclareOption{usefont}{\btcd@usefont@true}
+
+% libs
+\newif\ifbtcd@loadlibs@ \btcd@loadlibs@true
+\DeclareOption{nolibs}{\btcd@loadlibs@false} \DeclareOption{libs}{\btcd@loadlibs@true}
+
+% emblem
+\newif\ifbtcd@placeemblem@ % default: no
+\DeclareOption{noemblem}{\btcd@placeemblem@false} \DeclareOption{emblem}{\btcd@placeemblem@true}
+% IF ENABLED: SetEmblem
+
+% theorems
+\newif\ifbtcd@theorems@ % default: no
+\DeclareOption{notheorems}{\btcd@theorems@false} \DeclareOption{theorems}{\btcd@theorems@true}
+
+\ProcessOptions
+
+%% load packages
+%% -----------------------------------------------------------------------------
+
+% load font
+\ifbtcd@usefont@ \RequirePackage[defaultfam,light,tabular,lining]{montserrat} \fi
+
+% load libs
+
+\ifbtcd@loadlibs@
+\RequirePackage{sfmath,tikz,fontawesome,multicol}
+
+\usetikzlibrary{calc,decorations.text}
+\fi
+
+
+%% the color profile
+%% -----------------------------------------------------------------------------
+
+% #1: primary, #2: secondary, #3: alerted
+\newcommand*\SetColorProfile[3]{%
+    \definecolor{btcd@color@primary}{RGB}{#1}%
+    \definecolor{btcd@color@secondary}{RGB}{#2}%
+    \definecolor{btcd@color@alerted}{RGB}{#3}%
+}
+
+% RGB(049,068,095) RGB(82,115,143) RGB(137,64,75)
+\SetColorProfile{049,068,095}{82,115,143}{137,64,75}
+
+\iffalse % example others
+% Theme 2
+% RGB(018,040,024) RGB(046,139,087) RGB(137,64,75)
+\SetColorProfile{018,040,024}{046,139,087}{137,64,75}
+
+% Theme 3
+% RGB(018,040,042) RGB(23,96,103) RGB(81,72,79)
+\SetColorProfile{018,040,024}{023,96,103}{81,72,79}
+\fi
+
+\definecolor{btcd@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
+\definecolor{btcd@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
+
+\colorlet{btcd@color@emblem}{btcd@color@secondary!55!btcd@color@primary}
+
+\colorlet{btcd@color@wtext}{btcd@color@white!95!btcd@color@primary}
+\colorlet{btcd@color@btext}{btcd@color@primary!25!btcd@color@black}
+\colorlet{btcd@color@text}{btcd@color@black!95!btcd@color@white}
+
+\colorlet{btcd@solidF}{btcd@color@primary!25!btcd@color@black}
+
+%% shortcut commands for the user
+%% -----------------------------------------------------------------------------
+
+\newcommand\hl[1]{\textcolor{btcd@color@secondary}{#1}}
+\newcommand\imp[1]{\textcolor{btcd@color@alerted}{#1}}
+
+%% beamer configuration
+%% -----------------------------------------------------------------------------
+
+% General
+\setbeamercolor{normal text}{fg=btcd@color@btext}
+\setbeamercolor{structure}{fg=btcd@color@text}
+\setbeamercolor{alerted text}{fg=btcd@color@alerted}
+\setbeamercolor{example text}{fg=btcd@color@white}
+\setbeamercolor{copyright text}{fg=btcd@color@wtext}
+\setbeamercolor{palette primary}{fg=btcd@color@btext}
+
+% Titlepage
+\setbeamercolor{title}{fg=btcd@color@primary}
+\setbeamercolor{subtitle}{parent=normal text}
+\setbeamercolor{institute}{parent=normal text}
+
+% Content
+\setbeamercolor{frametitle}{fg=btcd@color@wtext,bg=btcd@color@primary}
+
+% Page Number
+\setbeamercolor{page number in head/foot}{fg=btcd@color@btext}
+
+\setbeamerfont{title}{size=\fontsize{22}{22}}
+\setbeamerfont{subtitle}{size=\fontsize{12}{14}}
+\setbeamerfont{section title}{size=\fontsize{19}{19}}
+
+\setbeamercolor{description item}{fg=btcd@color@black}
+
+\setbeamercolor{enumerate item}{fg=btcd@color@black}
+\setbeamercolor{enumerate subitem}{fg=btcd@color@black}
+\setbeamercolor{enumerate subsubitem}{fg=btcd@color@black}
+
+\setbeamerfont{section in toc}{size=\fontsize{12}{14}}
+\setbeamerfont{subsection in toc}{size=\fontsize{8}{12}}
+\setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
+
+\setbeamertemplate{subsection in toc}{\qquad{\scalebox{0.65}{\raisebox{0.75pt}{$\blacksquare$}}} \inserttocsubsection\par}
+
+\setbeamertemplate{itemize items}{\scalebox{0.65}{\raisebox{1.75pt}{$\blacksquare$}}}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
+% \setlength{\leftmargini}{1.15em}
+\setbeamerfont{date}{size=\fontsize{10}{11}}
+
+\defbeamertemplate{description item}{colorful-dream}{\textsc{\small\insertdescriptionitem:}}
+\setbeamertemplate{description item}[colorful-dream]
+
+\setbeamercolor{block title}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamertemplate{theorem begin}{%
+    \begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
+        \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
+    }%
+}
+
+%% head line
+%% -----------------------------------------------------------------------------
+
+\setbeamertemplate{frametitle}{%
+    \nointerlineskip\vskip-2pt%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]  {frametitle}%
+    	 \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+    \end{beamercolorbox}%
+}
+
+%% footer
+%% -----------------------------------------------------------------------------
+
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}%
+        \usebeamerfont{page number in head/foot}%
+        {\insertshortauthor$\;\circ\;$\insertshorttitle{}%
+        \expandafter\ifx\expandafter\\\insertsubsection\\\else{} $-$ \insertsubsection\fi}%
+        {\hfill\insertframenumber\,/\,\inserttotalframenumber}%
+    \end{beamercolorbox}%
+}
+
+%% start of setions
+%% -----------------------------------------------------------------------------
+
+\newcounter{btcd@sectioncount}
+\setcounter{btcd@sectioncount}{0}
+\let\oldsection\section
+\renewcommand{\section}[2][]{%
+    \write\@auxout{\noexpand\global\noexpand \stepcounter{btcd@sectioncount}}%
+    \ifx\\#1\\\oldsection{#2}\else\oldsection[#1]{#2}\fi%
+}
+
+
+\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
+\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
+
+\AtBeginSection[]{\begingroup%
+    \setbeamercolor{background canvas}{bg=btcd@color@primary}%
+    \begin{frame}[plain,t]
+        \hypertarget{section.\thesection}{}%
+        \vskip4em\vfill%
+        \centering\usebeamerfont{section title}\textcolor{btcd@color@wtext}{\insertsectionhead}\vskip0.25em\par{}
+        \textcolor{btcd@color@wtext}{\foreach \i in {1,...,\thebtcd@sectioncount}{\ifnum\i=\value{section}\fbtcd@tikzcirc{\i}\else\btcd@tikzcirc{\i}\fi}}\par\vfill%
+    \end{frame}
+    \endgroup%
+}
+
+%% titleimage
+%% -----------------------------------------------------------------------------
+
+\def\titleimage#1{\gdef\btcd@title@image{#1}}
+\def\btcd@title@image{}
+
+\setbeamertemplate{title page}{%
+    \vskip2em
+    {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
+    {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
+    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{7.5em}{\btcd@title@image}\vfill}
+    \begin{minipage}{0.75\linewidth}
+        \ifx\insertauthor\@empty%
+        \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
+        \fi%
+        \ifx\insertinstitut\@empty%
+        \else{\usebeamerfont{institute}\usebeamercolor{institute}\insertinstitute\par}%
+        \fi
+    \end{minipage}\nolinebreak\hskip2em\nolinebreak\begin{minipage}{0.25\linewidth}
+        \ifbtcd@placeemblem@\hfill\scalebox{0.6}{\btcd@emblem}\fi%
+    \end{minipage}\vskip1em%
+}
+
+\AtBeginDocument{\begin{frame}[plain]\titlepage\end{frame}}
+
+
+
+%% build the emblem on the titlepage
+%% -----------------------------------------------------------------------------
+
+\ifbtcd@placeemblem@
+    \def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
+
+    % #1: university #2 Text, #3 Symbol centered 
+    \newcommand*\SetEmblem[3][ulm university]{\def\@@university@name{#1}%
+        \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-0.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{0.125}{0.05}}%
+    }
+
+    \DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
+    \DeclareFixedFont{\btcd@font@eulerSmall}{U}{eur}{b}{n}{9}
+
+    \def\@@university@name{ulm university}
+
+    % The code is based on the emblem generation algorithm of lilly
+
+    %% Upper Text %% Symbol %% WHITE Color %% BACK Color %% Tikz %% Size %% FONTSIZE UPPER
+    \def\btcd@generate@emblem#1#2#3#4#5#6#7#8#9{%
+    % #1 Upper Text [Mathematik,...]
+    % #2 Symbol to be displayed [$\pi$], can be theoretically everything.
+    % #3 'White' Color, mainly the color of the outer Ring
+    % #4 Color of the Symbol
+    % #5 Tikz picture Arguments (main color)
+    % #6 Fontsize of the Symbol
+    % #7 Extra font-options for the upper text
+    % #8 Offset for the text radius
+    % #9 Offset for the Shadow of the symbol #2
+        \begin{tikzpicture}[#5]
+            % Draw the upper Text in color #3 and extra formatting #7
+            \draw [decorate,decoration={text along path,text align=center,%
+                    text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
+                (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
+
+            % Draw the two bullets in the main color of the tikzpicture
+            \draw(-1.5,0) node {{$\bullet$}} ++ (3,0) node {{$\bullet$}};
+            % Draw the lower text (\@@university@name) in color #3
+            \draw [decorate,decoration={text along path,text align=center,
+                    text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
+                (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
+            % Draw the inner thick circle in #3
+            \draw[very thick, color=#3] (0,0) circle (1.25);
+            % Draw the outer thick circle in #3
+            \draw[thick, color=#3] (0,0) circle (1.75);
+            % Draw the inner 'dot' circle in #3
+            \draw[thin, color=#3] circle (1.2);
+            % Draw the dots on the inner 'dot' circle in #3
+            \foreach \r in {0,20,...,360} {
+                \filldraw[#3] (\r:1.2) circle (0.01) node (\r) {};
+            }
+            % Draw the connection-lines in the main color of the tikzpicture
+            \foreach \r in {0,20,...,360}  {
+                \foreach \rr in {0,20,...,\r}{
+                    \draw[very thin] (\r) -- (\rr);
+                }
+            }
+            % Draw the symbol #2 shading with an offset of #9 and a size of #6
+            \node[opacity=0.5] at(0.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
+            % Draw the symbol #2 with size #6 (same as shadow), color of #4
+            \draw (0.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
+    \end{tikzpicture}
+    }
+\fi
+
+
+%% theorems
+%% -----------------------------------------------------------------------------
+
+\ifbtcd@theorems@
+    \def\th@exercise{%
+        \normalfont % body font
+        \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
+        \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+        \def\inserttheoremblockenv{exampleblock}
+    }
+
+    \theoremstyle{exercise}
+    \newtheorem{exercise}{Aufgabe}
+
+    \def\th@TheStyle{%
+        \normalfont % body font
+        \setbeamercolor{block title example}{bg=btcd@color@alerted,fg=btcd@color@white}
+        \setbeamercolor{block body example}{bg=btcd@color@alerted!10,fg=btcd@color@black}
+        \def\inserttheoremblockenv{exampleblock}
+    }
+
+    \theoremstyle{TheStyle}
+    \newtheorem{solve}{Lösung}
+\fi
+
+%% outro
+%% -----------------------------------------------------------------------------
+
+\def\btcd@outro{}
+\def\outro#1{\gdef\btcd@outro{#1}}
+
+\def\btcd@email{}
+\def\email#1{\gdef\btcd@email{#1}}
+
+\AtEndDocument{
+    \begingroup%
+    \setbeamercolor{background canvas}{bg=btcd@color@primary}%
+    \begin{frame}[plain,b]
+    {}\color{btcd@color@white}%
+    \pgfmathsetmacro\btcd@extlenw{\textwidth+2em}
+    \hspace*{-1em}\parbox{\btcd@extlenw pt}{\parbox[b]{0.35\textwidth}{%
+        {\small\textbf{\insertauthor}}\\
+        {\footnotesize\btcd@outro{}}%
+    }\hfill\parbox[b]{0.35\textwidth}{%
+    {\hbox{}\hfill\footnotesize\href{mailto:\btcd@email}{\btcd@email}}%
+    }}\vspace*{1em}%
+    \end{frame}
+    \endgroup
+}
+
+\endinput
