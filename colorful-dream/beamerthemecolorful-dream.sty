@@ -34,6 +34,10 @@
 \newif\ifbtcd@theorems@ % default: no
 \DeclareOption{notheorems}{\btcd@theorems@false} \DeclareOption{theorems}{\btcd@theorems@true}
 
+% bibliography
+\newif\ifbtcd@bibliography@ \btcd@bibliography@true % default: yes/ifloaded
+\DeclareOption{nobib}{\btcd@bibliography@false} \DeclareOption{showbib}{\btcd@bibliography@true}
+
 \ProcessOptions
 
 %% load packages
@@ -129,6 +133,23 @@
 
 \setbeamertemplate{subsection in toc}{\qquad{\scalebox{0.65}{\raisebox{0.75pt}{$\blacksquare$}}} \inserttocsubsection\par}
 
+% bibliography
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+\setbeamercolor{bibliography item}{fg=btcd@color@white}
+\setbeamercolor*{bibliography entry title}{fg=btcd@color@white}
+\setbeamercolor{bibliography entry author}{fg=btcd@color@white}
+\setbeamercolor*{bibliography entry author}{fg=btcd@color@white}
+\setbeamercolor{bibliography entry location}{fg=btcd@color@white}
+\setbeamercolor*{bibliography entry location}{fg=btcd@color@white}
+\setbeamercolor{bibliography entry note}{fg=btcd@color@white}
+\setbeamercolor*{bibliography entry note}{fg=btcd@color@white}
+\setbeamertemplate{bibliography item}[text]
+
+
+
+
 \setbeamertemplate{itemize items}{\scalebox{0.65}{\raisebox{1.75pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 % \setlength{\leftmargini}{1.15em}
@@ -174,6 +195,9 @@
 %% start of setions
 %% -----------------------------------------------------------------------------
 
+\newif\ifsectionbanner \sectionbannertrue
+\let\nosframe\sectionbannerfalse
+
 \newcounter{btcd@sectioncount}
 \setcounter{btcd@sectioncount}{0}
 \let\oldsection\section
@@ -186,7 +210,7 @@
 \def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
 \def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
 
-\AtBeginSection[]{\begingroup%
+\AtBeginSection[]{\ifsectionbanner\begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
     \begin{frame}[plain,t]
         \hypertarget{section.\thesection}{}%
@@ -194,7 +218,7 @@
         \centering\usebeamerfont{section title}\textcolor{btcd@color@wtext}{\insertsectionhead}\vskip0.25em\par{}
         \textcolor{btcd@color@wtext}{\foreach \i in {1,...,\thebtcd@sectioncount}{\ifnum\i=\value{section}\fbtcd@tikzcirc{\i}\else\btcd@tikzcirc{\i}\fi}}\par\vfill%
     \end{frame}
-    \endgroup%
+    \endgroup\fi%
 }
 
 %% titleimage
@@ -324,11 +348,20 @@
 \def\btcd@email{}
 \def\email#1{\gdef\btcd@email{#1}}
 
+\def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
+
 \AtEndDocument{
     \begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
-    \begin{frame}[plain,b]
+    \begin{frame}[plain,b]%
     {}\color{btcd@color@white}%
+    \@ifundefined{ver@biblatex.sty}{}{%
+        \ifbtcd@bibliography@%
+            \vspace*{2em}%
+            \defbibheading{bibliography}[\refname]{}%
+            \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
+        \fi%
+    }%
     \pgfmathsetmacro\btcd@extlenw{\textwidth+2em}
     \hspace*{-1em}\parbox{\btcd@extlenw pt}{\parbox[b]{0.35\textwidth}{%
         {\small\textbf{\insertauthor}}\\

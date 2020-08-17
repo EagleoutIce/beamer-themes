@@ -4,9 +4,14 @@
 
 A hopefully growing collection of (latex) beamer-themes that i have created over the years. All themes supplied are standalone versions.
 
+## General
+
+Some resources are shared between all of the example-documents (they are just placeholders and therefore not necessary).
+The example bibliography-file is based on an [overleaf-example](https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX).
+
 ## colorful-dream
 
-This theme is located [here](./colorful-dream).
+This theme is located [here](./colorful-dream) and _has_ BibLaTeX-Support.
 Valid Options (defaults are marked):
 
 - `nofont`/__`font`__ (automatic font-loading)
