@@ -33,6 +33,19 @@ Valid Options (defaults are marked):
 - `nofont`/__`font`__ (automatic font-loading. Loads the title-font too)
 - `nolibs`/__`libs`__ (automatic loading of other libraries like tikz)
 
-You must insert the title-page yourself, as seen in the [example.tex](colorful-dream/example.tex):
+You must insert the title-page yourself, as seen in the [example.tex](lucy/example.tex):
 
 ![lucy example image](lucy/example.png)
+
+## fragment
+
+This theme is located [here](./fragment) and _has_ BibLaTeX-Support. It is loosely based on my sopra-seraphim class.
+Valid Options (defaults are marked):
+
+- `nofont`/__`font`__ (automatic font-loading. Loads the title-font too)
+- `nolibs`/__`libs`__ (automatic loading of other libraries like tikz)
+
+You must insert the title-page yourself, as seen in the [example.tex](fragment/example.tex):
+
+![fragment example image](fragment/example.png)
+(Note: the unbalanced lines on the title page come from weird anti-aliasing in the image and are not part of the template)
