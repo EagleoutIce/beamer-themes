@@ -242,7 +242,7 @@
         {\normalsize\color{ctpsymbol}{\huge$\llap{$\diamond$}\hspace*{-1pt}$}\rule[0.346\baselineskip]{\linewidth}{0.55pt}{\huge$\hspace*{-1pt}\rlap{$\diamond$}$}}%
     }
 
-\defbeamertemplate*{title page}{seraphim}[1][]{%
+\defbeamertemplate*{title page}{fragment}[1][]{%
     \begin{tikzpicture}[remember picture, overlay]
         % as canvas color can fail:
         \fill[ctpbackground] (current page.south west) rectangle (current page.north east);
@@ -268,21 +268,20 @@
 %% head line
 %% -----------------------------------------------------------------------------
 
-\defbeamertemplate*{frametitle}{seraphim}[1][]{
+\defbeamertemplate*{frametitle}{fragment}[1][]{%
     \begin{tikzpicture}[remember picture,overlay]
         \fill[cakzent] (current page.north west) rectangle ($(current page.north east)+(0,-1cm)$);
         \node[right=14pt,ctptext,font=\usebeamerfont{frametitle}] at ($(current page.north west)+(0,-1cm/2-1mm)$) {{}\strut\insertframetitle\strut}; % \strut
         \fill[cprimary] (current page.north west) -| ($(current page.north east)+(0,-1mm)$) -| ($(current page.north east)+(-1mm,-9mm)$) -| ++(-14mm,8mm) -| cycle;
         \node[scale=0.9] at($(current page.north east)+(-1mm-7mm,-5.5mm)$){\insertframenumber};
-    \end{tikzpicture}%
-    \vskip0.7cm
+    \end{tikzpicture}\vskip0.25cm%
 }
 
 
 %% footer
 %% -----------------------------------------------------------------------------    
 
-\defbeamertemplate*{footline}{seraphim}[1][] {
+\defbeamertemplate*{footline}{fragment}[1][] {
     \begin{tikzpicture}[remember picture,overlay]
         \expandafter\ifx\expandafter\\\insertsectionhead\\\else%
         \expandafter\ifx\expandafter\\\insertsubsectionhead\\\else%
