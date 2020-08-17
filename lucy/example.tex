@@ -5,7 +5,7 @@
 \usepackage{microtype}
 \usepackage[english,main=ngerman]{babel}
 
-\usetheme[emblem,theorems]{colorful-dream}
+\usetheme{lucy}
 
 \title{Example Presentation}
 \subtitle{This is madness}
@@ -14,15 +14,6 @@
 \date{14, August 2020}
 
 \author{Florian Sihler}
-\email{florian.sihler@uni-ulm.de}
-
-\outro{Ulm, \today}
-
-\SetEmblem[university Ulm]{Example Institute}{\faCode}
-
-% tikz code is possible as well!
-% TODO: you may want to change this if you do not have downloaded the image
-\titleimage{\includegraphics{../exampletitleimage}}
 
 % just an example command
 \newcommand\twosplit[3][t]{%
@@ -40,6 +31,10 @@
 \addbibresource{../example.bib}
 
 \begin{document}
+
+\begin{frame}[c]
+    \titlepage
+\end{frame}
 
 \begin{frame}[c]{The table of contents}
     \begin{center}
@@ -181,6 +176,10 @@
 
 \begin{frame}{Mega-Example 2}
     World
+\end{frame}
+
+\begin{frame}{Bibliography}
+    \printbibliography
 \end{frame}
 
 \end{document}

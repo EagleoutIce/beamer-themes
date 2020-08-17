@@ -1,0 +1,180 @@
+%% -----------------------------------------------------------------------------
+%% Version: 1.0
+%% Author:  Florian Sihler, 17.08.2020
+%%
+%% This package is a beamer theme to be used with the latex beamer-class.
+%% I've used this team at school for my abitur. It uses my old way of 
+%% dealing with colors having cprimary, csecondary and cwhite as colors.
+%% 
+%%                      ulm university, SoSe2020
+
+
+%% Development notes:
+%%    All internal commands and registers will be prefixed with 'btl@'
+%%
+
+
+%% packet options
+%% -----------------------------------------------------------------------------
+
+% font
+\newif\ifbtl@usefont@ \btl@usefont@true
+\DeclareOption{nofont}{\btl@usefont@false} \DeclareOption{usefont}{\btl@usefont@true}
+
+% libs
+\newif\ifbtl@loadlibs@ \btl@loadlibs@true
+\DeclareOption{nolibs}{\btl@loadlibs@false} \DeclareOption{libs}{\btl@loadlibs@true}
+
+\ProcessOptions
+
+%% load packages
+%% -----------------------------------------------------------------------------
+
+% load font
+\ifbtl@usefont@%
+    \RequirePackage{aurical}%
+    \RequirePackage[default]{lato}%
+    \AtBeginDocument{\fontseries{m}\selectfont}%
+    \def\lfseries{\fontseries{l}\selectfont}%
+\else%
+    \def\lfseries{\selectfont}%
+\fi%
+
+% load libs
+\ifbtl@loadlibs@
+\RequirePackage{tikz}
+\fi
+
+
+%% the color profile
+%% -----------------------------------------------------------------------------
+
+\definecolor{cprimary}{RGB}{245, 130, 32}          %% #F58220
+\definecolor{csecondary}{RGB}{126, 126, 126}       %% #7E7E7E
+\definecolor{cwhite}{RGB}{255, 255, 255}           %% #FFFFFF
+\definecolor{cblack}{RGB}{1, 0, 0}                 %% #010000
+
+%% shortcut commands for the user
+%% -----------------------------------------------------------------------------
+
+
+%% beamer configuration
+%% -----------------------------------------------------------------------------
+
+% color
+\setbeamercolor{normal text}{fg=cblack}
+\setbeamercolor{structure}{fg=csecondary}
+\setbeamercolor{alerted text}{fg=cprimary}
+\setbeamercolor{example text}{fg=csecondary}
+\setbeamercolor{copyright text}{fg=csecondary}
+\setbeamercolor{palette primary}{fg=cprimary}
+\setbeamercolor{palette secondary}{fg=csecondary}
+
+\setbeamercolor{headline}{fg=csecondary}
+
+\setbeamercolor{frametitle}{fg=cwhite}
+
+\setbeamercolor{itemize/enumerate subbody}{fg=csecondary}
+\setbeamercolor{itemize/enumerate subsubbody}{fg=csecondary!90!white}
+
+\setbeamercolor{itemize item}{fg=csecondary}
+\setbeamercolor{itemize subitem}{fg=csecondary!90!white}
+\setbeamercolor{itemize subsubitem}{fg=csecondary!80!white}
+
+\setbeamercolor{enumerate item}{fg=csecondary}
+\setbeamercolor{enumerate subitem}{fg=csecondary!90!white}
+\setbeamercolor{enumerate subsubitem}{fg=csecondary!80!white}
+
+\setbeamercolor{description item}{fg=csecondary}
+\setbeamercolor{description subitem}{fg=csecondary!90!white}
+\setbeamercolor{description subsubitem}{fg=csecondary!80!white}
+
+\setbeamercolor{bibliography item}{fg=csecondary}
+\setbeamercolor{bibliography entry author}{fg=cprimary!75!csecondary}
+\setbeamercolor{bibliography entry title}{fg=cprimary!75!csecondary}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamercolor{section in toc}{fg=cprimary}
+\setbeamercolor{subsection in toc}{fg=csecondary}
+\setbeamercolor{section in toc shaded}{fg=cprimary!10!white}
+\setbeamercolor{subsection in toc shaded}{fg=csecondary!10!white}
+
+\setbeamercolor{alerted text}{fg=cprimary}
+
+% font
+\setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\scriptsize}
+
+\setbeamerfont{description item}{series=\mdseries}
+
+\def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
+
+
+\beamertemplatenavigationsymbolsempty
+% \setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{itemize items}{\tiny\raisebox{1.45pt}{$\blacksquare$}}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-0.85ex]{\fill (0,0) circle (1.65pt);}}
+
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+
+
+%% title page
+%% -----------------------------------------------------------------------------
+
+\newcommand\btl@true{true}
+\providecommand{\lucyUseAlternativeTitle}{false}
+\ifx\lucyUseAlternativeTitle\btl@true
+\defbeamertemplate*{title page}{lucy}[1][] {
+    \begin{center}
+        {\Huge\color{cprimary}\inserttitle}
+    \\[3.5em]
+        \color{csecondary}\insertauthor
+    \end{center}
+}
+\else
+\defbeamertemplate*{title page}{lucy}[1][] {
+    \ifbtl@usefont@\Fontauri\fi%
+    \begin{center}
+        {\Huge\color{cprimary}\inserttitle}
+    \\[3.5em]
+        \color{csecondary}\insertauthor{} \(\circ\) \insertdate
+    \end{center}
+}
+\fi
+
+%% head line
+%% -----------------------------------------------------------------------------
+
+\defbeamertemplate*{frametitle}{lucy}[1][]{%
+    \vskip0.35cm%
+    \hspace*{-0.25cm}\begin{tikzpicture}[]
+        \fill[cprimary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-0.5cm,2.125em);
+        \node[right] at(0,2.125em/2-0.075em){\LARGE\strut{\insertframetitle}};%smash
+    \end{tikzpicture}%
+}
+
+%% footer
+%% -----------------------------------------------------------------------------
+
+\providecommand{\totalframes}{\inserttotalframenumber}
+\defbeamertemplate*{footline}{lucy}[1][] {
+    \hskip0.25cm\begin{tikzpicture}[fnote/.style={cwhite,font={\lfseries\supertiny}}]
+        \fill[csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-0.5cm,1.125em);
+        \node[right,fnote] at(0,1.125em/2) {\insertshorttitle};
+        \node[fnote] at(\paperwidth/2,1.125em/2) {\insertshortauthor};
+        \node[left,fnote] at(\paperwidth-0.5cm,1.125em/2) {\insertframenumber/\totalframes};
+    \end{tikzpicture}%
+    \vskip0.25cm%
+}
+
+%% table of contents
+%% -----------------------------------------------------------------------------
+\setbeamertemplate{section in toc}{%
+  {\ifbtl@usefont@\Fontauri\fi$\inserttocsectionnumber$}.~~\inserttocsection}
+\setbeamercolor{subsection in toc}{bg=white,fg=structure}
+\setbeamertemplate{subsection in toc}{%
+  \hspace{1.2em}{\color{csecondary}\rule[0.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
+
+\endinput
