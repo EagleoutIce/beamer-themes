@@ -1,5 +1,5 @@
-[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/) [![GPL license](https://img.shields.io/badge/License-GPL-blue.svg)](http://perso.crans.org/besson/LICENSE.html) 
-
+[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/) [![GPL license](https://img.shields.io/badge/License-GPL-blue.svg)](http://perso.crans.org/besson/LICENSE.html)  
+![Compile all example PDFs](https://github.com/EagleoutIce/beamer-themes/workflows/Compile%20all%20example%20PDFs/badge.svg)
 # beamer-themes
 
 A hopefully growing collection of (latex) beamer-themes that i have created over the years.
