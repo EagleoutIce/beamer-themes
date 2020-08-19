@@ -23,22 +23,22 @@ jobs:
         with:
             remote: true
     
-      - name: Compile LaTeX document
+      - name: Compile colorful-dream
         uses: xu-cheng/latex-action@v2
         with:
-          working_dir: colorful-dream
+          working_directory: colorful-dream
           root_file: example.tex
 
-      - name: Compile LaTeX document
+      - name: Compile fragment
         uses: xu-cheng/latex-action@v2
         with:
-          working_dir: fragment
+          working_directory: fragment
           root_file: example.tex
 
-      - name: Compile LaTeX document
+      - name: Compile lucy
         uses: xu-cheng/latex-action@v2
         with:
-          working_dir: lucy
+          working_directory: lucy
           root_file: example.tex
       
       - name: Commit PDF
