@@ -319,25 +319,16 @@
 %% -----------------------------------------------------------------------------
 
 \ifbtcd@theorems@
-    \def\th@exercise{%
-        \normalfont % body font
-        \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
-        \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}
-        \def\inserttheoremblockenv{exampleblock}
-    }
-
-    \theoremstyle{exercise}
-    \newtheorem{exercise}{Aufgabe}
-
-    \def\th@TheStyle{%
+    \def\th@btcdthstyle{%
         \normalfont % body font
         \setbeamercolor{block title example}{bg=btcd@color@alerted,fg=btcd@color@white}
         \setbeamercolor{block body example}{bg=btcd@color@alerted!10,fg=btcd@color@black}
         \def\inserttheoremblockenv{exampleblock}
     }
 
-    \theoremstyle{TheStyle}
+    \theoremstyle{btcdthstyle}
     \newtheorem{solve}{Lösung}
+    \newtheorem{exercise}{Aufgabe}
 \fi
 
 %% outro
