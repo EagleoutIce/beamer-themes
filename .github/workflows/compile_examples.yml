@@ -53,4 +53,4 @@ jobs:
         with:
           branch: "gh-pages"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
+          force: true
