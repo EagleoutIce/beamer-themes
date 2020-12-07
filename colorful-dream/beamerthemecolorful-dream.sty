@@ -5,7 +5,7 @@
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% I've started the development on WiSe2019/2020, this is the ported and
 %% standalone version.
-%% 
+%%
 %%                      ulm university, SoSe2020
 
 %% Development notes:
@@ -208,8 +208,8 @@
 }
 
 
-\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
-\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{~}};}}
+\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
+\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
 
 \AtBeginSection[]{\ifsectionbanner\begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
@@ -255,7 +255,7 @@
 \ifbtcd@placeemblem@
     \def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
 
-    % #1: university #2 Text, #3 Symbol centered 
+    % #1: university #2 Text, #3 Symbol centered
     \newcommand*\SetEmblem[3][ulm university]{\def\@@university@name{#1}%
         \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-0.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{0.125}{0.05}}%
     }
