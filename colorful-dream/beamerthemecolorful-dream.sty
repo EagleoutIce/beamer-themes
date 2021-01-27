@@ -50,7 +50,7 @@
 % load libs
 
 \ifbtcd@loadlibs@
-\RequirePackage{sfmath,tikz,fontawesome,multicol}
+\RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox}
 
 \usetikzlibrary{calc,decorations.text}
 \fi
@@ -82,10 +82,10 @@
 \definecolor{btcd@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
 \definecolor{btcd@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
 
-\colorlet{btcd@color@emblem}{btcd@color@secondary!55!btcd@color@primary}
+\colorlet{btcd@color@emblem}{gray}
 
 \colorlet{btcd@color@wtext}{btcd@color@white!95!btcd@color@primary}
-\colorlet{btcd@color@btext}{btcd@color@primary!25!btcd@color@black}
+\colorlet{btcd@color@btext}{btcd@color@primary!20!btcd@color@black}
 \colorlet{btcd@color@text}{btcd@color@black!95!btcd@color@white}
 
 \colorlet{btcd@solidF}{btcd@color@primary!25!btcd@color@black}
@@ -116,7 +116,7 @@
 \setbeamercolor{frametitle}{fg=btcd@color@wtext,bg=btcd@color@primary}
 
 % Page Number
-\setbeamercolor{page number in head/foot}{fg=btcd@color@btext}
+\setbeamercolor{page number in head/foot}{fg=btcd@color@btext!50!btcd@color@white}
 
 \setbeamerfont{title}{size=\fontsize{22}{22}}
 \setbeamerfont{subtitle}{size=\fontsize{12}{14}}
@@ -177,7 +177,7 @@
 
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2pt%
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]  {frametitle}%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
     	 \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
@@ -187,10 +187,9 @@
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}%
-        \usebeamerfont{page number in head/foot}%
-        {\insertshortauthor$\;\circ\;$\insertshorttitle{}%
-        \expandafter\ifx\expandafter\\\insertsubsection\\\else{} $-$ \insertsubsection\fi}%
+    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}% default color
+        \color{gray}\usebeamerfont{page number in head/foot}%
+        {\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}}%
         {\hfill\insertframenumber\,/\,\inserttotalframenumber}%
     \end{beamercolorbox}%
 }
@@ -236,7 +235,7 @@
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
     \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\\%
     \begin{minipage}{0.75\linewidth}
-        \ifx\insertauthor\@empty%
+        \color{gray}\ifx\insertauthor\@empty%
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
         \fi%
         \ifx\insertinstitut\@empty%
@@ -299,12 +298,12 @@
             % Draw the inner 'dot' circle in #3
             \draw[thin, color=#3] circle (1.2);
             % Draw the dots on the inner 'dot' circle in #3
-            \foreach \r in {0,20,...,360} {
-                \filldraw[#3] (\r:1.2) circle (0.01) node (\r) {};
+            \foreach \r in {0,30,...,359} {
+                \filldraw[#3] (\r:1.2) circle (0.01) node[circle] (\r) {};
             }
             % Draw the connection-lines in the main color of the tikzpicture
-            \foreach \r in {0,20,...,360}  {
-                \foreach \rr in {0,20,...,\r}{
+            \foreach \r in {0,30,...,359}  {
+                \foreach \rr in {0,30,...,\r}{
                     \draw[very thin] (\r) -- (\rr);
                 }
             }
