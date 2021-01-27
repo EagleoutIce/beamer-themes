@@ -94,7 +94,7 @@
 %% -----------------------------------------------------------------------------
 
 \newcommand\hl[1]{\textcolor{btcd@color@secondary}{#1}}
-\newcommand\imp[1]{\textcolor{btcd@color@alerted}{#1}}
+\newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
 %% -----------------------------------------------------------------------------
@@ -205,7 +205,7 @@
 \let\oldsection\section
 \renewcommand{\section}[2][]{%
     \write\@auxout{\noexpand\global\noexpand \stepcounter{btcd@sectioncount}}%
-    \ifx\\#1\\\oldsection{#2}\else\oldsection[#1]{#2}\fi%
+    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
 
