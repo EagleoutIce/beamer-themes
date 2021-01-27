@@ -185,12 +185,13 @@
 %% footer
 %% -----------------------------------------------------------------------------
 
+\def\btcd@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
+
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
     \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}% default color
         \color{gray}\usebeamerfont{page number in head/foot}%
-        {\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}}%
-        {\hfill\insertframenumber\,/\,\inserttotalframenumber}%
+        {\btcd@footline@data}%
     \end{beamercolorbox}%
 }
 
@@ -210,11 +211,12 @@
 
 
 \def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
-\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
+\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btcd@color@primary] {\thesection};}}
 
 \AtBeginSection[]{\ifsectionbanner\begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
-    \begin{frame}[plain,t]
+    \def\btcd@footline@data{\color{btcd@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
+    \begin{frame}[t]
         \hypertarget{section.\thesection}{}%
         \vskip4em\vfill%
         \centering\usebeamerfont{section title}\textcolor{btcd@color@wtext}{\insertsectionhead}\vskip0.25em\par{}
