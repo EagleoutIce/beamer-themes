@@ -10,7 +10,6 @@
 
 %% Development notes:
 %%    All internal commands and registers will be prefixed with 'btcd@'
-%%
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
@@ -48,10 +47,8 @@
 \ifbtcd@usefont@ \RequirePackage[defaultfam,light,tabular,lining]{montserrat} \fi
 
 % load libs
-
 \ifbtcd@loadlibs@
 \RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox}
-
 \usetikzlibrary{calc,decorations.text}
 \fi
 
@@ -61,9 +58,9 @@
 
 % #1: primary, #2: secondary, #3: alerted
 \newcommand*\SetColorProfile[3]{%
-    \definecolor{btcd@color@primary}{RGB}{#1}%
-    \definecolor{btcd@color@secondary}{RGB}{#2}%
-    \definecolor{btcd@color@alerted}{RGB}{#3}%
+\definecolor{btcd@color@primary}{RGB}{#1}%
+\definecolor{btcd@color@secondary}{RGB}{#2}%
+\definecolor{btcd@color@alerted}{RGB}{#3}%
 }
 
 % RGB(049,068,095) RGB(82,115,143) RGB(137,64,75)
@@ -167,9 +164,9 @@
 \setbeamertemplate{theorems}[numbered]
 
 \setbeamertemplate{theorem begin}{%
-    \begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
-        \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
-    }%
+\begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
+    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
+}%
 }
 
 %% head line
@@ -178,7 +175,7 @@
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2pt%
     \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
-    	 \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
 
@@ -209,7 +206,6 @@
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
-
 \def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
 \def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btcd@color@primary] {\thesection};}}
 
@@ -232,7 +228,7 @@
 \def\btcd@title@image{}
 
 \setbeamertemplate{title page}{%
-    \vskip2em
+    \vskip2em %
     {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
     \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\\%
@@ -256,65 +252,65 @@
 %% -----------------------------------------------------------------------------
 
 \ifbtcd@placeemblem@
-    \def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
+\def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
 
-    % #1: university #2 Text, #3 Symbol centered
-    \newcommand*\SetEmblem[3][ulm university]{\def\@@university@name{#1}%
-        \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-0.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{0.125}{0.05}}%
-    }
+% #1: university #2 Text, #3 Symbol centered
+\newcommand*\SetEmblem[3][ulm university]{\def\@@university@name{#1}%
+    \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-0.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{0.125}{0.05}}%
+}
 
-    \DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
-    \DeclareFixedFont{\btcd@font@eulerSmall}{U}{eur}{b}{n}{9}
+\DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
+\DeclareFixedFont{\btcd@font@eulerSmall}{U}{eur}{b}{n}{9}
 
-    \def\@@university@name{ulm university}
+\def\@@university@name{ulm university}
 
-    % The code is based on the emblem generation algorithm of lilly
+% The code is based on the emblem generation algorithm of lilly
 
-    %% Upper Text %% Symbol %% WHITE Color %% BACK Color %% Tikz %% Size %% FONTSIZE UPPER
-    \def\btcd@generate@emblem#1#2#3#4#5#6#7#8#9{%
-    % #1 Upper Text [Mathematik,...]
-    % #2 Symbol to be displayed [$\pi$], can be theoretically everything.
-    % #3 'White' Color, mainly the color of the outer Ring
-    % #4 Color of the Symbol
-    % #5 Tikz picture Arguments (main color)
-    % #6 Fontsize of the Symbol
-    % #7 Extra font-options for the upper text
-    % #8 Offset for the text radius
-    % #9 Offset for the Shadow of the symbol #2
-        \begin{tikzpicture}[#5]
-            % Draw the upper Text in color #3 and extra formatting #7
-            \draw [decorate,decoration={text along path,text align=center,%
-                    text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
-                (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
+%% Upper Text %% Symbol %% WHITE Color %% BACK Color %% Tikz %% Size %% FONTSIZE UPPER
+\def\btcd@generate@emblem#1#2#3#4#5#6#7#8#9{%
+% #1 Upper Text [Mathematik,...]
+% #2 Symbol to be displayed [$\pi$], can be theoretically everything.
+% #3 'White' Color, mainly the color of the outer Ring
+% #4 Color of the Symbol
+% #5 Tikz picture Arguments (main color)
+% #6 Fontsize of the Symbol
+% #7 Extra font-options for the upper text
+% #8 Offset for the text radius
+% #9 Offset for the Shadow of the symbol #2
+    \begin{tikzpicture}[#5]
+        % Draw the upper Text in color #3 and extra formatting #7
+        \draw [decorate,decoration={text along path,text align=center,%
+                text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
+            (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
 
-            % Draw the two bullets in the main color of the tikzpicture
-            \draw(-1.5,0) node {{$\bullet$}} ++ (3,0) node {{$\bullet$}};
-            % Draw the lower text (\@@university@name) in color #3
-            \draw [decorate,decoration={text along path,text align=center,
-                    text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
-                (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
-            % Draw the inner thick circle in #3
-            \draw[very thick, color=#3] (0,0) circle (1.25);
-            % Draw the outer thick circle in #3
-            \draw[thick, color=#3] (0,0) circle (1.75);
-            % Draw the inner 'dot' circle in #3
-            \draw[thin, color=#3] circle (1.2);
-            % Draw the dots on the inner 'dot' circle in #3
-            \foreach \r in {0,30,...,359} {
-                \filldraw[#3] (\r:1.2) circle (0.01) node[circle] (\r) {};
+        % Draw the two bullets in the main color of the tikzpicture
+        \draw(-1.5,0) node {{$\bullet$}} ++ (3,0) node {{$\bullet$}};
+        % Draw the lower text (\@@university@name) in color #3
+        \draw [decorate,decoration={text along path,text align=center,
+                text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
+            (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
+        % Draw the inner thick circle in #3
+        \draw[very thick, color=#3] (0,0) circle (1.25);
+        % Draw the outer thick circle in #3
+        \draw[thick, color=#3] (0,0) circle (1.75);
+        % Draw the inner 'dot' circle in #3
+        \draw[thin, color=#3] circle (1.2);
+        % Draw the dots on the inner 'dot' circle in #3
+        \foreach \r in {0,30,...,359} {
+            \filldraw[#3] (\r:1.2) circle (0.01) node[circle] (\r) {};
+        }
+        % Draw the connection-lines in the main color of the tikzpicture
+        \foreach \r in {0,30,...,359}  {
+            \foreach \rr in {0,30,...,\r}{
+                \draw[very thin] (\r) -- (\rr);
             }
-            % Draw the connection-lines in the main color of the tikzpicture
-            \foreach \r in {0,30,...,359}  {
-                \foreach \rr in {0,30,...,\r}{
-                    \draw[very thin] (\r) -- (\rr);
-                }
-            }
-            % Draw the symbol #2 shading with an offset of #9 and a size of #6
-            \node[opacity=0.5] at(0.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
-            % Draw the symbol #2 with size #6 (same as shadow), color of #4
-            \draw (0.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
-    \end{tikzpicture}
-    }
+        }
+        % Draw the symbol #2 shading with an offset of #9 and a size of #6
+        \node[opacity=0.5] at(0.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
+        % Draw the symbol #2 with size #6 (same as shadow), color of #4
+        \draw (0.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
+\end{tikzpicture}
+}
 \fi
 
 
@@ -322,25 +318,25 @@
 %% -----------------------------------------------------------------------------
 
 \ifbtcd@theorems@
-    \def\th@exercise{%
-        \normalfont % body font
-        \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
-        \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}
-        \def\inserttheoremblockenv{exampleblock}
-    }
+\def\th@exercise{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
+    \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+    \def\inserttheoremblockenv{exampleblock}
+}
 
-    \theoremstyle{exercise}
-    \newtheorem{exercise}{Aufgabe}
+\theoremstyle{exercise}
+\newtheorem{exercise}{Aufgabe}
 
-    \def\th@solve{%
-        \normalfont % body font
-        \setbeamercolor{block title example}{bg=btcd@color@alerted,fg=btcd@color@white}
-        \setbeamercolor{block body example}{bg=btcd@color@alerted!10,fg=btcd@color@black}
-        \def\inserttheoremblockenv{exampleblock}
-    }
+\def\th@solve{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=btcd@color@alerted,fg=btcd@color@white}
+    \setbeamercolor{block body example}{bg=btcd@color@alerted!10,fg=btcd@color@black}
+    \def\inserttheoremblockenv{exampleblock}
+}
 
-    \theoremstyle{solve}
-    \newtheorem{solve}{Lösung}
+\theoremstyle{solve}
+\newtheorem{solve}{Lösung}
 \fi
 
 %% outro
