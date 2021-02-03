@@ -11,6 +11,11 @@
 
 %% packet options
 %% -----------------------------------------------------------------------------
+% footfade
+\newif\ifbtdl@footfade@ \btdl@footfade@true
+\DeclareOption{nofootfade}{\btdl@footfade@false} \DeclareOption{footfade}{\btdl@footfade@true}
+
+\DeclareOption{nocenterfoot}{\def\btdl@printshort@mid{~\hfill}} \DeclareOption{centerfoot}{\def\btdl@printshort@mid{\quad}}
 
 % libs
 \newif\ifbtdl@loadlibs@ \btdl@loadlibs@true
@@ -20,6 +25,7 @@
 \newif\ifbtdl@bibliography@ \btdl@bibliography@true % default: yes/ifloaded
 \DeclareOption{nobib}{\btdl@bibliography@false} \DeclareOption{showbib}{\btdl@bibliography@true}
 
+\ExecuteOptions{nocenterfoot}
 \ProcessOptions
 
 %% load packages
@@ -52,7 +58,7 @@
 
 \colorlet{btdl@color@emblem}{gray}
 
-\colorlet{c@color@wtext}{btdl@color@white!95!btdl@color@primary}
+\colorlet{btdl@color@wtext}{btdl@color@white!92!btdl@color@primary}
 \colorlet{btdl@color@btext}{btdl@color@black}
 \colorlet{btdl@color@text}{btdl@color@black!95!btdl@color@white}
 
@@ -66,7 +72,7 @@
 
 %% beamer configuration
 %% -----------------------------------------------------------------------------
-\setbeamercolor{background canvas}{bg=btdl@color@secondary!1!}
+\setbeamercolor{background canvas}{bg=btdl@color@primary!1!}
 
 % General
 \setbeamercolor{normal text}{fg=btdl@color@btext}
@@ -165,7 +171,8 @@
 
 \def\btdl@footer@tsymb#1{\hyperlink{btdl@section.#1}{\textcolor{btdl@color@primary}{\ifnum\value{section}=#1 \(\blacklozenge\)\else\(\lozenge\)\fi}}}
 \def\btdl@printshort@lowforsec#1{\@nameuse{btdl@section@#1@content}}
-\def\btdl@printshort@mid{\hfill}
+% def by op \def\btdl@printshort@mid{\hfill}
+\def\btdl@printshort@border{\hfill}
 
 \def\btdl@typesetfiveforcurrent{%
 \ifnum\btdl@sectionmax@target@preview>0
@@ -174,19 +181,20 @@
     \pgfmathsetmacro\btdl@sectionmax@target@end{int(min(\value{btdl@sectioncount},\btdl@sectionmax@target@start+\btdl@sectionmax@target@preview))}%
     % try to update lower if upper was capped
     \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\btdl@sectionmax@target@end-\btdl@sectionmax@target@preview))}%
-    % TODO: hyperlinks zum Start und zum Ende draus machen: wenn erreicht reguär dann ausfüllen
-    \btdl@footer@tsymb{\btdl@sectionmax@target@start}~~\hfill%
+    \btdl@footer@tsymb{\btdl@sectionmax@target@start}~~\btdl@printshort@border%
     % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
     \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
+        \ifbtdl@footfade@
         \pgfmathsetmacro\btld@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
         \ifnum\i>\btdl@sectionmax@target@start
             \pgfmathsetmacro\btld@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
-            {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight~\,}\btdl@printshort@mid\fi
+            {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
         \color{lightgray!\btld@disttotarget!darkgray}%
+        \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
         \ifnum\value{section}=\i \sbfamily\fi
-        \hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}%
+        \strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}%
     }%
-    \btdl@printshort@mid~~\btdl@footer@tsymb{\btdl@sectionmax@target@end}%
+    \btdl@printshort@border~~\btdl@footer@tsymb{\btdl@sectionmax@target@end}%
 \fi%
 }
 
@@ -276,29 +284,28 @@
 \def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
 
 \AtEndDocument{
-    \begingroup%
-    \setbeamercolor{background canvas}{bg=btdl@color@primary}%
-    \begin{frame}[plain,b]%
-    \hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
-
-    \color{btdl@color@white}%
-    \@ifundefined{ver@biblatex.sty}{}{%
-        \ifbtdl@bibliography@%
-            \vspace*{2em}%
-            \defbibheading{bibliography}[\refname]{}%
-            \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
-        \fi%
-    }%
-    \pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
-    \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
-        {\small\textbf{\insertauthor}}\\
-        {\footnotesize\btdl@outro{}}%
-    }\hfill\parbox[b]{0.35\textwidth}{%
-    {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
-    }}\vspace*{1em}%
-    \end{minipage}
-    \end{frame}
-    \endgroup
+\begingroup%
+\setbeamercolor{background canvas}{bg=btdl@color@primary}%
+\begin{frame}[plain,b]%
+\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
+\color{btdl@color@white}%
+\@ifundefined{ver@biblatex.sty}{}{%
+    \ifbtdl@bibliography@%
+        \vspace*{2em}%
+        \defbibheading{bibliography}[\refname]{}%
+        \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
+    \fi%
+}%
+\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
+\hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
+    {\small\textbf{\insertauthor}}\\
+    {\footnotesize\btdl@outro{}}%
+}\hfill\parbox[b]{0.35\textwidth}{%
+{\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
+}}\vspace*{1em}%
+\end{minipage}
+\end{frame}
+\endgroup
 }
 
 \endinput
