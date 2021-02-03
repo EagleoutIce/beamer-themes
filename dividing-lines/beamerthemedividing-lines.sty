@@ -155,7 +155,7 @@
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \usebeamerfont{frametitle}\makebox[\dimexpr\btdl@leftindent\relax][l]{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
+     \usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
     \end{beamercolorbox}%
 }
 
@@ -169,7 +169,7 @@
     \pgfmathsetmacro\btdl@sectionmax@target@preview{int(min(6,\arabic{btdl@sectioncount}))}%
 }
 
-\def\btdl@footer@tsymb#1{\hyperlink{btdl@section.#1}{\textcolor{btdl@color@primary}{\ifnum\value{section}=#1 \(\blacklozenge\)\else\(\lozenge\)\fi}}}
+\def\btdl@footer@tsymb#1{\hyperlink{btdl@section.#1}{\ifnum\value{section}=#1 \(\blacklozenge\)\else\(\lozenge\)\fi}}
 \def\btdl@printshort@lowforsec#1{\@nameuse{btdl@section@#1@content}}
 % def by op \def\btdl@printshort@mid{\hfill}
 \def\btdl@printshort@border{\hfill}
@@ -240,7 +240,7 @@
     \tikz{%
     \begin{pgfinterruptboundingbox}
         \draw[btdl@color@primary, line width=1pt,line cap=round] (0,0) -- (\wd\btdl@box@title,0) coordinate (rslin-end);
-            \node[below left] at (rslin-end) {\usebox{\btdl@box@subbox}};
+            \node[below left,inner xsep=0pt,outer xsep=0pt] at (rslin-end) {\usebox{\btdl@box@subbox}};
         \end{pgfinterruptboundingbox}
     }%
 }
@@ -286,8 +286,8 @@
 \AtEndDocument{
 \begingroup%
 \setbeamercolor{background canvas}{bg=btdl@color@primary}%
-\begin{frame}[plain,b]%
-\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
+\begin{frame}[plain,t]%
+\hspace*{-\btdl@leftindent}\begin{minipage}[c][\textheight]{\textwidth+\btdl@leftindent}
 \color{btdl@color@white}%
 \@ifundefined{ver@biblatex.sty}{}{%
     \ifbtdl@bibliography@%
@@ -296,13 +296,13 @@
         \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
     \fi%
 }%
-\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
+\vfill\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
     {\small\textbf{\insertauthor}}\\
     {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{0.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
-}}\vspace*{1em}%
+}}\vspace*{-1em}%
 \end{minipage}
 \end{frame}
 \endgroup
