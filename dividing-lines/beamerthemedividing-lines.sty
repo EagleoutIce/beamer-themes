@@ -1,0 +1,273 @@
+%% -----------------------------------------------------------------------------
+%% Version: 1.0
+%% Author:  Florian Sihler, 3.02.2021
+%%
+%% This package is a beamer theme to be used with the latex beamer-class.
+%% Development notes:
+%%    All internal commands and registers will be prefixed with 'btdl@'
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
+
+%% packet options
+%% -----------------------------------------------------------------------------
+
+% libs
+\newif\ifbtdl@loadlibs@ \btdl@loadlibs@true
+\DeclareOption{nolibs}{\btdl@loadlibs@false} \DeclareOption{libs}{\btdl@loadlibs@true}
+
+% bibliography
+\newif\ifbtdl@bibliography@ \btdl@bibliography@true % default: yes/ifloaded
+\DeclareOption{nobib}{\btdl@bibliography@false} \DeclareOption{showbib}{\btdl@bibliography@true}
+
+\ProcessOptions
+
+%% load packages
+%% -----------------------------------------------------------------------------
+
+\RequirePackage[defaultfam,light,tabular,lining]{montserrat}
+\def\sbfamily{\fontseries{sb}\selectfont}
+
+% load libs
+\ifbtdl@loadlibs@
+\RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox,pbox}
+\usetikzlibrary{calc,decorations.text}
+\fi
+
+
+%% the color profile
+%% -----------------------------------------------------------------------------
+
+% #1: primary, #2: secondary, #3: alerted
+\newcommand*\SetColorProfile[3]{%
+\definecolor{btdl@color@primary}{RGB}{#1}%
+\definecolor{btdl@color@secondary}{RGB}{#2}%
+\definecolor{btdl@color@alerted}{RGB}{#3}%
+}
+
+% RGB(249, 166, 2) RGB(254, 231, 130) RGB(137,64,75)
+\SetColorProfile{249, 166, 2}{254, 231, 130}{137,64,75}
+
+\definecolor{btdl@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
+\definecolor{btdl@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
+
+\colorlet{btdl@color@emblem}{gray}
+
+\colorlet{btdl@color@wtext}{btdl@color@white!95!btdl@color@primary}
+\colorlet{btdl@color@btext}{btdl@color@black}
+\colorlet{btdl@color@text}{btdl@color@black!95!btdl@color@white}
+
+\colorlet{btdl@solidF}{btdl@color@primary!25!btdl@color@black}
+
+%% shortcut commands for the user
+%% -----------------------------------------------------------------------------
+
+\newcommand\hl[1]{\textcolor{btdl@color@secondary}{#1}}
+\newcommand\imp[1]{\emph{#1}}
+
+%% beamer configuration
+%% -----------------------------------------------------------------------------
+
+% General
+\setbeamercolor{normal text}{fg=btdl@color@btext}
+\setbeamercolor{structure}{fg=btdl@color@text}
+\setbeamercolor{alerted text}{fg=btdl@color@alerted}
+\setbeamercolor{example text}{fg=btdl@color@white}
+\setbeamercolor{copyright text}{fg=btdl@color@wtext}
+\setbeamercolor{palette primary}{fg=btdl@color@btext}
+
+
+% Titlepage
+\setbeamercolor{title}{parent=normal text}
+\setbeamercolor{subtitle}{parent=normal text}
+\setbeamercolor{institute}{parent=normal text,fg=gray}
+
+% Content
+\setbeamercolor{frametitle}{fg=btdl@color@wtext,bg=btdl@color@primary}
+
+% Page Number
+\setbeamercolor{page number in head/foot}{fg=btdl@color@btext!50!btdl@color@white}
+
+\setbeamerfont{title}{size=\fontsize{22}{22},series=\sbfamily}
+\setbeamerfont{subtitle}{size=\fontsize{10}{12},series=\mdseries}
+\setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
+\setbeamerfont{section title}{size=\fontsize{19}{19}}
+
+\setbeamercolor{description item}{fg=btdl@color@black}
+
+\setbeamercolor{enumerate item}{fg=btdl@color@black}
+\setbeamercolor{enumerate subitem}{fg=btdl@color@black}
+\setbeamercolor{enumerate subsubitem}{fg=btdl@color@black}
+
+\setbeamerfont{section in toc}{size=\fontsize{12}{14}}
+\setbeamerfont{subsection in toc}{size=\fontsize{8}{12}}
+\setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
+\setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
+
+\setbeamertemplate{subsection in toc}{\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+
+% bibliography
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+\setbeamercolor{bibliography item}{fg=btdl@color@white}
+\setbeamercolor*{bibliography entry title}{fg=btdl@color@white}
+\setbeamercolor{bibliography entry author}{fg=btdl@color@white}
+\setbeamercolor*{bibliography entry author}{fg=btdl@color@white}
+\setbeamercolor{bibliography entry location}{fg=btdl@color@white}
+\setbeamercolor*{bibliography entry location}{fg=btdl@color@white}
+\setbeamercolor{bibliography entry note}{fg=btdl@color@white}
+\setbeamercolor*{bibliography entry note}{fg=btdl@color@white}
+\setbeamertemplate{bibliography item}[text]
+
+
+
+
+\setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
+% \setlength{\leftmargini}{1.15em}
+\setbeamerfont{date}{size=\fontsize{10}{11}}
+
+\defbeamertemplate{description item}{colorful-dream}{\textsc{\small\insertdescriptionitem:}}
+\setbeamertemplate{description item}[colorful-dream]
+
+\setbeamercolor{block title}{use=structure,fg=btdl@color@white,bg=btdl@solidF}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+
+\setbeamertemplate{theorems}[numbered]
+
+\setbeamertemplate{theorem begin}{%
+\begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
+    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
+}%
+}
+
+%% head line
+%% -----------------------------------------------------------------------------
+
+\setbeamertemplate{frametitle}{%
+    \nointerlineskip\vskip-2pt%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
+     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+    \end{beamercolorbox}%
+}
+
+%% footer
+%% -----------------------------------------------------------------------------
+
+\def\btdl@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
+
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}% default color
+        \color{gray}\usebeamerfont{page number in head/foot}%
+        {\btdl@footline@data}%
+    \end{beamercolorbox}%
+}
+
+%% start of setions
+%% -----------------------------------------------------------------------------
+
+\newif\ifsectionbanner \sectionbannertrue
+\let\nosframe\sectionbannerfalse
+
+\newcounter{btdl@sectioncount}
+\setcounter{btdl@sectioncount}{0}
+\let\oldsection\section
+\renewcommand{\section}[2][]{%
+    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}}%
+    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
+}
+
+\def\btdl@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
+\def\fbtdl@tikzcirc#1{\tikz{\draw[thick,fill=btdl@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btdl@color@primary] {\thesection};}}
+
+\AtBeginSection[]{\ifsectionbanner\begingroup%
+    \setbeamercolor{background canvas}{bg=btdl@color@primary}%
+    \def\btdl@footline@data{\color{btdl@color@white!72!btdl@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
+    \begin{frame}[t]
+        \hypertarget{section.\thesection}{}%
+        \vskip4em\vfill%
+        \centering\usebeamerfont{section title}\textcolor{btdl@color@wtext}{\strut\insertsectionhead\strut}\vskip0.25em\par{}
+        \textcolor{btdl@color@wtext}{\foreach \i in {1,...,\thebtdl@sectioncount}{\ifnum\i=\value{section}\fbtdl@tikzcirc{\i}\else\btdl@tikzcirc{\i}\fi}}\par\vfill%
+    \end{frame}
+    \endgroup\fi%
+}
+
+%% titleimage
+%% -----------------------------------------------------------------------------
+\newsavebox\btdl@box@title
+
+\AtEndPreamble{
+    \@ifpackageloaded{microtype}{
+        \def\btdl@titlepage@microtypehook{%
+            \microtypesetup{protrusion=false}%
+        }
+    }{
+        \def\btdl@titlepage@microtypehook{}
+    }
+}
+
+\def\tag#1{\gdef\btdl@tag{#1}}
+\def\btdl@tag{}
+
+\setbeamertemplate{title page}{%
+\savebox\btdl@box@title{%
+    \pbox{0.95\linewidth}{%
+        \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
+    }%
+}\parskip\z@ \parindent\z@ \btdl@titlepage@microtypehook%
+    {\usebox{\btdl@box@title}\par}
+    {\color{btdl@color@primary}\rule{\wd\btdl@box@title}{1pt}\par}
+    \parbox[t]{\wd\btdl@box@title-1em}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill%
+    \parbox[b][0pt]{\linewidth}{%
+        \raggedleft\color{gray}\usebeamerfont{institute}\usebeamercolor{institute}%
+        \ifundef{\insertauthor}{}{\ifdefempty{\btdl@email}{\insertauthor}{\href{mailto:\btdl@email}{\insertauthor}}\leavevmode\\}
+        \ifundef{\insertdate}{}{\insertdate\leavevmode\\}
+        \insertinstitute\par
+    }
+}
+
+\AtBeginDocument{%
+\begin{frame}[plain,b]%
+    \titlepage%
+\end{frame}}
+
+
+
+%% outro
+%% -----------------------------------------------------------------------------
+
+\def\btdl@outro{}
+\def\outro#1{\gdef\btdl@outro{#1}}
+
+\def\btdl@email{}
+\def\email#1{\gdef\btdl@email{#1}}
+
+\def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
+
+\AtEndDocument{
+    \begingroup%
+    \setbeamercolor{background canvas}{bg=btdl@color@primary}%
+    \begin{frame}[plain,b]%
+    {}\color{btdl@color@white}%
+    \@ifundefined{ver@biblatex.sty}{}{%
+        \ifbtdl@bibliography@%
+            \vspace*{2em}%
+            \defbibheading{bibliography}[\refname]{}%
+            \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
+        \fi%
+    }%
+    \pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
+    \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
+        {\small\textbf{\insertauthor}}\\
+        {\footnotesize\btdl@outro{}}%
+    }\hfill\parbox[b]{0.35\textwidth}{%
+    {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
+    }}\vspace*{1em}%
+    \end{frame}
+    \endgroup
+}
+
+\endinput
