@@ -8,13 +8,11 @@
 
 \usetheme{dividing-lines}
 
-\title{Trusting Trust Revisited}
-\subtitle{Preventing Software Supply Chain Attacks\hfill\\Using Modern Methods}
-\institute{Institute of Distributed Systems, Ulm University}
+\title{Example Presentation}
+\subtitle{This is madness}
+\institute{Cute-Dispute-Institute \(\circ\) University Ulm}
 
-\tag{Seminar}
-
-\date{12, Februar 2021}
+\date{14, August 2020}
 
 \author{Florian Sihler}
 \email{florian.sihler@uni-ulm.de}
@@ -41,11 +39,20 @@
 \section{Theoretische Grundlagen}
 \subsection{Der Algorithmusbegriff}
 \begin{frame}{Was ist ein Algorithmus?}
-    \lipsum[2]
+    \begin{definition}[Algorithmus]
+        Ein \emph{Algorithmus} ist eine \emph{eindeutige Handlungsvorschrift} zur Lösung eines Problems.
+    \end{definition}
+    \begin{itemize}
+        \item Es existieren verschiedene Darstellungsformen: \begin{itemize}
+            \item Textuell (1. Tue dies, 2. Tue das, 3. Falls \(X\)\ldots)
+            \item Grafisch (Instruktionsabläufe, Graphen, Grafiken, \ldots)
+            \item Pseudocode
+        \end{itemize}
+        \item Klassische Alltagsbeispiele: (Koch-)Rezepte, Gebrauchsanleitungen, \ldots
+    \end{itemize}
 \end{frame}
-\subsection{Algorithmen analysieren}
-\makeatletter
 
+\subsection{Algorithmen analysieren}
 \begin{frame}{Algorithmuseigenschaften}
     \begin{itemize}
         \item Zu Beginn gilt es einige Begriffe zu klären: \begin{description}[Elementaroperation]
@@ -56,6 +63,32 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}[c]{Eigenschaften für die Analyse}
+    \twosplit{%
+    \begin{block}{Korrektheit}
+        Ein Algorithmus ist korrekt, wenn er für jede (definierte) Eingabe, die korrekte Ausgabe erzeugt.
+    \end{block}
+    \begin{block}{Partielle Korrektheit}
+        Wenn der Algorithmus terminiert, ist er korrekt.
+    \end{block}
+    }{%
+    \begin{block}{Robust}
+        Ein Algorithmus ist (maximal) robust, wenn er falsche Eingabe erkennen und abfangen kann.
+    \end{block}
+    \begin{block}{Totale Korrektheit}
+        Der Algorithmus ist partiell korrekt und terminiert.
+    \end{block}
+    }
+\end{frame}
+
+\begin{frame}{Eigenschaften für die Analyse}
+    \begin{itemize}
+        \item Die Begriffe sind zu unterscheiden!
+        \item So können bei einem Algorithmus verschiedene Wege zum selben Ziel führen.
+        \item (Sinnfreies) Beispiel: Der Algorithmus kann jedes Element eines Arrays quadrieren. Die Reihenfolge wählt er zufällig aus!
+        \item Dieser Algorithmus \emph{determiniert}, ist aber \emph{nicht-deterministisch}!
+    \end{itemize}
+\end{frame}
 
 
 \section{Another example}
@@ -122,40 +155,8 @@
     World
 \end{frame}
 
-
-\section{Apfel}
-\begin{frame}{Mega-Example 1}
-    Hello
+\begin{frame}{Bibliography}
+    \printbibliography
 \end{frame}
 
-\begin{frame}{Mega-Example 2}
-    World
-\end{frame}
-
-\section{Birne}
-\begin{frame}{Mega-Example 1}
-    Hello
-\end{frame}
-
-\begin{frame}{Mega-Example 2}
-    World
-\end{frame}
-
-\section{Tomate}
-\begin{frame}{Mega-Example 1}
-    Hello
-\end{frame}
-
-\begin{frame}{Mega-Example 2}
-    World
-\end{frame}
-
-\section{Gurke}
-\begin{frame}{Mega-Example 1}
-    Hello
-\end{frame}
-
-\begin{frame}{Mega-Example 2}
-    World
-\end{frame}
 \end{document}
