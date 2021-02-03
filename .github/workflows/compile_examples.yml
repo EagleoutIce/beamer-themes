@@ -17,12 +17,12 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-  
+
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
         with:
             remote: true
-    
+
       - name: Compile colorful-dream
         uses: xu-cheng/latex-action@v2
         with:
@@ -40,14 +40,20 @@ jobs:
         with:
           working_directory: lucy
           root_file: example.tex
-      
+
+      - name: Compile dividing-lines
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: dividing-lines
+          root_file: example.tex
+
       - name: Commit PDF
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -f */example.pdf
           git commit -m "Update PDFs by Workflow"
-          
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
