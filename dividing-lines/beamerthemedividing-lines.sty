@@ -66,6 +66,7 @@
 
 %% beamer configuration
 %% -----------------------------------------------------------------------------
+\setbeamercolor{background canvas}{bg=btdl@color@secondary!1!}
 
 % General
 \setbeamercolor{normal text}{fg=btdl@color@btext}
@@ -142,13 +143,13 @@
 %% head line
 %% -----------------------------------------------------------------------------
 
-\newlength{\btdl@leftindent} \btdl@leftindent=7.5em
+\newlength{\btdl@leftindent} \btdl@leftindent=6.75em
 \setbeamersize{sidebar width left=\btdl@leftindent}
 
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \usebeamerfont{frametitle}\insertframetitle\hfill\textbf{\color{btdl@color@primary}\insertframenumber}%
+     \usebeamerfont{frametitle}\makebox[\dimexpr\btdl@leftindent\relax][l]{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
     \end{beamercolorbox}%
 }
 
@@ -164,6 +165,7 @@
 
 \def\btdl@footer@tsymb#1{\hyperlink{btdl@section.#1}{\textcolor{btdl@color@primary}{\ifnum\value{section}=#1 \(\blacklozenge\)\else\(\lozenge\)\fi}}}
 \def\btdl@printshort@lowforsec#1{\@nameuse{btdl@section@#1@content}}
+\def\btdl@printshort@mid{\hfill}
 
 \def\btdl@typesetfiveforcurrent{%
 \ifnum\btdl@sectionmax@target@preview>0
@@ -173,19 +175,18 @@
     % try to update lower if upper was capped
     \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\btdl@sectionmax@target@end-\btdl@sectionmax@target@preview))}%
     % TODO: hyperlinks zum Start und zum Ende draus machen: wenn erreicht reguär dann ausfüllen
-    \btdl@footer@tsymb{\btdl@sectionmax@target@start}~\ifnum\btdl@sectionmax@target@start=1\else\hfill\fi
+    \btdl@footer@tsymb{\btdl@sectionmax@target@start}~~\hfill%
     % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
     \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
-        \mbox{\pgfmathsetmacro\btld@disttotarget{int(min(100,max(10,30*abs(\i-\value{section}))))}%
+        \pgfmathsetmacro\btld@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
         \ifnum\i>\btdl@sectionmax@target@start
-            \pgfmathsetmacro\btld@disttotarget@last{int(min(100,max(10,30*abs(\i-\value{section}-1))))}%
-            {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight~\,}\fi
+            \pgfmathsetmacro\btld@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
+            {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight~\,}\btdl@printshort@mid\fi
         \color{lightgray!\btld@disttotarget!darkgray}%
         \ifnum\value{section}=\i \sbfamily\fi
-        \hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
+        \hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}%
     }%
-    \ifnum\value{btdl@sectioncount}=\btdl@sectionmax@target@end\else\hfill\fi
-    ~\btdl@footer@tsymb{\btdl@sectionmax@target@end}%
+    \btdl@printshort@mid~~\btdl@footer@tsymb{\btdl@sectionmax@target@end}%
 \fi%
 }
 
@@ -278,7 +279,9 @@
     \begingroup%
     \setbeamercolor{background canvas}{bg=btdl@color@primary}%
     \begin{frame}[plain,b]%
-    {}\color{btdl@color@white}%
+    \hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
+
+    \color{btdl@color@white}%
     \@ifundefined{ver@biblatex.sty}{}{%
         \ifbtdl@bibliography@%
             \vspace*{2em}%
@@ -293,6 +296,7 @@
     }\hfill\parbox[b]{0.35\textwidth}{%
     {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
     }}\vspace*{1em}%
+    \end{minipage}
     \end{frame}
     \endgroup
 }
