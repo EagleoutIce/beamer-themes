@@ -155,7 +155,31 @@
 %% footer
 %% -----------------------------------------------------------------------------
 
+% idee, zeige Auszug   'C > D > E > F > G' für 'Abschnitt E',
+% zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
+
+\AtBeginDocument{%
+    \pgfmathsetmacro\btld@sectionmax@target@preview{int(min(5,\arabic{btdl@sectioncount}))}%
+}
+\def\typesetfiveforcurrent{%
+\ifnum\btld@sectionmax@target@preview>0
+    \foreach \i in {1,...,\btld@sectionmax@target@preview} {%
+        \ifnum\i>1~\faAngleRight~\fi
+        \ifnum\i=\thesection\else \color{lightgray}\fi
+        \nameref{btdl@section.\i} (\arabic{btdl@sectioncount})%
+    }%
+\fi%
+}
+
+\def\btcd@footline@data{\typesetfiveforcurrent}
+
 \usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\dimexpr\textwidth-\beamer@rightmargin\relax,ht=3ex,dp=4ex,leftskip=\dimexpr\btdl@leftindent+\beamer@leftmargin\relax]{structure}% default color
+        \color{gray}\usebeamerfont{page number in head/foot}%
+        {\btcd@footline@data}%
+    \end{beamercolorbox}%
+}
 
 %% start of setions
 %% -----------------------------------------------------------------------------
@@ -166,8 +190,12 @@
 \newcounter{btdl@sectioncount}
 \setcounter{btdl@sectioncount}{0}
 \let\oldsection\section
-\renewcommand{\section}[2][]{%
-    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}}%
+
+\def\btdlcustomauxdef#1#2{\expandafter\gdef\csname btdl@section@#1@content\endcsname{#2}}
+
+\def\section{\@xdblarg\btdl@section}
+\def\btdl@section[#1]#2{%
+    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}\noexpand\btdlcustomauxdef{\thesection}{#2}}\label<1>{btdl@section.\thesection}%
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
