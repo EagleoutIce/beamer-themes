@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{microtype}
 \usepackage[english,main=ngerman]{babel}
+\usepackage{lipsum}
 
 \usetheme{dividing-lines}
 
@@ -37,30 +38,11 @@
 
 \begin{document}
 
-\begin{frame}[c]{The table of contents}
-    \begin{center}
-        \twosplit{\tableofcontents[sections={1-2}]}
-            {\tableofcontents[sections={3-4}]}
-    \end{center}
-\end{frame}
-
-
 \section{Theoretische Grundlagen}
 \subsection{Der Algorithmusbegriff}
 \begin{frame}{Was ist ein Algorithmus?}
-    \begin{definition}[Algorithmus]
-        Ein \emph{Algorithmus} ist eine \emph{eindeutige Handlungsvorschrift} zur Lösung eines Problems.
-    \end{definition}
-    \begin{itemize}
-        \item Es existieren verschiedene Darstellungsformen: \begin{itemize}
-            \item Textuell (1. Tue dies, 2. Tue das, 3. Falls \(X\)\ldots)
-            \item Grafisch (Instruktionsabläufe, Graphen, Grafiken, \ldots)
-            \item Pseudocode
-        \end{itemize}
-        \item Klassische Alltagsbeispiele: (Koch-)Rezepte, Gebrauchsanleitungen, \ldots
-    \end{itemize}
+    \lipsum[2]
 \end{frame}
-
 \subsection{Algorithmen analysieren}
 \begin{frame}{Algorithmuseigenschaften}
     \begin{itemize}
@@ -78,41 +60,6 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[c]{Eigenschaften für die Analyse}
-    \twosplit{%
-    \begin{block}{Korrektheit}
-        Ein Algorithmus ist korrekt, wenn er für jede (definierte) Eingabe, die korrekte Ausgabe erzeugt.
-    \end{block}
-    \begin{block}{Partielle Korrektheit}
-        Wenn der Algorithmus terminiert, ist er korrekt.
-    \end{block}
-    }{%
-    \begin{block}{Robust}
-        Ein Algorithmus ist (maximal) robust, wenn er falsche Eingabe erkennen und abfangen kann.
-    \end{block}
-    \begin{block}{Totale Korrektheit}
-        Der Algorithmus ist partiell korrekt und terminiert.
-    \end{block}
-    }
-\end{frame}
-
-\begin{frame}{Eigenschaften für die Analyse}
-    \twosplit{%
-    \begin{block}{Determinismus}
-        Der Ablauf des Algorithmus ist \emph{eindeutig}. Für jede Anweisung folgt bei gleichen Vorraussetzungen dieselbe.
-    \end{block}
-    }{%
-    \begin{block}{Determiniertheit}
-        Die selben Eingabedaten erzeugen immer die selben Ausgabedaten.
-    \end{block}
-    }\bigskip
-    \begin{itemize}
-        \item Die Begriffe sind zu unterscheiden!
-        \item So können bei einem Algorithmus verschiedene Wege zum selben Ziel führen.
-        \item (Sinnfreies) Beispiel: Der Algorithmus kann jedes Element eines Arrays quadrieren. Die Reihenfolge wählt er zufällig aus!
-        \item Dieser Algorithmus \emph{determiniert}, ist aber \emph{nicht-deterministisch}!
-    \end{itemize}
-\end{frame}
 
 
 \section{Another example}

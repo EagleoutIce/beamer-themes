@@ -34,7 +34,6 @@
 \usetikzlibrary{calc,decorations.text}
 \fi
 
-
 %% the color profile
 %% -----------------------------------------------------------------------------
 
@@ -83,12 +82,13 @@
 \setbeamercolor{institute}{parent=normal text,fg=gray}
 
 % Content
-\setbeamercolor{frametitle}{fg=btdl@color@wtext,bg=btdl@color@primary}
+\setbeamercolor{frametitle}{}
+\setbeamerfont{frametitle}{size=\Large,series=\mdseries}
 
 % Page Number
 \setbeamercolor{page number in head/foot}{fg=btdl@color@btext!50!btdl@color@white}
 
-\setbeamerfont{title}{size=\fontsize{22}{22},series=\sbfamily}
+\setbeamerfont{title}{size=\fontsize{24}{24},series=\sbfamily}
 \setbeamerfont{subtitle}{size=\fontsize{10}{12},series=\mdseries}
 \setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{section title}{size=\fontsize{19}{19}}
@@ -122,12 +122,8 @@
 \setbeamertemplate{bibliography item}[text]
 
 
-
-
 \setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
-% \setlength{\leftmargini}{1.15em}
-\setbeamerfont{date}{size=\fontsize{10}{11}}
 
 \defbeamertemplate{description item}{colorful-dream}{\textsc{\small\insertdescriptionitem:}}
 \setbeamertemplate{description item}[colorful-dream]
@@ -147,24 +143,16 @@
 %% -----------------------------------------------------------------------------
 
 \setbeamertemplate{frametitle}{%
-    \nointerlineskip\vskip-2pt%
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
-     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+    \nointerlineskip%
+    \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex]{frametitle}%
+     \usebeamerfont{frametitle}\insertframetitle\hfill\textbf{\color{btdl@color@primary}\insertframenumber}%
     \end{beamercolorbox}%
 }
 
 %% footer
 %% -----------------------------------------------------------------------------
 
-\def\btdl@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
-
 \usenavigationsymbolstemplate{}
-\setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}% default color
-        \color{gray}\usebeamerfont{page number in head/foot}%
-        {\btdl@footline@data}%
-    \end{beamercolorbox}%
-}
 
 %% start of setions
 %% -----------------------------------------------------------------------------
@@ -183,47 +171,38 @@
 \def\btdl@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
 \def\fbtdl@tikzcirc#1{\tikz{\draw[thick,fill=btdl@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btdl@color@primary] {\thesection};}}
 
-\AtBeginSection[]{\ifsectionbanner\begingroup%
-    \setbeamercolor{background canvas}{bg=btdl@color@primary}%
-    \def\btdl@footline@data{\color{btdl@color@white!72!btdl@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
-    \begin{frame}[t]
-        \hypertarget{section.\thesection}{}%
-        \vskip4em\vfill%
-        \centering\usebeamerfont{section title}\textcolor{btdl@color@wtext}{\strut\insertsectionhead\strut}\vskip0.25em\par{}
-        \textcolor{btdl@color@wtext}{\foreach \i in {1,...,\thebtdl@sectioncount}{\ifnum\i=\value{section}\fbtdl@tikzcirc{\i}\else\btdl@tikzcirc{\i}\fi}}\par\vfill%
-    \end{frame}
-    \endgroup\fi%
-}
 
 %% titleimage
 %% -----------------------------------------------------------------------------
 \newsavebox\btdl@box@title
 
-\AtEndPreamble{
-    \@ifpackageloaded{microtype}{
-        \def\btdl@titlepage@microtypehook{%
-            \microtypesetup{protrusion=false}%
-        }
-    }{
-        \def\btdl@titlepage@microtypehook{}
-    }
-}
-
 \def\tag#1{\gdef\btdl@tag{#1}}
 \def\btdl@tag{}
+\def\btdl@subbox@len{1em}
+\newsavebox\btdl@box@subbox
+\def\tagline{%
+    \ifundef{\insertauthor}{}{%
+    \savebox\btdl@box@subbox{\color{btdl@color@primary}\scriptsize\sbfamily\ifdefempty{\btdl@email}{\insertauthor}{\href{mailto:\btdl@email}{\insertauthor}}}\xdef\btdl@subbox@len{\wd\btdl@box@subbox}}%
+    \tikz{%
+    \begin{pgfinterruptboundingbox}
+        \draw[btdl@color@primary, line width=1pt] (0,0) -- (\wd\btdl@box@title,0) coordinate (rslin-end);
+            \node[below left] at (rslin-end) {\usebox{\btdl@box@subbox}};
+        \end{pgfinterruptboundingbox}
+    }%
+}
 
 \setbeamertemplate{title page}{%
 \savebox\btdl@box@title{%
     \pbox{0.95\linewidth}{%
         \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
     }%
-}\parskip\z@ \parindent\z@ \btdl@titlepage@microtypehook%
+}\parskip\z@ \parindent\z@ %
     {\usebox{\btdl@box@title}\par}
-    {\color{btdl@color@primary}\rule{\wd\btdl@box@title}{1pt}\par}
-    \parbox[t]{\wd\btdl@box@title-1em}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill%
+    {\tagline\par}
+    \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill%
     \parbox[b][0pt]{\linewidth}{%
         \raggedleft\color{gray}\usebeamerfont{institute}\usebeamercolor{institute}%
-        \ifundef{\insertauthor}{}{\ifdefempty{\btdl@email}{\insertauthor}{\href{mailto:\btdl@email}{\insertauthor}}\leavevmode\\}
+        \ifdefempty{\btdl@tag}{}{\btdl@tag\leavevmode\\}
         \ifundef{\insertdate}{}{\insertdate\leavevmode\\}
         \insertinstitute\par
     }
@@ -232,7 +211,8 @@
 \AtBeginDocument{%
 \begin{frame}[plain,b]%
     \titlepage%
-\end{frame}}
+\end{frame}%
+}
 
 
 
