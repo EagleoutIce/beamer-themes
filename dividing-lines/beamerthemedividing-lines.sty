@@ -142,9 +142,12 @@
 %% head line
 %% -----------------------------------------------------------------------------
 
+\newlength{\btdl@leftindent} \btdl@leftindent=7.5em
+\setbeamersize{sidebar width left=\btdl@leftindent}
+
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
-    \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex]{frametitle}%
+    \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex,leftskip=-\btdl@leftindent]{frametitle}%
      \usebeamerfont{frametitle}\insertframetitle\hfill\textbf{\color{btdl@color@primary}\insertframenumber}%
     \end{beamercolorbox}%
 }
@@ -168,10 +171,6 @@
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
-\def\btdl@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
-\def\fbtdl@tikzcirc#1{\tikz{\draw[thick,fill=btdl@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btdl@color@primary] {\thesection};}}
-
-
 %% titleimage
 %% -----------------------------------------------------------------------------
 \newsavebox\btdl@box@title
@@ -185,7 +184,7 @@
     \savebox\btdl@box@subbox{\color{btdl@color@primary}\scriptsize\sbfamily\ifdefempty{\btdl@email}{\insertauthor}{\href{mailto:\btdl@email}{\insertauthor}}}\xdef\btdl@subbox@len{\wd\btdl@box@subbox}}%
     \tikz{%
     \begin{pgfinterruptboundingbox}
-        \draw[btdl@color@primary, line width=1pt] (0,0) -- (\wd\btdl@box@title,0) coordinate (rslin-end);
+        \draw[btdl@color@primary, line width=1pt,line cap=round] (0,0) -- (\wd\btdl@box@title,0) coordinate (rslin-end);
             \node[below left] at (rslin-end) {\usebox{\btdl@box@subbox}};
         \end{pgfinterruptboundingbox}
     }%
@@ -209,12 +208,14 @@
 }
 
 \AtBeginDocument{%
+\begingroup
 \begin{frame}[plain,b]%
+    \hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage%
+    \end{minipage}
 \end{frame}%
+\endgroup
 }
-
-
 
 %% outro
 %% -----------------------------------------------------------------------------
