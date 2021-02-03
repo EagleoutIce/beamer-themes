@@ -30,7 +30,7 @@
 
 % load libs
 \ifbtdl@loadlibs@
-\RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox,pbox}
+\RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox,xstring,pbox}
 \usetikzlibrary{calc,decorations.text}
 \fi
 
@@ -52,7 +52,7 @@
 
 \colorlet{btdl@color@emblem}{gray}
 
-\colorlet{btdl@color@wtext}{btdl@color@white!95!btdl@color@primary}
+\colorlet{c@color@wtext}{btdl@color@white!95!btdl@color@primary}
 \colorlet{btdl@color@btext}{btdl@color@black}
 \colorlet{btdl@color@text}{btdl@color@black!95!btdl@color@white}
 
@@ -159,19 +159,30 @@
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
 
 \AtBeginDocument{%
-    \pgfmathsetmacro\btld@sectionmax@target@preview{int(min(5,\arabic{btdl@sectioncount}))}%
+    \pgfmathsetmacro\btdl@sectionmax@target@preview{int(min(4,\arabic{btdl@sectioncount}))}%
 }
-\def\typesetfiveforcurrent{%
-\ifnum\btld@sectionmax@target@preview>0
-    \foreach \i in {1,...,\btld@sectionmax@target@preview} {%
-        \ifnum\i>1~\faAngleRight~\fi
-        \ifnum\i=\thesection\else \color{lightgray}\fi
-        \nameref{btdl@section.\i} (\arabic{btdl@sectioncount})%
+
+\def\btdl@footer@tsymb{\textcolor{btdl@color@primary}{\(\diamondsuit\)}}
+\def\btdl@typesetfiveforcurrent{%
+\ifnum\btdl@sectionmax@target@preview>0
+    % get start index as sec-2
+    \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\value{section}-2))}%
+    \pgfmathsetmacro\btdl@sectionmax@target@end{int(min(\value{btdl@sectioncount},\btdl@sectionmax@target@start+\btdl@sectionmax@target@preview))}%
+    % try to update lower if upper was capped
+    \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\btdl@sectionmax@target@end-\btdl@sectionmax@target@preview))}%
+    % TODO: hyperlinks zum Start und zum Ende draus machen: wenn erreicht reguär dann ausfüllen
+    \ifnum\btdl@sectionmax@target@start=1\relax\btdl@footer@tsymb~\fi
+    % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
+    \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
+        \ifnum\i>\btdl@sectionmax@target@start {~\faAngleRight~}\fi
+        \ifnum\i=\thesection\color{btdl@color@primary}\else\fi
+        \hyperlink{btdl@section.\i}{\@nameuse{btdl@section@\i @content}}%
     }%
+    \ifnum\btdl@sectionmax@target@end=\value{btdl@sectioncount}\relax~\btdl@footer@tsymb\fi
 \fi%
 }
 
-\def\btcd@footline@data{\typesetfiveforcurrent}
+\def\btcd@footline@data{\btdl@typesetfiveforcurrent}
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
@@ -195,8 +206,8 @@
 
 \def\section{\@xdblarg\btdl@section}
 \def\btdl@section[#1]#2{%
-    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}\noexpand\btdlcustomauxdef{\thesection}{#2}}\label<1>{btdl@section.\thesection}%
-    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
+    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}\noexpand\btdlcustomauxdef{\thesection}{#1}}%
+    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi\hypertarget{btdl@section.\thesection}{}%
 }
 
 %% titleimage
