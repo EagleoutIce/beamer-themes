@@ -141,15 +141,19 @@
 \setbeamertemplate{theorems}[numbered]
 
 \setbeamertemplate{theorem begin}{%
-\begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
-    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
+\begin{\inserttheoremblockenv}{%
+    \inserttheoremname\inserttheoremnumber%
+    \ifx\inserttheoremaddition\@empty\else:\ \inserttheoremaddition\fi%
 }%
 }
+
+\setbeamertemplate{theorem end}{\end{\inserttheoremblockenv}}
+
 
 %% head line
 %% -----------------------------------------------------------------------------
 
-\newlength{\btdl@leftindent} \btdl@leftindent=6.75em
+\newlength{\btdl@leftindent} \btdl@leftindent=6.5em
 \setbeamersize{sidebar width left=\btdl@leftindent}
 
 \setbeamertemplate{frametitle}{%
