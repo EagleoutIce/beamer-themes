@@ -77,11 +77,17 @@
 % General
 \setbeamercolor{normal text}{fg=btdl@color@btext}
 \setbeamercolor{structure}{fg=btdl@color@text}
-\setbeamercolor{alerted text}{fg=btdl@color@alerted}
 \setbeamercolor{example text}{fg=btdl@color@white}
 \setbeamercolor{copyright text}{fg=btdl@color@wtext}
 \setbeamercolor{palette primary}{fg=btdl@color@btext}
 
+\mode<beamer>{
+\setbeamercolor{alerted text}{fg=btdl@color@primary}
+\setbeamerfont{alerted text}{series=\sbfamily}}
+\mode<handout>{
+\setbeamercolor{alerted text}{fg=btdl@color@text}
+\setbeamerfont{alerted text}{}}
+\mode<all>
 
 % Titlepage
 \setbeamercolor{title}{parent=normal text}
