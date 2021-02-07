@@ -87,6 +87,8 @@
 \setbeamercolor{title}{parent=normal text}
 \setbeamercolor{subtitle}{parent=normal text}
 \setbeamercolor{institute}{parent=normal text,fg=gray}
+\setbeamercolor{tag}{parent=normal text,fg=gray}
+\setbeamercolor{date}{parent=normal text,fg=gray}
 
 % Content
 \setbeamercolor{frametitle}{}
@@ -97,7 +99,9 @@
 
 \setbeamerfont{title}{size=\fontsize{24}{24},series=\sbfamily}
 \setbeamerfont{subtitle}{size=\fontsize{10}{12},series=\mdseries}
+\setbeamerfont{tag}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
+\setbeamerfont{date}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{section title}{size=\fontsize{19}{19}}
 
 \setbeamercolor{description item}{fg=btdl@color@black}
@@ -132,7 +136,7 @@
 \setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 
-\defbeamertemplate{description item}{colorful-dream}{\textsc{\small\insertdescriptionitem:}}
+\defbeamertemplate{description item}{colorful-dream}{\fontseries{medium}\selectfont\insertdescriptionitem:\hfill}
 \setbeamertemplate{description item}[colorful-dream]
 
 \setbeamercolor{block title}{use=structure,fg=btdl@color@white,bg=btdl@solidF}
@@ -158,7 +162,7 @@
 
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
-    \begin{beamercolorbox}[wd=\linewidth,ht=3.5ex,dp=1.75ex,leftskip=-\btdl@leftindent]{frametitle}%
+    \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
      \usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
     \end{beamercolorbox}%
 }
@@ -173,11 +177,12 @@
     \pgfmathsetmacro\btdl@sectionmax@target@preview{int(min(6,\arabic{btdl@sectioncount}))}%
 }
 
-\def\btdl@footer@tsymb#1{\hyperlink{btdl@section.#1}{\ifnum\value{section}=#1 \(\blacklozenge\)\else\(\lozenge\)\fi}}
+\def\btdl@footer@tsymb#1{\hyperlink{btdl@slide@marker.#1}{\(\lozenge\)}}
 \def\btdl@printshort@lowforsec#1{\@nameuse{btdl@section@#1@content}}
 % def by op \def\btdl@printshort@mid{\hfill}
 \def\btdl@printshort@border{\hfill}
 
+\newsavebox\btdl@box@lowforsec
 \def\btdl@typesetfiveforcurrent{%
 \ifnum\btdl@sectionmax@target@preview>0
     % get start index as sec-2
@@ -185,7 +190,7 @@
     \pgfmathsetmacro\btdl@sectionmax@target@end{int(min(\value{btdl@sectioncount},\btdl@sectionmax@target@start+\btdl@sectionmax@target@preview))}%
     % try to update lower if upper was capped
     \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\btdl@sectionmax@target@end-\btdl@sectionmax@target@preview))}%
-    \btdl@footer@tsymb{\btdl@sectionmax@target@start}~~\btdl@printshort@border%
+    \btdl@footer@tsymb{1}~~\btdl@printshort@border%
     % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
     \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
         \ifbtdl@footfade@
@@ -195,10 +200,12 @@
             {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
         \color{lightgray!\btld@disttotarget!darkgray}%
         \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
+        \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}
+        % note: we always calc the non(semi)bold thickness
         \ifnum\value{section}=\i \sbfamily\fi
-        \strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}%
+        \parbox{\wd\btdl@box@lowforsec+0.5em}{\strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
     }%
-    \btdl@printshort@border~~\btdl@footer@tsymb{\btdl@sectionmax@target@end}%
+    \btdl@printshort@border~~\btdl@footer@tsymb{\inserttotalframenumber}%
 \fi%
 }
 
@@ -259,18 +266,18 @@
     {\tagline\par}
     \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill%
     \parbox[b][0pt]{\linewidth}{%
-        \raggedleft\color{gray}\usebeamerfont{institute}\usebeamercolor{institute}%
-        \ifdefempty{\btdl@tag}{}{\btdl@tag\leavevmode\\}
-        \ifundef{\insertdate}{}{\insertdate\leavevmode\\}
-        \insertinstitute\par
-    }
+        \raggedleft\color{gray}
+        \ifdefempty{\btdl@tag}{}{\usebeamerfont{tag}\usebeamercolor[fg]{tag}\btdl@tag\leavevmode\\}
+        \ifundef{\insertdate}{}{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\leavevmode\\}
+        \usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par
+    }%
 }
 
 \AtBeginDocument{%
 \begingroup
 \begin{frame}[plain,b]%
-    \hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
-    \titlepage%
+    \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
+    \titlepage
     \end{minipage}
 \end{frame}%
 \endgroup
@@ -291,8 +298,9 @@
 \begingroup%
 \setbeamercolor{background canvas}{bg=btdl@color@primary}%
 \begin{frame}[plain,t]%
+\label{btdl@slide@marker.\inserttotalframenumber}%
 \hspace*{-\btdl@leftindent}\begin{minipage}[c][\textheight]{\textwidth+\btdl@leftindent}
-\color{btdl@color@white}%
+\color{btdl@color@white}\fontseries{medium}%
 \@ifundefined{ver@biblatex.sty}{}{%
     \ifbtdl@bibliography@%
         \vspace*{2em}%
@@ -306,7 +314,7 @@
     {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{0.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
-}}\vspace*{-1em}%
+}}%
 \end{minipage}
 \end{frame}
 \endgroup
