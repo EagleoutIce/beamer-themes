@@ -122,14 +122,15 @@
 \setbeamertemplate{bibliography entry title}{}
 \setbeamertemplate{bibliography entry location}{}
 \setbeamertemplate{bibliography entry note}{}
-\setbeamercolor{bibliography item}{fg=btdl@color@white}
-\setbeamercolor*{bibliography entry title}{fg=btdl@color@white}
-\setbeamercolor{bibliography entry author}{fg=btdl@color@white}
-\setbeamercolor*{bibliography entry author}{fg=btdl@color@white}
-\setbeamercolor{bibliography entry location}{fg=btdl@color@white}
-\setbeamercolor*{bibliography entry location}{fg=btdl@color@white}
-\setbeamercolor{bibliography entry note}{fg=btdl@color@white}
-\setbeamercolor*{bibliography entry note}{fg=btdl@color@white}
+\colorlet{bibcolor}{btdl@color@white}
+\setbeamercolor{bibliography item}{fg=bibcolor}
+\setbeamercolor*{bibliography entry title}{fg=bibcolor}
+\setbeamercolor{bibliography entry author}{fg=bibcolor}
+\setbeamercolor*{bibliography entry author}{fg=bibcolor}
+\setbeamercolor{bibliography entry location}{fg=bibcolor}
+\setbeamercolor*{bibliography entry location}{fg=bibcolor}
+\setbeamercolor{bibliography entry note}{fg=bibcolor}
+\setbeamercolor*{bibliography entry note}{fg=bibcolor}
 \setbeamertemplate{bibliography item}[text]
 
 
@@ -167,6 +168,26 @@
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
      \usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
     \end{beamercolorbox}%
+}
+
+%% Sidebar
+%% -----------------------------------------------------------------------------
+
+\def\btdl@sidebar@content{}
+
+\def\SidebarCite#1{%
+    \appto\btdl@sidebar@content{%
+        \cite{#1}~\citeauthor{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
+    }%
+}
+
+\def\SidebarReset{\def\btdl@sidebar@content{}}
+\newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
+\setbeamertemplate{sidebar left}{%
+\hskip\beamer@leftmargin\parbox[b][\paperheight-\beamer@leftmargin]{\btdl@leftindent
+-\btdl@sidebar@offset}{\parskip=\medskipamount \parindent=\z@%
+\fontsize{3}{4}\selectfont\btdl@sidebar@content%
+}
 }
 
 %% footer
@@ -295,6 +316,38 @@
 \def\email#1{\gdef\btdl@email{#1}}
 
 \def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
+
+\AtEndPreamble{
+    \@ifundefined{ver@biblatex.sty}{}{%
+    \DeclareBibliographyDriver{btdl@bibtheme}{%
+        \usebibmacro{bibindex}%
+        \usebibmacro{begentry}%
+        \usebibmacro{author/editor+others/translator+others}%
+        \setunit{\labelnamepunct}\newblock
+        \usebibmacro{title}%
+        \newunit\newblock
+        \usebibmacro{date}%
+        \newunit\newblock
+        \usebibmacro{finentry}}
+        \DeclareBibliographyAlias{article}{btdl@bibtheme}
+\DeclareBibliographyAlias{book}{btdl@bibtheme}
+\DeclareBibliographyAlias{booklet}{btdl@bibtheme}
+\DeclareBibliographyAlias{collection}{btdl@bibtheme}
+\DeclareBibliographyAlias{inbook}{btdl@bibtheme}
+\DeclareBibliographyAlias{incollection}{btdl@bibtheme}
+\DeclareBibliographyAlias{inproceedings}{btdl@bibtheme}
+\DeclareBibliographyAlias{manual}{btdl@bibtheme}
+\DeclareBibliographyAlias{misc}{btdl@bibtheme}
+\DeclareBibliographyAlias{online}{btdl@bibtheme}
+\DeclareBibliographyAlias{patent}{btdl@bibtheme}
+\DeclareBibliographyAlias{periodical}{btdl@bibtheme}
+\DeclareBibliographyAlias{proceedings}{btdl@bibtheme}
+\DeclareBibliographyAlias{report}{btdl@bibtheme}
+\DeclareBibliographyAlias{thesis}{btdl@bibtheme}
+\DeclareBibliographyAlias{unpublished}{btdl@bibtheme}
+\DeclareBibliographyAlias{*}{btdl@bibtheme}
+    }
+}
 
 \AtEndDocument{
 \begingroup%
