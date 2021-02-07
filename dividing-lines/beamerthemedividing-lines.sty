@@ -160,6 +160,8 @@
 \newlength{\btdl@leftindent} \btdl@leftindent=6.5em
 \setbeamersize{sidebar width left=\btdl@leftindent}
 
+\newlength{\btdl@frametitle@ht} \btdl@frametitle@ht=5ex
+\newlength{\btdl@frametitle@dp} \btdl@frametitle@dp=1.25ex
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
@@ -319,5 +321,13 @@
 \end{frame}
 \endgroup
 }
+
+%% special frames
+%% -----------------------------------------------------------------------------
+
+\newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
+\newenvironment{layout-imageonly}{\leavevmode%
+\hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
+}{\end{minipage}}
 
 \endinput
