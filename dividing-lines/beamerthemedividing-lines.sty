@@ -7,7 +7,7 @@
 %%    All internal commands and registers will be prefixed with 'btdl@'
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
+\ProvidesPackage{beamerthemedividing-lines}[2019/08/17 v1.0.0 Latex-Beamertheme dividing-lines]
 
 %% packet options
 %% -----------------------------------------------------------------------------
@@ -50,8 +50,8 @@
 \definecolor{btdl@color@alerted}{RGB}{#3}%
 }
 
-% RGB(249, 166, 2) RGB(254, 231, 130) RGB(137,64,75)
-\SetColorProfile{249, 166, 2}{254, 231, 130}{137,64,75}
+% RGB(249, 166, 2) RGB(249, 224, 176) RGB(137,64,75)
+\SetColorProfile{249, 166, 2}{249, 224, 176}{137,64,75}
 
 \definecolor{btdl@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
 \definecolor{btdl@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
@@ -172,7 +172,7 @@
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle%
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle\strut%
     \end{beamercolorbox}%
 }
 
