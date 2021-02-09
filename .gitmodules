@@ -1,0 +1,3 @@
+[submodule "bibliography-collection"]
+	path = bibliography-collection
+	url = https://github.com/EagleoutIce/bibliography-collection

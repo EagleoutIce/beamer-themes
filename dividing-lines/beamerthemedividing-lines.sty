@@ -229,7 +229,7 @@
         \pgfmathsetmacro\btdl@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
         \ifnum\i>\btdl@sectionmax@target@start
             \pgfmathsetmacro\btdl@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
-            {\color{lightgray!\btdl@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
+            {\btdl@printshort@mid\color{lightgray!\btdl@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
         \color{lightgray!\btdl@disttotarget!darkgray}%
         \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
         \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}

@@ -6,8 +6,11 @@ All themes supplied are standalone versions but can be constructed via inner and
 
 ## General
 
-Some resources are shared between all of the example-documents (they are just placeholders and therefore not necessary).
+Some resources are shared between all of the example-documents (they are just placeholders and therefore not necessary). If you compile the documents in place and do not replace those placeholders, you should copy the `example.bib` and the `exampletitleimage.png` in the same folder.
+
 The example bibliography-file is based on an [overleaf-example](https://www.overleaf.com/learn/latex/Bibliography_management_in_LaTeX).
+
+All preview images have been created with the bash-file [genpreview](genpreview) which uses `convert` and `montage` from imagemagick. Therefore some graphical effects might be based on a faulty conversion.
 
 ## colorful-dream
 
@@ -49,5 +52,19 @@ Valid Options (defaults are marked):
 You must insert the title-page yourself, as seen in the [example.tex](fragment/example.tex):
 
 ![fragment example image](fragment/example.png)
-(Note: the unbalanced lines on the title page come from weird anti-aliasing in the image and are not part of the template)
 Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/fragment/example.pdf).
+
+## dividing-lines
+
+This theme is located [here](./dividing-lines) and _has_ BibLaTeX-Support.
+Valid Options (defaults are marked):
+
+- `footfade`/__`nofootfade`__ (automatic foot fading for sections)
+- `nocenterfoot`/__`centerfoot`__ (automatically center foot)
+- `libs`/__`nolibs`__ (automatically load necessary libraries)
+- `bib`/__`nobib`__ (enable bibliography)
+
+The title page is set automatically, as seen in the [example.tex](dividing-lines/example.tex):
+
+![dividing-lines example image](dividing-lines/example.png)
+Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/dividing-lines/example.pdf).
