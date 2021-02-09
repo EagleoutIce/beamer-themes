@@ -94,6 +94,7 @@
 \setbeamercolor{title}{parent=normal text}
 \setbeamercolor{subtitle}{parent=normal text}
 \setbeamercolor{institute}{parent=normal text,fg=gray}
+\setbeamercolor{license}{parent=normal text,fg=gray}
 \setbeamercolor{tag}{parent=normal text,fg=gray}
 \setbeamercolor{date}{parent=normal text,fg=gray}
 
@@ -110,6 +111,7 @@
 \setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{date}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{section title}{size=\fontsize{19}{19}}
+\setbeamerfont{license}{size=\fontsize{6}{8},series=\mdseries}
 
 \setbeamercolor{description item}{fg=btdl@color@black}
 
@@ -308,7 +310,10 @@
 \begin{frame}[plain,b]%
     \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage
-    \end{minipage}
+    \end{minipage}%
+\begin{tikzpicture}[overlay,remember picture]%
+    \node[above left,scale=0.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
+\end{tikzpicture}%
 \end{frame}%
 \endgroup
 }
@@ -329,7 +334,7 @@
     \DeclareBibliographyDriver{btdl@bibtheme}{%
         \usebibmacro{bibindex}%
         \usebibmacro{begentry}%
-        \usebibmacro{author/editor+others/translator+others}%
+        \usebibmacro{author/editor}%
         \setunit{\labelnamepunct}\newblock
         \usebibmacro{title}%
         \newunit\newblock
@@ -374,9 +379,6 @@
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
     {\small\textbf{\insertauthor}}\\
     {\footnotesize\btdl@outro{}}%
-\begin{tikzpicture}[overlay,remember picture]%
-    \node[above left,scale=0.5] at(current page.south east) {\rotatebox{90}{\@license}};
-\end{tikzpicture}%
 }\hfill\parbox[b]{0.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
 }}%
@@ -401,9 +403,4 @@
 \def\license{\@dblarg\btdl@license}
 \def\btdl@license[#1]#2{\gdef\@license{#2}\gdef\@short@license{#1}}
 
-\preto\btdl@footline@data{%
-\begin{tikzpicture}[overlay,remember picture]%
-    \node[above left,scale=0.5] at(current page.south east) {\rotatebox{90}{\@short@license}};
-\end{tikzpicture}%
-}
 \endinput
