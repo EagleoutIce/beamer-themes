@@ -26,24 +26,36 @@ jobs:
         with:
           working_directory: colorful-dream
           root_file: example.tex
+          pre_compile: |
+            ln ../example.bib ./example.bib
+            ln ../exampletitleimage.png ./exampletitleimage.png
 
       - name: Compile fragment
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: fragment
           root_file: example.tex
+          pre_compile: |
+            ln ../example.bib ./example.bib
+            ln ../exampletitleimage.png ./exampletitleimage.png
 
       - name: Compile lucy
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: lucy
           root_file: example.tex
+          pre_compile: |
+            ln ../example.bib ./example.bib
+            ln ../exampletitleimage.png ./exampletitleimage.png
 
       - name: Compile dividing-lines
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: dividing-lines
           root_file: example.tex
+          pre_compile: |
+            ln ../example.bib ./example.bib
+            ln ../exampletitleimage.png ./exampletitleimage.png
 
       - name: Commit PDF
         run: |
