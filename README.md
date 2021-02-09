@@ -59,10 +59,10 @@ Another (up-to-date) example is located at [example.pdf](https://github.com/Eagl
 This theme is located [here](./dividing-lines) and _has_ BibLaTeX-Support.
 Valid Options (defaults are marked):
 
-- `footfade`/__`nofootfade`__ (automatic foot fading for sections)
-- `nocenterfoot`/__`centerfoot`__ (automatically center foot)
-- `libs`/__`nolibs`__ (automatically load necessary libraries)
-- `bib`/__`nobib`__ (enable bibliography)
+- __`footfade`__/`nofootfade` (automatic foot fading for sections)
+- __`nocenterfoot`__/`centerfoot` (automatically center foot)
+- __`libs`__/`nolibs` (automatically load necessary libraries)
+- __`bib`__/`nobib` (enable bibliography)
 
 The title page is set automatically, as seen in the [example.tex](dividing-lines/example.tex):
 
