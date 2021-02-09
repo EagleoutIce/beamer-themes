@@ -17,11 +17,9 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-
-      - name: Checkout submodules
-        uses: textbook/git-checkout-submodule-action@master
         with:
-            remote: true
+          lfs: true
+          submodules: true
 
       - name: Compile colorful-dream
         uses: xu-cheng/latex-action@v2
