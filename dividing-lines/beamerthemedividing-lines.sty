@@ -224,11 +224,11 @@
     % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
     \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
         \ifbtdl@footfade@
-        \pgfmathsetmacro\btld@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
+        \pgfmathsetmacro\btdl@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
         \ifnum\i>\btdl@sectionmax@target@start
-            \pgfmathsetmacro\btld@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
-            {\color{lightgray!\btld@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
-        \color{lightgray!\btld@disttotarget!darkgray}%
+            \pgfmathsetmacro\btdl@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
+            {\color{lightgray!\btdl@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
+        \color{lightgray!\btdl@disttotarget!darkgray}%
         \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
         \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}
         % note: we always calc the non(semi)bold thickness
@@ -239,13 +239,13 @@
 \fi%
 }
 
-\def\btcd@footline@data{\btdl@typesetfiveforcurrent}
+\def\btdl@footline@data{\btdl@typesetfiveforcurrent}
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
     \begin{beamercolorbox}[wd=\dimexpr\textwidth-\beamer@rightmargin\relax,ht=3ex,dp=4ex,leftskip=\dimexpr\btdl@leftindent+\beamer@leftmargin\relax]{structure}% default color
         \color{gray}\usebeamerfont{page number in head/foot}%
-        {\btcd@footline@data}%
+        {\btdl@footline@data}%
     \end{beamercolorbox}%
 }
 
@@ -374,6 +374,9 @@
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
     {\small\textbf{\insertauthor}}\\
     {\footnotesize\btdl@outro{}}%
+\begin{tikzpicture}[overlay,remember picture]%
+    \node[above left,scale=0.5] at(current page.south east) {\rotatebox{90}{\@license}};
+\end{tikzpicture}%
 }\hfill\parbox[b]{0.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
 }}%
@@ -390,4 +393,17 @@
 \hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
 }{\end{minipage}}
 
+
+
+%% license
+%% -----------------------------------------------------------------------------
+\RequirePackage{ccicons}
+\def\license{\@dblarg\btdl@license}
+\def\btdl@license[#1]#2{\gdef\@license{#2}\gdef\@short@license{#1}}
+
+\preto\btdl@footline@data{%
+\begin{tikzpicture}[overlay,remember picture]%
+    \node[above left,scale=0.5] at(current page.south east) {\rotatebox{90}{\@short@license}};
+\end{tikzpicture}%
+}
 \endinput
