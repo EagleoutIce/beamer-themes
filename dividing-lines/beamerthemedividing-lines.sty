@@ -305,6 +305,7 @@
     }%
 }
 
+\def\PostTitlepage{}
 \AtBeginDocument{%
 \begingroup
 \begin{frame}[plain,b]%
@@ -313,7 +314,7 @@
     \end{minipage}%
 \begin{tikzpicture}[overlay,remember picture]%
     \node[above left,scale=0.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
-\end{tikzpicture}%
+\end{tikzpicture}\PostTitlepage%
 \end{frame}%
 \endgroup
 }
