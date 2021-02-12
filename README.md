@@ -28,6 +28,8 @@ Other configuration-options and commands like `\email` and `\outro` are presente
 ![colorful-dream example image](colorful-dream/example.png)
 Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/colorful-dream/example.pdf).
 
+I have written this variant for a university presentation i did, a full example of this theme is to be found in the [repository](https://github.com/EagleoutIce/eidi-pseudo-rep20).
+
 ## lucy
 
 This theme is located [here](./lucy) and _has_ BibLaTeX-Support. I've written this template for my abitur.
@@ -41,6 +43,7 @@ You must insert the title-page yourself, as seen in the [example.tex](lucy/examp
 ![lucy example image](lucy/example.png)
 Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/lucy/example.pdf).
 
+I use this layout (with different color themes) for my university presentations. An example is to be found with the [LaTeX-Slides](https://github.com/EagleoutIce/slides-latex-basics).
 ## fragment
 
 This theme is located [here](./fragment) and _has_ BibLaTeX-Support. It is loosely based on my sopra-seraphim class.
@@ -68,3 +71,5 @@ The title page is set automatically, as seen in the [example.tex](dividing-lines
 
 ![dividing-lines example image](dividing-lines/example.png)
 Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/dividing-lines/example.pdf).
+
+I use this layout for my seminar presentation. It is to be found in the [repository](https://github.com/EagleoutIce/slides-rtds-trusting-trust).
