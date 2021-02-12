@@ -337,6 +337,13 @@
 
 \theoremstyle{solve}
 \newtheorem{solve}{Lösung}
+
+\def\th@definition{%
+    \normalfont % body font
+    \setbeamercolor{block title example}{bg=btcd@color@primary!75!black,fg=btcd@color@white}
+    \setbeamercolor{block body example}{bg=btcd@color@primary!75!black!10,fg=btcd@color@black}
+    \def\inserttheoremblockenv{exampleblock}
+}
 \fi
 
 %% outro
