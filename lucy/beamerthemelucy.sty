@@ -35,8 +35,9 @@
 % load font
 \ifbtl@usefont@%
     \RequirePackage{aurical}%
+    \RequirePackage[cmintegrals,cmbraces,ebgaramond]{newtxmath}%
     \RequirePackage[default]{lato}%
-    \RequirePackage{mdsymbol,mathastext}
+    \RequirePackage{mathastext}
     \AtBeginDocument{\fontseries{m}\selectfont}%
     \def\lfseries{\fontseries{l}\selectfont}%
 \else%
