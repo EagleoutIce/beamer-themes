@@ -44,9 +44,10 @@ You must insert the title-page yourself, as seen in the [example.tex](lucy/examp
 Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/lucy/example.pdf).
 
 I use this layout (with different color themes) for my university presentations. An example is to be found with the [LaTeX-Slides](https://github.com/EagleoutIce/slides-latex-basics).
+
 ## fragment
 
-This theme is located [here](./fragment) and _has_ BibLaTeX-Support. It is loosely based on my sopra-seraphim class.
+This theme is located [here](./fragment) and _has_ BibLaTeX-Support. It is loosely based on my [sopra-seraphim](https://media.githubusercontent.com/media/EagleoutIce/sopra-collection/gh-pages/sopra-seraphim/sopra-seraphim.doc.pdf) class.
 Valid Options (defaults are marked):
 
 - `nofont`/__`font`__ (automatic font-loading. Loads the title-font too)
