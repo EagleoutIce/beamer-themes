@@ -1,22 +1,17 @@
-%% -----------------------------------------------------------------------------
+
 %% Version: 1.0
 %% Author:  Florian Sihler, 14.08.2020
 %%
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% I've started the development on WiSe2019/2020, this is the ported and
 %% standalone version.
-%%
 %%                      ulm university, SoSe2020
-
 %% Development notes:
 %%    All internal commands and registers will be prefixed with 'btcd@'
-
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
 
 %% packet options
-%% -----------------------------------------------------------------------------
-
 % font
 \newif\ifbtcd@usefont@ \btcd@usefont@true
 \DeclareOption{nofont}{\btcd@usefont@false} \DeclareOption{usefont}{\btcd@usefont@true}
@@ -41,8 +36,6 @@
 \ProcessOptions
 
 %% load packages
-%% -----------------------------------------------------------------------------
-
 % load font
 \ifbtcd@usefont@ \RequirePackage[defaultfam,light,tabular,lining]{montserrat} \fi
 
@@ -54,8 +47,6 @@
 
 
 %% the color profile
-%% -----------------------------------------------------------------------------
-
 % #1: primary, #2: secondary, #3: alerted
 \newcommand*\SetColorProfile[3]{%
 \definecolor{btcd@color@primary}{RGB}{#1}%
@@ -88,14 +79,12 @@
 \colorlet{btcd@solidF}{btcd@color@primary!25!btcd@color@black}
 
 %% shortcut commands for the user
-%% -----------------------------------------------------------------------------
+
 
 \newcommand\hl[1]{\textcolor{btcd@color@secondary}{#1}}
 \newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
-%% -----------------------------------------------------------------------------
-
 % General
 \setbeamercolor{normal text}{fg=btcd@color@btext}
 \setbeamercolor{structure}{fg=btcd@color@text}
@@ -147,9 +136,6 @@
 \setbeamercolor*{bibliography entry note}{fg=btcd@color@white}
 \setbeamertemplate{bibliography item}[text]
 
-
-
-
 \setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 % \setlength{\leftmargini}{1.15em}
@@ -170,8 +156,6 @@
 }
 
 %% head line
-%% -----------------------------------------------------------------------------
-
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2pt%
     \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
@@ -180,8 +164,6 @@
 }
 
 %% footer
-%% -----------------------------------------------------------------------------
-
 \def\btcd@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
 
 \usenavigationsymbolstemplate{}
@@ -193,8 +175,6 @@
 }
 
 %% start of setions
-%% -----------------------------------------------------------------------------
-
 \newif\ifsectionbanner \sectionbannertrue
 \let\nosframe\sectionbannerfalse
 
@@ -222,7 +202,7 @@
 }
 
 %% titleimage
-%% -----------------------------------------------------------------------------
+
 
 \long\def\titleimage#1{\long\gdef\btcd@title@image{#1}}
 \def\btcd@title@image{}
@@ -249,8 +229,6 @@
 
 
 %% build the emblem on the titlepage
-%% -----------------------------------------------------------------------------
-
 \ifbtcd@placeemblem@
 \def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
 
@@ -315,7 +293,7 @@
 
 
 %% theorems
-%% -----------------------------------------------------------------------------
+
 
 \ifbtcd@theorems@
 \def\th@exercise{%
@@ -347,7 +325,7 @@
 \fi
 
 %% outro
-%% -----------------------------------------------------------------------------
+
 
 \def\btcd@outro{}
 \def\outro#1{\gdef\btcd@outro{#1}}
@@ -381,34 +359,31 @@
 }
 
 %% disabled entry
-%% -----------------------------------------------------------------------------
+
 
 % disable hyperlink on target if disabled part
 \long\def\btcd@disabled@subsectionintoc#1#2#3#4#5#6{%
-  \ifnum\c@tocdepth>1%
-  \ifnum#5=\beamer@showpartnumber%
-  {%
-    \beamer@saveanother%
-    \gdef\beamer@todo{}%
-    \beamer@slideinframe=#1\relax%
-    \expandafter\only\beamer@tocsections{\gdef\beamer@todo{%
-      \ifbeamer@pausesubsections\pause\fi%
-      \beamer@tempcount=#6%
-      \advance\beamer@tempcount by\beamer@sectionadjust%
-      \edef\inserttocsectionnumber{\the\beamer@tempcount}%
-      \def\inserttocsubsectionnumber{#2}%
-      \def\inserttocsubsection{#3}%
-      \beamer@tocifnothide{\ifnum\c@section=#1\beamer@toc@css\else\beamer@toc@oss\fi}%
-      {%
-        \def\beamer@breakhere{\\}%
-        \beamer@tocact{\ifnum\c@section=#1\ifnum\c@subsection=#2\beamer@toc@css\else\beamer@toc@oss\fi\else\beamer@toc@ooss\fi}
-        {disabled subsection in toc}%
-      }%
-    }}%
-    \beamer@restoreanother%
-  }%
-  \beamer@todo%
-  \fi\fi%
+\ifnum\c@tocdepth>1%
+\ifnum#5=\beamer@showpartnumber%
+{\beamer@saveanother
+\gdef\beamer@todo{}%
+\beamer@slideinframe=#1\relax
+\expandafter\only\beamer@tocsections{\gdef\beamer@todo{%
+    \ifbeamer@pausesubsections\pause\fi
+    \beamer@tempcount=#6%
+    \advance\beamer@tempcount by\beamer@sectionadjust
+    \edef\inserttocsectionnumber{\the\beamer@tempcount}%
+    \def\inserttocsubsectionnumber{#2}%
+    \def\inserttocsubsection{#3}%
+    \beamer@tocifnothide{\ifnum\c@section=#1\beamer@toc@css\else\beamer@toc@oss\fi}%
+    {%
+    \def\beamer@breakhere{\\}%
+    \beamer@tocact{\ifnum\c@section=#1\ifnum\c@subsection=#2\beamer@toc@css\else\beamer@toc@oss\fi\else\beamer@toc@ooss\fi}
+    {disabled subsection in toc}%
+    }%
+}}%
+\beamer@restoreanother
+}\beamer@todo\fi\fi
 }
 
 \def\fakesubsection{\@dblarg\btcd@fakesubsection}
@@ -416,5 +391,4 @@
   \stepcounter{subsection}%
   \addtocontents{toc}{\protect\btcd@disabled@subsectionintoc{\the\c@section}{\the\c@subsection}{\textcolor{gray}{#1}}{\the\c@page}{\the\c@part}{\the\beamer@tocsectionnumber}}%
 }
-
 \endinput

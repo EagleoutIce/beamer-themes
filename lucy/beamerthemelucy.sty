@@ -1,4 +1,4 @@
-%% -----------------------------------------------------------------------------
+
 %% Version: 1.0
 %% Author:  Florian Sihler, 17.08.2020
 %%
@@ -17,7 +17,7 @@
 \ProvidesPackage{beamerthemelucy}[2019/08/17 v1.0.0 Latex-Beamertheme lucy]
 
 %% packet options
-%% -----------------------------------------------------------------------------
+
 
 % font
 \newif\ifbtl@usefont@ \btl@usefont@true
@@ -30,7 +30,7 @@
 \ProcessOptions
 
 %% load packages
-%% -----------------------------------------------------------------------------
+
 
 % load font
 \ifbtl@usefont@%
@@ -51,7 +51,7 @@
 
 
 %% the color profile
-%% -----------------------------------------------------------------------------
+
 
 % \definecolor{cprimary}{RGB}{245, 130, 32}          %% #F58220
 % \definecolor{csecondary}{RGB}{126, 126, 126}       %% #7E7E7E
@@ -64,11 +64,11 @@
 \definecolor{cblack}{RGB}{1, 0, 0}                   %% #010000
 
 %% shortcut commands for the user
-%% -----------------------------------------------------------------------------
+
 
 
 %% beamer configuration
-%% -----------------------------------------------------------------------------
+
 
 % color
 \setbeamercolor{normal text}{fg=cblack}
@@ -131,7 +131,7 @@
 
 
 %% title page
-%% -----------------------------------------------------------------------------
+
 
 \newcommand\btl@true{true}
 \providecommand{\lucyUseAlternativeTitle}{false}
@@ -155,7 +155,7 @@
 \fi
 
 %% head line
-%% -----------------------------------------------------------------------------
+
 
 \defbeamertemplate*{frametitle}{lucy}[1][]{%
     \vskip0.35cm%
@@ -166,7 +166,7 @@
 }
 
 %% footer
-%% -----------------------------------------------------------------------------
+
 \def\lucy@nolink{}
 \ifcsname DisableLinkStyle\endcsname%
 \let\lucy@nolink\DisableLinkStyle%
@@ -187,7 +187,7 @@
 }
 
 %% table of contents
-%% -----------------------------------------------------------------------------
+
 \setbeamertemplate{section in toc}{%
   {\ifbtl@usefont@\Fontauri\fi$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamercolor{subsection in toc}{bg=white,fg=structure}

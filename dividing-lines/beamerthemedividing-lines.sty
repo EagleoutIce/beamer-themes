@@ -1,4 +1,4 @@
-%% -----------------------------------------------------------------------------
+
 %% Version: 1.0
 %% Author:  Florian Sihler, 3.02.2021
 %%
@@ -10,7 +10,7 @@
 \ProvidesPackage{beamerthemedividing-lines}[2019/08/17 v1.0.0 Latex-Beamertheme dividing-lines]
 
 %% packet options
-%% -----------------------------------------------------------------------------
+
 % footfade
 \newif\ifbtdl@footfade@ \btdl@footfade@true
 \DeclareOption{nofootfade}{\btdl@footfade@false} \DeclareOption{footfade}{\btdl@footfade@true}
@@ -29,7 +29,7 @@
 \ProcessOptions
 
 %% load packages
-%% -----------------------------------------------------------------------------
+
 
 \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
 \def\sbfamily{\fontseries{sb}\selectfont}
@@ -41,7 +41,7 @@
 \fi
 
 %% the color profile
-%% -----------------------------------------------------------------------------
+
 
 % #1: primary, #2: secondary, #3: alerted
 \newcommand*\SetColorProfile[3]{%
@@ -65,13 +65,13 @@
 \colorlet{btdl@solidF}{btdl@color@primary!25!btdl@color@black}
 
 %% shortcut commands for the user
-%% -----------------------------------------------------------------------------
+
 
 \newcommand\hl[1]{\textcolor{btdl@color@secondary}{#1}}
 \newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
-%% -----------------------------------------------------------------------------
+
 \colorlet{btdl@color@background}{btdl@color@primary!1!}
 \setbeamercolor{background canvas}{bg=btdl@color@background}
 
@@ -165,7 +165,7 @@
 
 
 %% head line
-%% -----------------------------------------------------------------------------
+
 
 \newlength{\btdl@leftindent} \btdl@leftindent=6.5em
 \setbeamersize{sidebar width left=\btdl@leftindent}
@@ -180,7 +180,7 @@
 }
 
 %% Sidebar
-%% -----------------------------------------------------------------------------
+
 
 \def\btdl@sidebar@content{}
 
@@ -200,7 +200,7 @@
 }
 
 %% footer
-%% -----------------------------------------------------------------------------
+
 
 % idee, zeige Auszug   'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
@@ -252,7 +252,7 @@
 }
 
 %% start of setions
-%% -----------------------------------------------------------------------------
+
 
 \newif\ifsectionbanner \sectionbannertrue
 \let\nosframe\sectionbannerfalse
@@ -270,7 +270,7 @@
 }
 
 %% titleimage
-%% -----------------------------------------------------------------------------
+
 \newsavebox\btdl@box@title
 
 \def\tag#1{\gdef\btdl@tag{#1}}
@@ -320,7 +320,7 @@
 }
 
 %% outro
-%% -----------------------------------------------------------------------------
+
 
 \def\btdl@outro{}
 \def\outro#1{\gdef\btdl@outro{#1}}
@@ -389,7 +389,7 @@
 }
 
 %% special frames
-%% -----------------------------------------------------------------------------
+
 
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
 \newenvironment{layout-imageonly}{\leavevmode%
@@ -399,7 +399,7 @@
 
 
 %% license
-%% -----------------------------------------------------------------------------
+
 \RequirePackage{ccicons}
 \def\license{\@dblarg\btdl@license}
 \def\btdl@license[#1]#2{\gdef\@license{#2}\gdef\@short@license{#1}}

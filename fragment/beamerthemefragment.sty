@@ -1,10 +1,10 @@
-%% -----------------------------------------------------------------------------
+
 %% Version: 1.0
 %% Author:  Florian Sihler, 17.08.2020
 %%
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% The layout is loosely based on my sopra-seraphim-class from the sopra-collection.
-%% 
+%%
 %%                      ulm university, SoSe2020
 
 %% Development notes:
@@ -15,7 +15,7 @@
 \ProvidesPackage{beamerthemefragment}[2019/08/17 v1.0.0 Latex-Beamertheme fragment]
 
 %% packet options
-%% -----------------------------------------------------------------------------
+
 
 % font
 \newif\ifbtfr@usefont@ \btfr@usefont@true
@@ -28,7 +28,7 @@
 \ProcessOptions
 
 %% load packages
-%% -----------------------------------------------------------------------------
+
 
 % load font
 \ifbtfr@usefont@%
@@ -43,12 +43,12 @@
 
 
 %% special register
-%% -----------------------------------------------------------------------------
+
 
 \newcounter{btfr@counter@tmp@a}
 
 %% the color profile
-%% -----------------------------------------------------------------------------
+
 
 % We will define a main/primary color, a secondary/akzent color and a tertiary
 % /light color to be used everywhere throughout the document.
@@ -86,7 +86,7 @@
 \SetColorProfile{023,096,103}{213,213,214}{153,007,051}
 
 %% shortcut commands for the user
-%% -----------------------------------------------------------------------------
+
 
 \long\def\btfr@@imptext#1{\bgroup\slshape\color{cimportant}#1\egroup}
 \let\imptext\btfr@@imptext
@@ -95,7 +95,7 @@
 \let\notetext\btfr@@notetext
 
 %% beamer configuration
-%% -----------------------------------------------------------------------------
+
 
 % general
 \beamertemplatenavigationsymbolsempty
@@ -165,7 +165,7 @@
 \setbeamertemplate{frametitle continuation}{\!, \insertcontinuationcount}
 
 %% metadata
-%% -----------------------------------------------------------------------------
+
 
 
 % we will populate the following fields:
@@ -235,7 +235,7 @@
 
 
 %% title page
-%% -----------------------------------------------------------------------------
+
 
 \gdef\titleimage#1{\def\btfr@title@image{#1}} \titleimage{}
 
@@ -252,14 +252,14 @@
             \begin{minipage}{0.95\linewidth}
             \btfr@sepline
             \begin{center}
-                \strut\inserttitle\vspace*{-0.5\topsep}    
+                \strut\inserttitle\vspace*{-0.5\topsep}
             \end{center}
             \btfr@sepline
             \begin{center}
                 \usebeamerfont{subtitle}
                 \vspace*{-\topsep}
                 {\strut\insertsubtitle}
-            \end{center}            
+            \end{center}
             \end{minipage}
         };
         % place the seplines
@@ -267,7 +267,7 @@
 }
 
 %% head line
-%% -----------------------------------------------------------------------------
+
 
 \defbeamertemplate*{frametitle}{fragment}[1][]{%
     \begin{tikzpicture}[remember picture,overlay]
@@ -280,7 +280,7 @@
 
 
 %% footer
-%% -----------------------------------------------------------------------------    
+
 
 \defbeamertemplate*{footline}{fragment}[1][] {
     \begin{tikzpicture}[remember picture,overlay]
@@ -298,7 +298,7 @@
 
 
 %% table of contents
-%% -----------------------------------------------------------------------------
+
 
 \setbeamertemplate{section in toc}{%
   {$\inserttocsectionnumber$}.~~\inserttocsection}
@@ -330,15 +330,15 @@
 
 
 %% intro & outro
-%% -----------------------------------------------------------------------------
+
 
 \def\Intro{
     \begin{frame}[noframenumbering,plain]
         \titlepage
     \end{frame}
-    
+
     \InformationPage
-    
+
     \begin{frame}[c]{Inhaltsübersicht}
         \begin{center}
             \begin{columns}
