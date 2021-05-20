@@ -119,8 +119,8 @@
 \setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
 \setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
 
-\setbeamertemplate{subsection in toc}{\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
-\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
 
 % bibliography
 \setbeamertemplate{bibliography entry title}{}
@@ -136,7 +136,7 @@
 \setbeamercolor*{bibliography entry note}{fg=btcd@color@white}
 \setbeamertemplate{bibliography item}[text]
 
-\setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\setbeamertemplate{itemize items}{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 % \setlength{\leftmargini}{1.15em}
 \setbeamerfont{date}{size=\fontsize{10}{11}}
@@ -157,18 +157,18 @@
 
 %% head line
 \setbeamertemplate{frametitle}{%
-    \nointerlineskip\vskip-2pt%
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=0.35cm,rightskip=0.35cm,ht=3.25ex,dp=1.5ex]{frametitle}%
+    \nointerlineskip\vskip-2pt\relax
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=2.9ex,dp=1.15ex]{frametitle}%
      \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
 
 %% footer
-\def\btcd@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight~\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight~\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
+\def\btcd@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight\quad\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight\quad\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=0.35cm,rightskip=0.35cm]{structure}% default color
+    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}% default color
         \color{gray}\usebeamerfont{page number in head/foot}%
         {\btcd@footline@data}%
     \end{beamercolorbox}%
@@ -186,24 +186,21 @@
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
-\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
-\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle (4.5pt) node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\scriptsize,text=btcd@color@primary] {\thesection};}}
+\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
+\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\fontseries{sb}\scriptsize,text=btcd@color@primary] {\thesection};}}
 
 \AtBeginSection[]{\ifsectionbanner\begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
     \def\btcd@footline@data{\color{btcd@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
     \begin{frame}[t]
         \hypertarget{section.\thesection}{}%
-        \vskip4em\vfill%
-        \centering\usebeamerfont{section title}\textcolor{btcd@color@wtext}{\strut\insertsectionhead\strut}\vskip0.25em\par{}
-        \textcolor{btcd@color@wtext}{\foreach \i in {1,...,\thebtcd@sectioncount}{\ifnum\i=\value{section}\fbtcd@tikzcirc{\i}\else\btcd@tikzcirc{\i}\fi}}\par\vfill%
+        \vskip4em\vfill
+        \centering\usebeamerfont{section title}\textcolor{btcd@color@wtext}{\strut\insertsectionhead\strut}\vskip.25em\par
+        \textcolor{btcd@color@wtext}{\foreach \i in {1,...,\thebtcd@sectioncount}{\ifnum\i=\value{section}\fbtcd@tikzcirc{\i}\else\btcd@tikzcirc{\i}\fi}}\par\vfill
     \end{frame}
-    \endgroup\fi%
-}
+\endgroup\fi}
 
 %% titleimage
-
-
 \long\def\titleimage#1{\long\gdef\btcd@title@image{#1}}
 \def\btcd@title@image{}
 
@@ -212,15 +209,15 @@
     {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
     \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\\%
-    \begin{minipage}{0.75\linewidth}
-        \color{gray}\ifx\insertauthor\@empty%
+    \begin{minipage}{.75\linewidth}
+        \color{gray}\ifx\insertauthor\@empty
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
         \fi%
-        \ifx\insertinstitut\@empty%
+        \ifx\insertinstitut\@empty
         \else{\usebeamerfont{institute}\usebeamercolor{institute}\insertinstitute\par}%
         \fi
-    \end{minipage}\nolinebreak\hskip2em\nolinebreak\begin{minipage}{0.25\linewidth}
-        \ifbtcd@placeemblem@\hfill\scalebox{0.6}{\btcd@emblem}\fi%
+    \end{minipage}\nolinebreak\hskip2em\nolinebreak\begin{minipage}{.25\linewidth}
+        \ifbtcd@placeemblem@\hfill\scalebox{.6}{\btcd@emblem}\fi%
     \end{minipage}\vskip1em%
 }
 
@@ -234,7 +231,7 @@
 
 % #1: university #2 Text, #3 Symbol centered
 \newcommand*\SetEmblem[3][ulm university]{\def\@@university@name{#1}%
-    \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-0.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{0.125}{0.05}}%
+    \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{.125}{.05}}%
 }
 
 \DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
@@ -275,7 +272,7 @@
         \draw[thin, color=#3] circle (1.2);
         % Draw the dots on the inner 'dot' circle in #3
         \foreach \r in {0,30,...,359} {
-            \filldraw[#3] (\r:1.2) circle (0.01) node[circle] (\r) {};
+            \filldraw[#3] (\r:1.2) circle (.01) node[circle] (\r) {};
         }
         % Draw the connection-lines in the main color of the tikzpicture
         \foreach \r in {0,30,...,359}  {
@@ -284,9 +281,9 @@
             }
         }
         % Draw the symbol #2 shading with an offset of #9 and a size of #6
-        \node[opacity=0.5] at(0.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
+        \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
         % Draw the symbol #2 with size #6 (same as shadow), color of #4
-        \draw (0.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
+        \draw (.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
 \end{tikzpicture}
 }
 \fi
@@ -348,10 +345,10 @@
         \fi%
     }%
     \pgfmathsetmacro\btcd@extlenw{\textwidth+2em}
-    \hspace*{-1em}\parbox{\btcd@extlenw pt}{\parbox[b]{0.35\textwidth}{%
+    \hspace*{-1em}\parbox{\btcd@extlenw pt}{\parbox[b]{.35\textwidth}{%
         {\small\textbf{\insertauthor}}\\
         {\footnotesize\btcd@outro{}}%
-    }\hfill\parbox[b]{0.35\textwidth}{%
+    }\hfill\parbox[b]{.35\textwidth}{%
     {\hbox{}\hfill\footnotesize\href{mailto:\btcd@email}{\btcd@email}}%
     }}\vspace*{1em}%
     \end{frame}
