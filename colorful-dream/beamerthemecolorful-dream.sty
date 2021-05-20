@@ -147,18 +147,38 @@
 \setbeamercolor{block title}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
 \setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
 
+\defbeamertemplate*{block example begin}{cdream}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[colsep*=.75ex]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  \ifbeamercolorempty[bg]{block title example}
+  {}
+  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\defbeamertemplate*{block example end}{cdream}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+\setbeamertemplate{block example begin}[cdream]
+\setbeamertemplate{block example end}[cdream]
+
+
 \setbeamertemplate{theorems}[numbered]
 
 \setbeamertemplate{theorem begin}{%
-\begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber%
-    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
-}%
-}
+\begin{\inserttheoremblockenv}{\inserttheoremname\inserttheoremnumber
+    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi
+}}
 
 %% head line
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2pt\relax
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=2.9ex,dp=1.15ex]{frametitle}%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
      \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
