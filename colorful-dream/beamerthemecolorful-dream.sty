@@ -184,7 +184,7 @@
 }
 
 %% footer
-\def\btcd@footline@data{\insertshorttitle~\ifdefempty{\insertsection}{}{\faAngleRight\quad\insertsection}~\ifdefempty{\insertsubsection}{}{\faAngleRight\quad\insertsubsection}{\strut\hfill\insertframenumber\,/\,\inserttotalframenumber}}
+\def\btcd@footline@data{\insertshorttitle~~\ifdefempty{\insertsection}{}{\faAngleRight~~\insertsection}~~\ifdefempty{\insertsubsection}{}{\faAngleRight~~\insertsubsection}{\strut\hfill\insertframenumber\thinspace/\thinspace\inserttotalframenumber}}
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
@@ -206,8 +206,8 @@
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
 
-\def\btcd@tikzcirc#1{\tikz{\draw[thick] (0,0) circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
-\def\fbtcd@tikzcirc#1{\tikz{\draw[thick,fill=btcd@color@wtext] (0,0) circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\fontseries{sb}\scriptsize,text=btcd@color@primary] {\thesection};}}
+\def\btcd@tikzcirc#1{\tikz{\path[draw,thick] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
+\def\fbtcd@tikzcirc#1{\tikz{\path[draw,thick,fill=btcd@color@wtext] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\fontseries{sb}\scriptsize,text=btcd@color@primary] {\thesection};}}
 
 \AtBeginSection[]{\ifsectionbanner\begingroup%
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
@@ -225,7 +225,7 @@
 \def\btcd@title@image{}
 
 \setbeamertemplate{title page}{%
-    \vskip2em %
+    \vskip2em\relax
     {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
     \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\\%
@@ -238,7 +238,7 @@
         \fi
     \end{minipage}\nolinebreak\hskip2em\nolinebreak\begin{minipage}{.25\linewidth}
         \ifbtcd@placeemblem@\hfill\scalebox{.6}{\btcd@emblem}\fi%
-    \end{minipage}\vskip1em%
+    \end{minipage}\vskip1em\relax
 }
 
 \AtBeginDocument{\begin{frame}[plain]\titlepage\end{frame}}
@@ -272,38 +272,38 @@
 % #7 Extra font-options for the upper text
 % #8 Offset for the text radius
 % #9 Offset for the Shadow of the symbol #2
-    \begin{tikzpicture}[#5]
-        % Draw the upper Text in color #3 and extra formatting #7
-        \draw [decorate,decoration={text along path,text align=center,%
-                text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
-            (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
+\begin{tikzpicture}[#5]
+    % Draw the upper Text in color #3 and extra formatting #7
+    \path[draw,decorate,decoration={text along path,text align=center,%
+            text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
+        (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
 
-        % Draw the two bullets in the main color of the tikzpicture
-        \draw(-1.5,0) node {{$\bullet$}} ++ (3,0) node {{$\bullet$}};
-        % Draw the lower text (\@@university@name) in color #3
-        \draw [decorate,decoration={text along path,text align=center,
-                text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
-            (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
-        % Draw the inner thick circle in #3
-        \draw[very thick, color=#3] (0,0) circle (1.25);
-        % Draw the outer thick circle in #3
-        \draw[thick, color=#3] (0,0) circle (1.75);
-        % Draw the inner 'dot' circle in #3
-        \draw[thin, color=#3] circle (1.2);
-        % Draw the dots on the inner 'dot' circle in #3
-        \foreach \r in {0,30,...,359} {
-            \filldraw[#3] (\r:1.2) circle (.01) node[circle] (\r) {};
+    % Draw the two bullets in the main color of the tikzpicture
+    \path[draw] (-1.5,0) node {\textbullet} ++ (3,0) node {\textbullet};
+    % Draw the lower text (\@@university@name) in color #3
+    \path[draw,decorate,decoration={text along path,text align=center,
+            text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
+        (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
+    % Draw the inner thick circle in #3
+    \path[draw,very thick, color=#3] (0,0) circle (1.25);
+    % Draw the outer thick circle in #3
+    \path[draw,thick, color=#3] (0,0) circle (1.75);
+    % Draw the inner 'dot' circle in #3
+    \path[draw,thin, color=#3] circle (1.2);
+    % Draw the dots on the inner 'dot' circle in #3
+    \foreach \r in {0,30,...,359} {
+        \path[fill,draw,#3] (\r:1.2) circle (.01) node[circle] (\r) {};
+    }
+    % Draw the connection-lines in the main color of the tikzpicture
+    \foreach \r in {0,30,...,359}  {
+        \foreach \rr in {0,30,...,\r}{
+            \path[draw,very thin] (\r) -- (\rr);
         }
-        % Draw the connection-lines in the main color of the tikzpicture
-        \foreach \r in {0,30,...,359}  {
-            \foreach \rr in {0,30,...,\r}{
-                \draw[very thin] (\r) -- (\rr);
-            }
-        }
-        % Draw the symbol #2 shading with an offset of #9 and a size of #6
-        \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
-        % Draw the symbol #2 with size #6 (same as shadow), color of #4
-        \draw (.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
+    }
+    % Draw the symbol #2 shading with an offset of #9 and a size of #6
+    \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
+    % Draw the symbol #2 with size #6 (same as shadow), color of #4
+    \path[draw] (.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
 \end{tikzpicture}
 }
 \fi
