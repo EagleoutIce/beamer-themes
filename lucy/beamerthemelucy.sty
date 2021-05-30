@@ -12,16 +12,14 @@
 %%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemelucy}[2019/08/17 v1.0.0 Latex-Beamertheme lucy]
-
 %% packet options
 % font
 \newif\ifbtl@usefont@ \btl@usefont@true
-\DeclareOption{nofont}{\btl@usefont@false} \DeclareOption{usefont}{\btl@usefont@true}
+\DeclareOption{nofont}{\btl@usefont@false}\DeclareOption{usefont}{\btl@usefont@true}
 % libs
 \newif\ifbtl@loadlibs@ \btl@loadlibs@true
-\DeclareOption{nolibs}{\btl@loadlibs@false} \DeclareOption{libs}{\btl@loadlibs@true}
+\DeclareOption{nolibs}{\btl@loadlibs@false}\DeclareOption{libs}{\btl@loadlibs@true}
 \ProcessOptions
-%% load packages
 
 % load font
 \ifbtl@usefont@
@@ -31,9 +29,7 @@
 \RequirePackage{mathastext}
 \AtBeginDocument{\fontseries{m}\selectfont}
 \def\lfseries{\fontseries{l}\selectfont}
-\else
-\def\lfseries{\selectfont}
-\fi
+\else\def\lfseries{\selectfont}\fi
 
 % load libs
 \ifbtl@loadlibs@\RequirePackage{tikz}\fi
@@ -98,14 +94,13 @@
 \setbeamerfont{itemize/enumerate subsubbody}{size=\scriptsize}
 \setbeamerfont{description item}{series=\mdseries}
 
-
 \beamertemplatenavigationsymbolsempty
-% \setbeamertemplate{blocks}[rounded][shadow=true]
 \setbeamertemplate{itemize items}{\tiny\raisebox{1.45\p@}{$\blacksquare$}}
 \newcommand*\impitem[1][]{\item[{\color{cprimary}\tiny\raisebox{1.45\p@}{$\blacksquare$}}]\textcolor{cprimary}{#1}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\path[fill] circle (1.65\p@);}}
 
 \setbeamersize{text margin left=5mm,text margin right=5mm}
+
 %% title page
 \newcommand\btl@true{true}
 \providecommand\lucyUseAlternativeTitle{false}
@@ -132,9 +127,9 @@
 %% head line
 \defbeamertemplate*{frametitle}{lucy}[1][]{%
     \vskip.35cm%
-    \hspace*{-.25cm}\begin{tikzpicture}[]
+    \hspace*{-.25cm}\begin{tikzpicture}
         \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
-        \node[right] at(0,2.125em/2-.075em){\LARGE\strut{\insertframetitle}};%smash
+        \node[right] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};%smash
     \end{tikzpicture}%
 }
 
