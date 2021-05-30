@@ -7,52 +7,38 @@
 %% dealing with colors having cprimary, csecondary and cwhite as colors.
 %%
 %%                      ulm university, SoSe2020
-
-
 %% Development notes:
 %%    All internal commands and registers will be prefixed with 'btl@'
 %%
-
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemelucy}[2019/08/17 v1.0.0 Latex-Beamertheme lucy]
 
 %% packet options
-
-
 % font
 \newif\ifbtl@usefont@ \btl@usefont@true
 \DeclareOption{nofont}{\btl@usefont@false} \DeclareOption{usefont}{\btl@usefont@true}
-
 % libs
 \newif\ifbtl@loadlibs@ \btl@loadlibs@true
 \DeclareOption{nolibs}{\btl@loadlibs@false} \DeclareOption{libs}{\btl@loadlibs@true}
-
 \ProcessOptions
-
 %% load packages
 
-
 % load font
-\ifbtl@usefont@%
-    \RequirePackage{aurical}%
-    \RequirePackage[cmintegrals,cmbraces,ebgaramond]{newtxmath}%
-    \RequirePackage[default]{lato}%
-    \RequirePackage{mathastext}
-    \AtBeginDocument{\fontseries{m}\selectfont}%
-    \def\lfseries{\fontseries{l}\selectfont}%
-\else%
-    \def\lfseries{\selectfont}%
-\fi%
-
-% load libs
-\ifbtl@loadlibs@
-\RequirePackage{tikz}
+\ifbtl@usefont@
+\RequirePackage{aurical}
+\RequirePackage[cmintegrals,cmbraces,ebgaramond]{newtxmath}
+\RequirePackage[default]{lato}
+\RequirePackage{mathastext}
+\AtBeginDocument{\fontseries{m}\selectfont}
+\def\lfseries{\fontseries{l}\selectfont}
+\else
+\def\lfseries{\selectfont}
 \fi
 
+% load libs
+\ifbtl@loadlibs@\RequirePackage{tikz}\fi
 
 %% the color profile
-
-
 % \definecolor{cprimary}{RGB}{245, 130, 32}          %% #F58220
 % \definecolor{csecondary}{RGB}{126, 126, 126}       %% #7E7E7E
 % \definecolor{cwhite}{RGB}{255, 255, 255}           %% #FFFFFF
@@ -63,13 +49,9 @@
 \definecolor{cwhite}{RGB}{255, 255, 255}             %% #FFFFFF
 \definecolor{cblack}{RGB}{1, 0, 0}                   %% #010000
 
-%% shortcut commands for the user
-
-
+\def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
 
 %% beamer configuration
-
-
 % color
 \setbeamercolor{normal text}{fg=cblack}
 \setbeamercolor{structure}{fg=csecondary}
@@ -80,7 +62,6 @@
 \setbeamercolor{palette secondary}{fg=csecondary}
 
 \setbeamercolor{headline}{fg=csecondary}
-
 \setbeamercolor{frametitle}{fg=cwhite}
 
 \setbeamercolor{itemize/enumerate subbody}{fg=csecondary}
@@ -115,84 +96,74 @@
 % font
 \setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}
 \setbeamerfont{itemize/enumerate subsubbody}{size=\scriptsize}
-
 \setbeamerfont{description item}{series=\mdseries}
-
-\def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
 
 
 \beamertemplatenavigationsymbolsempty
 % \setbeamertemplate{blocks}[rounded][shadow=true]
-\setbeamertemplate{itemize items}{\tiny\raisebox{1.45pt}{$\blacksquare$}}
-\newcommand*\impitem[1][]{\item[{\color{cprimary}\tiny\raisebox{1.45pt}{$\blacksquare$}}]\textcolor{cprimary}{#1}}
-\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-0.85ex]{\fill (0,0) circle (1.65pt);}}
+\setbeamertemplate{itemize items}{\tiny\raisebox{1.45\p@}{$\blacksquare$}}
+\newcommand*\impitem[1][]{\item[{\color{cprimary}\tiny\raisebox{1.45\p@}{$\blacksquare$}}]\textcolor{cprimary}{#1}}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\path[fill] circle (1.65\p@);}}
 
 \setbeamersize{text margin left=5mm,text margin right=5mm}
-
-
 %% title page
-
-
 \newcommand\btl@true{true}
-\providecommand{\lucyUseAlternativeTitle}{false}
+\providecommand\lucyUseAlternativeTitle{false}
+
 \ifx\lucyUseAlternativeTitle\btl@true
-\defbeamertemplate*{title page}{lucy}[1][] {
-    \begin{center}
-        {\Huge\color{cprimary}\inserttitle}
-    \\[3.5em]
-        \color{csecondary}\insertauthor
-    \end{center}
+\defbeamertemplate*{title page}{lucy}[1][] {%
+\begin{center}
+    {\Huge\color{cprimary}\inserttitle}
+\\[3.5em]
+    \color{csecondary}\insertauthor
+\end{center}
 }
 \else
-\defbeamertemplate*{title page}{lucy}[1][] {
-    \ifbtl@usefont@\Fontauri\fi%
-    \begin{center}
-        {\Huge\color{cprimary}\inserttitle}
-    \\[3.5em]
-        \color{csecondary}\insertauthor{} \(\circ\) \insertdate
-    \end{center}
+\defbeamertemplate*{title page}{lucy}[1][] {%
+\ifbtl@usefont@\Fontauri\fi
+\begin{center}
+    {\Huge\color{cprimary}\inserttitle}
+\\[3.5em]
+    \color{csecondary}\insertauthor\ $\circ$ \insertdate
+\end{center}
 }
 \fi
 
 %% head line
-
-
 \defbeamertemplate*{frametitle}{lucy}[1][]{%
-    \vskip0.35cm%
-    \hspace*{-0.25cm}\begin{tikzpicture}[]
-        \fill[cprimary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-0.5cm,2.125em);
-        \node[right] at(0,2.125em/2-0.075em){\LARGE\strut{\insertframetitle}};%smash
+    \vskip.35cm%
+    \hspace*{-.25cm}\begin{tikzpicture}[]
+        \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
+        \node[right] at(0,2.125em/2-.075em){\LARGE\strut{\insertframetitle}};%smash
     \end{tikzpicture}%
 }
 
 %% footer
-
 \def\lucy@nolink{}
-\ifcsname DisableLinkStyle\endcsname%
-\let\lucy@nolink\DisableLinkStyle%
+\ifcsname DisableLinkStyle\endcsname
+\let\lucy@nolink\DisableLinkStyle
 \fi
 
 % make em font dependent!
 \def\lucy@len@footheight{1.175em}
 
-\providecommand{\totalframes}{\inserttotalframenumber}
+\providecommand\totalframes{\inserttotalframenumber}
 \defbeamertemplate*{footline}{lucy}[1][] {
-    \hskip0.25cm\begin{tikzpicture}[fnote/.style={cwhite,font={\lfseries\supertiny}}]
-        \fill[csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-0.5cm,\lucy@len@footheight);
-        \node[right,fnote] at(0,\lucy@len@footheight/2) {\lucy@nolink\insertshorttitle};
-        \node[fnote] at(\paperwidth/2,\lucy@len@footheight/2) {\lucy@nolink\insertshortauthor};
-        \node[left,fnote] at(\paperwidth-0.5cm,\lucy@len@footheight/2) {\lucy@nolink\insertframenumber\,/\,\totalframes};
-    \end{tikzpicture}%
-    \vskip0.25cm%
+\hskip.25cm\begin{tikzpicture}[fnote/.style={cwhite,font={\lfseries\supertiny}}]
+    \path[fill=csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-.5cm,\lucy@len@footheight);
+    \node[right,fnote] at(0,\lucy@len@footheight/2) {\lucy@nolink\insertshorttitle};
+    \node[fnote] at(\paperwidth/2,\lucy@len@footheight/2) {\lucy@nolink\insertshortauthor};
+    \node[left,fnote] at(\paperwidth-.5cm,\lucy@len@footheight/2) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
+\end{tikzpicture}%
+\vskip.25cm%
 }
 
 %% table of contents
-
 \setbeamertemplate{section in toc}{%
   {\ifbtl@usefont@\Fontauri\fi$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamercolor{subsection in toc}{bg=white,fg=structure}
 \setbeamertemplate{subsection in toc}{%
-  \hspace{1.2em}{\color{csecondary}\rule[0.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
+  \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
 \setbeamertemplate{section in toc shaded}[default][40]
 \setbeamertemplate{subsection in toc shaded}[default][40]
 \endinput
