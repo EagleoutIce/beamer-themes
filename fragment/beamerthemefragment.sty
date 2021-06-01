@@ -16,7 +16,6 @@
 
 %% packet options
 
-
 % font
 \newif\ifbtfr@usefont@ \btfr@usefont@true
 \DeclareOption{nofont}{\btfr@usefont@false} \DeclareOption{usefont}{\btfr@usefont@true}
@@ -31,9 +30,9 @@
 
 
 % load font
-\ifbtfr@usefont@%
+\ifbtfr@usefont@
     \RequirePackage[defaultfam,light,tabular,lining]{montserrat}%
-\fi%
+\fi
 
 % load libs
 \ifbtfr@loadlibs@
@@ -100,14 +99,14 @@
 % general
 \beamertemplatenavigationsymbolsempty
 \setbeamertemplate{itemize items}{\tiny\raisebox{1.45pt}{$\blacksquare$}}
-\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-0.85ex]{\fill (0,0) circle (1.65pt);}}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\fill (0,0) circle (1.65pt);}}
 
 \setbeamersize{text margin left=5mm,text margin right=5mm}
 
 \setcounter{tocdepth}{4} % subsubsections in toc
 
 % font
-\renewcommand{\baselinestretch}{1.05}
+\def\baselinestretch{1.05}
 
 \setbeamerfont{title}{size=\huge}
 \setbeamerfont{frametitle}{size=\large}
@@ -122,8 +121,6 @@
 \def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
 
 % color & style
-
-
 \setbeamercolor{headline}{fg=cprimary}
 
 \setbeamercolor{frametitle}{fg=cwhite}
@@ -158,15 +155,11 @@
 \setbeamercolor{alerted text}{fg=cakzent}
 \setbeamercolor{structure}{fg=cprimary}
 
-
-
 \setbeamercolor{frametitle continuation}{fg=cwhite}
 
 \setbeamertemplate{frametitle continuation}{\!, \insertcontinuationcount}
 
 %% metadata
-
-
 
 % we will populate the following fields:
 % authors can be also populated by the helper methods
@@ -190,10 +183,10 @@
 
 % iterators for handling and parsing author information.
 \def\btfr@@add@author#1{%
-    \let\btfr@@tmp@old@authors\btfr@register@authors%
+    \let\btfr@@tmp@old@authors\btfr@register@authors
     \expandafter\ifx\expandafter\\\btfr@@tmp@old@authors\\%
-    \xdef\btfr@register@authors{#1}\else%
-    \xdef\btfr@register@authors{\btfr@@tmp@old@authors,#1}\fi%
+    \xdef\btfr@register@authors{#1}\else
+    \xdef\btfr@register@authors{\btfr@@tmp@old@authors,#1}\fi
 }
 \let\addAuthor\btfr@@add@author
 
@@ -202,7 +195,7 @@
 \def\btfr@@typeset@author#1{%
     \setcounter{btfr@counter@tmp@a}{0}% start with an offset
     \foreach \@tmp in {#1}%
-        {\expandafter\ifx\expandafter\\\@tmp\\\else%
+        {\expandafter\ifx\expandafter\\\@tmp\\\else
             \stepcounter{btfr@counter@tmp@a}\fi}%
     \edef\btfr@authors@totallength{\arabic{btfr@counter@tmp@a}}%
     \setcounter{btfr@counter@tmp@a}{0} % stored the length of the list
@@ -210,10 +203,10 @@
         \expandafter\ifx\expandafter\\\btfr@@tmp@curauthor\\%empty => ignore
         \else\stepcounter{btfr@counter@tmp@a}%
             \ifnum\thebtfr@counter@tmp@a>1%
-            \ifnum\thebtfr@counter@tmp@a=\btfr@authors@totallength%
+            \ifnum\thebtfr@counter@tmp@a=\btfr@authors@totallength
                 ~und \else,\space\fi\fi
-            \expandafter\btfr@@parse@author\btfr@@tmp@curauthor\@nil%
-        \fi%
+            \expandafter\btfr@@parse@author\btfr@@tmp@curauthor\@nil
+        \fi
     }%
 }
 
@@ -230,8 +223,7 @@
     filecolor=cprimary,
     citecolor=cprimary,
     urlcolor=cprimary%
-}
-}
+}}
 
 
 %% title page
@@ -240,7 +232,7 @@
 \gdef\titleimage#1{\def\btfr@title@image{#1}} \titleimage{}
 
 \def\btfr@sepline{%
-        {\normalsize\color{ctpsymbol}{\huge$\llap{$\diamond$}\hspace*{-1pt}$}\rule[0.346\baselineskip]{\linewidth}{0.55pt}{\huge$\hspace*{-1pt}\rlap{$\diamond$}$}}%
+        {\normalsize\color{ctpsymbol}{\huge$\llap{$\diamond$}\hspace*{-1pt}$}\rule[.346\baselineskip]{\linewidth}{.55pt}{\huge$\hspace*{-1pt}\rlap{$\diamond$}$}}%
     }
 
 \defbeamertemplate*{title page}{fragment}[1][]{%
@@ -248,11 +240,11 @@
         % as canvas color can fail:
         \fill[ctpbackground] (current page.south west) rectangle (current page.north east);
         \node[align=center,text width=\linewidth,ctptext,font=\usebeamerfont{title}] at(current page.center) {%
-            \hbox{}\hfill\llap{\btfr@title@image}\leavevmode\vspace*{0.5ex}\newline
-            \begin{minipage}{0.95\linewidth}
+            \hbox{}\hfill\llap{\btfr@title@image}\leavevmode\vspace*{.5ex}\newline
+            \begin{minipage}{.95\linewidth}
             \btfr@sepline
             \begin{center}
-                \strut\inserttitle\vspace*{-0.5\topsep}
+                \strut\inserttitle\vspace*{-.5\topsep}
             \end{center}
             \btfr@sepline
             \begin{center}
@@ -274,8 +266,8 @@
         \fill[cakzent] (current page.north west) rectangle ($(current page.north east)+(0,-1cm)$);
         \node[right=14pt,ctptext,font=\usebeamerfont{frametitle}] at ($(current page.north west)+(0,-1cm/2-1mm)$) {{}\strut\insertframetitle\strut}; % \strut
         \fill[cprimary] (current page.north west) -| ($(current page.north east)+(0,-1mm)$) -| ($(current page.north east)+(-1mm,-9mm)$) -| ++(-14mm,8mm) -| cycle;
-        \node[scale=0.9] at($(current page.north east)+(-1mm-7mm,-5.5mm)$){\insertframenumber};
-    \end{tikzpicture}\vskip0.25cm%
+        \node[scale=.9] at($(current page.north east)+(-1mm-7mm,-5.5mm)$){\insertframenumber};
+    \end{tikzpicture}\vskip.25cm%
 }
 
 
@@ -284,26 +276,22 @@
 
 \defbeamertemplate*{footline}{fragment}[1][] {
     \begin{tikzpicture}[remember picture,overlay]
-        \expandafter\ifx\expandafter\\\insertsectionhead\\\else%
-        \expandafter\ifx\expandafter\\\insertsubsectionhead\\\else%
-            \node[above right,yshift=0.1cm,scale=0.6,opacity=0.7] at (current page.south west) {\strut\bgroup\insertsectionhead\egroup\;--\;\bgroup\insertsubsectionhead\egroup};
+        \expandafter\ifx\expandafter!\insertsectionhead!\else
+        \expandafter\ifx\expandafter!\insertsubsectionhead!\else
+            \node[above right,yshift=.1cm,scale=.6,opacity=.7] at (current page.south west) {\strut\bgroup\insertsectionhead\egroup\;--\;\bgroup\insertsubsectionhead\egroup};
         \fi\fi
         \fill[cakzent] (current page.south west) rectangle ($(current page.south east)+(0,1mm)$);
         \pgfmathsetmacro\curprocess{(\thepage-2)/(\insertdocumentendpage-2)*\paperwidth}
         \fill[cprimary] (current page.south west) rectangle ++(\curprocess pt,1mm);
-        % \node[above left,scale=0.9] at($(current page.south east)+(-0.5em,0.25em)$){\scriptsize\insertframenumber/\inserttotalframenumber};
-        % \node[above right,scale=0.9] at($(current page.south west)+(0.5em,0.25em)$){\scriptsize\insertshorttitle};
-    \end{tikzpicture}\vspace{0.5cm}
+    \end{tikzpicture}\vspace{.5cm}
 }
 
 
 %% table of contents
-
-
 \setbeamertemplate{section in toc}{%
   {$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamertemplate{subsection in toc}{%
-  \hspace{1.2em}{\color{cprimary!50!white}\rule[0.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
+  \hspace{1.2em}{\color{cprimary!50!white}\rule[.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
 
 \def\SectionLeft#1{\gdef\btfr@SectionLeft{#1}}
 \def\SectionRight#1{\gdef\btfr@SectionRight{#1}}
@@ -312,7 +300,7 @@
   {
      \begin{frame}[c]%<beamer>
      \frametitle{\secname}
-     \vspace*{-0.75\baselineskip}\begin{center}
+     \vspace*{-.75\baselineskip}\begin{center}
         \begin{columns}
             \begin{column}[c]{.45\textwidth}
                 \tableofcontents[currentsection,sectionstyle=show/shaded,subsectionstyle=show/show/hide,sections={\btfr@SectionLeft}]
@@ -326,12 +314,7 @@
   }
 
 
-
-
-
 %% intro & outro
-
-
 \def\Intro{
     \begin{frame}[noframenumbering,plain]
         \titlepage
@@ -367,13 +350,13 @@
         {\scriptsize\typesetAuthors}
         \bigskip\\
     }\hbox{}\hfill\llap{\btfr@title@image}\hbox{}
-    \leavevmode\\\expandafter\ifx\expandafter\\\insertinstitute\\\else\parbox{\linewidth}{
+    \leavevmode\\\expandafter\ifx\expandafter!\insertinstitute!\else\parbox{\linewidth}{
         \TextInstitute\\
         {\scriptsize\insertinstitute}
         \\[1cm]
     }\fi\\\hbox{}\vfill%
     \parbox{\linewidth}{\scriptsize
-        \expandafter\ifx\expandafter\\\btfr@register@short@brief\\\else\textbf{\btfr@register@short@brief}\smallskip\\\fi
+        \expandafter\ifx\expandafter!\btfr@register@short@brief!\else\textbf{\btfr@register@short@brief}\smallskip\\\fi
         \color{ctptext}\btfr@register@brief%
     }
     \begin{tikzpicture}[remember picture,overlay]
