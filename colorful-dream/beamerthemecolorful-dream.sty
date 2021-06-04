@@ -124,7 +124,7 @@
 \setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
 
 \setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
-\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{disabled subsection in toc}{\@declaredcolor{gray}\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
 
 % bibliography
 \setbeamertemplate{bibliography entry title}{}
@@ -199,7 +199,7 @@
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
     \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}% default color
-        \color{gray}\usebeamerfont{page number in head/foot}%
+        \@declaredcolor{gray}\usebeamerfont{page number in head/foot}%
         {\btcd@footline@data}%
     \end{beamercolorbox}%
 }
@@ -238,9 +238,9 @@
     \vskip2em\relax
     {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
-    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\\%
+    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\par%
     \begin{minipage}{.75\linewidth}
-        \color{gray}\ifx\insertauthor\@empty
+        \@declaredcolor{gray}\ifx\insertauthor\@empty
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
         \fi%
         \ifx\insertinstitut\@empty
@@ -253,8 +253,6 @@
 
 \AtBeginDocument{\begin{frame}[plain]\titlepage\end{frame}}
 
-
-
 %% build the emblem on the titlepage
 \ifbtcd@placeemblem@
 \def\btcd@emblem{\SetEmblem{Praktische Informatik}{\bfseries\faCode}}%
@@ -266,11 +264,9 @@
 
 \DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
 \DeclareFixedFont{\btcd@font@eulerSmall}{U}{eur}{b}{n}{9}
-
 \def\@@university@name{ulm university}
 
 % The code is based on the emblem generation algorithm of lilly
-
 %% Upper Text %% Symbol %% WHITE Color %% BACK Color %% Tikz %% Size %% FONTSIZE UPPER
 \def\btcd@generate@emblem#1#2#3#4#5#6#7#8#9{%
 % #1 Upper Text [Mathematik,...]
@@ -318,10 +314,7 @@
 }
 \fi
 
-
 %% theorems
-
-
 \ifbtcd@theorems@
 \def\th@exercise{%
     \normalfont % body font
@@ -352,34 +345,29 @@
 \fi
 
 %% outro
-
-
 \def\btcd@outro{}
 \def\outro#1{\gdef\btcd@outro{#1}}
-
 \def\btcd@email{}
 \def\email#1{\gdef\btcd@email{#1}}
-
 \def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
 
 \AtEndDocument{
-    \begingroup%
+    \begingroup
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
-    \begin{frame}[plain,b]%
-    {}\color{btcd@color@white}%
+    \begin{frame}[plain,b]\relax
+    \@declaredcolor{btcd@color@white}%
     \@ifundefined{ver@biblatex.sty}{}{%
-        \ifbtcd@bibliography@%
+        \ifbtcd@bibliography@
             \vspace*{2em}%
             \defbibheading{bibliography}[\refname]{}%
-            \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
-        \fi%
+            {\sectionbannerfalse\printBibCommand}\null\vfill\null
+        \fi
     }%
-    \pgfmathsetmacro\btcd@extlenw{\textwidth+2em}
-    \hspace*{-1em}\parbox{\btcd@extlenw pt}{\parbox[b]{.35\textwidth}{%
+    \hspace*{-1em}\parbox{\dimexpr\textwidth+2em}{\parbox[b]{.35\textwidth}{%
         {\small\textbf{\insertauthor}}\\
         {\footnotesize\btcd@outro{}}%
     }\hfill\parbox[b]{.35\textwidth}{%
-    {\hbox{}\hfill\footnotesize\href{mailto:\btcd@email}{\btcd@email}}%
+    {\null\hfill\footnotesize\href{mailto:\btcd@email}{\btcd@email}}%
     }}\vspace*{1em}%
     \end{frame}
     \endgroup
