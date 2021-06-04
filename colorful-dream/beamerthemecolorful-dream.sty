@@ -154,13 +154,13 @@
 %% head line
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2\p@\relax
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=2.7ex,dp=1.125ex]{frametitle}%
     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
 
 %% footer
-\def\btcd@footline@data{\insertshorttitle~~\ifdefempty{\insertsection}{}{\faAngleRight~~\insertsection}~~\ifdefempty{\insertsubsection}{}{\faAngleRight~~\insertsubsection}{\strut\hfill\insertframenumber\thinspace/\thinspace\inserttotalframenumber}}
+\def\btcd@footline@data{\insertshorttitle~~\ifx\insertsection\@empty\else\faAngleRight~~\insertsection~~\fi\ifx\insertsubsection\@empty\else\faAngleRight~~\insertsubsection\fi\strut\hfill\insertframenumber\thinspace/\thinspace\inserttotalframenumber}
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
