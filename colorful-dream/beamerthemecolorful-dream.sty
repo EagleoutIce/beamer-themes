@@ -249,10 +249,10 @@
     % Draw the upper Text in color #3 and extra formatting #7
     \path[draw,decorate,decoration={text along path,text align=center,%
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
-        (-1.275-#8,0) arc [start angle=180, end angle=00, radius=1.275+#8];% Offset #8
+        (-1.275-#8,0) arc [start angle=180, end angle=0, radius=1.275+#8];% Offset #8
 
     % Draw the two bullets in the main color of the tikzpicture
-    \path[draw] (-1.5,0) node {\textbullet} ++ (3,0) node {\textbullet};
+    \path[fill] (-1.5,0) circle [radius=2pt] ++(3,0) circle [radius=2pt];
     % Draw the lower text (\@@university@name) in color #3
     \path[draw,decorate,decoration={text along path,text align=center,
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
