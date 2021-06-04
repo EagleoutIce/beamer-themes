@@ -129,18 +129,17 @@
 \defbeamertemplate*{block example begin}{cdream}{
   \par\vskip\medskipamount%
   \beamercolorbox[colsep*=.75ex]{block title example}
-    \usebeamerfont*{block title example}\insertblocktitle%
+    \usebeamerfont*{block title example}\insertblocktitle
   \endbeamercolorbox
   {\parskip\z@\par}%
-  \ifbeamercolorempty[bg]{block title example}
-  {}
+  \ifbeamercolorempty[bg]{block title example}{}
   {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-.5\p@}}%
   \usebeamerfont{block body example}%
-  \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body example}%
+  \beamercolorbox[colsep*=.75ex,vmode]{block body example}%
     \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
 }
 \defbeamertemplate*{block example end}{cdream}
-{\end{beamercolorbox}\vskip\smallskipamount}
+{\endbeamercolorbox\vskip\smallskipamount}
 
 \setbeamertemplate{block example begin}[cdream]
 \setbeamertemplate{block example end}[cdream]
@@ -154,7 +153,7 @@
 
 %% head line
 \setbeamertemplate{frametitle}{%
-    \nointerlineskip\vskip-2\p@\relax
+    \nointerlineskip\vskip-2\p@
     \beamercolorbox[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
     \usebeamerfont{frametitle}\MakeUppercase\insertframetitle
     \endbeamercolorbox
@@ -165,9 +164,8 @@
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
-    \beamercolorbox[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}% default color
-        \@declaredcolor{gray}\usebeamerfont{page number in head/foot}%
-        {\btcd@footline@data}%
+    \beamercolorbox[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}%
+        \@declaredcolor{gray}\usebeamerfont{page number in head/foot}\btcd@footline@data
     \endbeamercolorbox
 }
 
@@ -176,11 +174,7 @@
 \let\nosframe\sectionbannerfalse
 
 \newcounter{btcd@sectioncount}
-\let\oldsection\section
-\renewcommand\section[2][]{%
-    \write\@auxout{\noexpand\global\noexpand \stepcounter{btcd@sectioncount}}%
-    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
-}
+\preto\section{\write\@auxout{\noexpand\stepcounter{btcd@sectioncount}}}
 
 \def\btcd@tikzcirc#1{\tikz{\path[draw,thick] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
 \def\fbtcd@tikzcirc#1{\tikz{\path[draw,thick,fill=btcd@color@wtext] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\fontseries{sb}\scriptsize,text=btcd@color@primary] {\thesection};}}
