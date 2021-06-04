@@ -128,9 +128,9 @@
 
 \defbeamertemplate*{block example begin}{cdream}{
   \par\vskip\medskipamount%
-  \begin{beamercolorbox}[colsep*=.75ex]{block title example}
+  \beamercolorbox[colsep*=.75ex]{block title example}
     \usebeamerfont*{block title example}\insertblocktitle%
-  \end{beamercolorbox}%
+  \endbeamercolorbox
   {\parskip\z@\par}%
   \ifbeamercolorempty[bg]{block title example}
   {}
@@ -155,9 +155,9 @@
 %% head line
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2\p@\relax
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
-    \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
-    \end{beamercolorbox}%
+    \beamercolorbox[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
+    \usebeamerfont{frametitle}\MakeUppercase\insertframetitle
+    \endbeamercolorbox
 }
 
 %% footer
@@ -165,10 +165,10 @@
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}% default color
+    \beamercolorbox[wd=\textwidth,ht=3ex,dp=1.5ex,leftskip=.35cm,rightskip=.35cm]{structure}% default color
         \@declaredcolor{gray}\usebeamerfont{page number in head/foot}%
         {\btcd@footline@data}%
-    \end{beamercolorbox}%
+    \endbeamercolorbox
 }
 
 %% start of setions
@@ -176,7 +176,6 @@
 \let\nosframe\sectionbannerfalse
 
 \newcounter{btcd@sectioncount}
-\setcounter{btcd@sectioncount}{0}
 \let\oldsection\section
 \renewcommand\section[2][]{%
     \write\@auxout{\noexpand\global\noexpand \stepcounter{btcd@sectioncount}}%
@@ -249,7 +248,7 @@
     % Draw the upper Text in color #3 and extra formatting #7
     \path[draw,decorate,decoration={text along path,text align=center,%
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}#7|#1}}]% Upper text
-        (-1.275-#8,0) arc [start angle=180, end angle=0, radius=1.275+#8];% Offset #8
+        (-1.3-#8,0) arc [start angle=180, end angle=0, radius=1.3+#8];% Offset #8
 
     % Draw the two bullets in the main color of the tikzpicture
     \path[fill] (-1.5,0) circle [radius=2pt] ++(3,0) circle [radius=2pt];
@@ -258,20 +257,22 @@
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
         (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
     % Draw the inner thick circle in #3
-    \path[draw,very thick, color=#3] (0,0) circle (1.25);
+    \path[draw,thick, color=#3] (0,0) circle [radius=1.25cm];
     % Draw the outer thick circle in #3
-    \path[draw,thick, color=#3] (0,0) circle (1.75);
+    \path[draw,thick, color=#3] (0,0) circle [radius=1.8cm];
     % Draw the inner 'dot' circle in #3
-    \path[draw,thin, color=#3] circle (1.2);
+    \path[draw,very thin, color=#3] circle [radius=1.15cm];
     % Draw the dots on the inner 'dot' circle in #3
     \foreach \r in {0,30,...,359} {
-        \path[fill,draw,#3] (\r:1.2) circle (.01) node[circle] (\r) {};
+        \path[fill,draw,#3] (\r:1.15cm) circle [radius=.15mm] coordinate (\r);
     }
     % Draw the connection-lines in the main color of the tikzpicture
     \foreach \r in {0,30,...,359}  {
-        \foreach \rr in {0,30,...,\r}{
-            \path[draw,very thin] (\r) -- (\rr);
-        }
+        \edef\target{\the\numexpr\r+60}
+        \ifnum\target>359
+            \edef\target{\the\numexpr\target-360}
+        \fi
+        \path[draw,very thin] (\r) to[bend right=7] (\target);
     }
     % Draw the symbol #2 shading with an offset of #9 and a size of #6
     \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
