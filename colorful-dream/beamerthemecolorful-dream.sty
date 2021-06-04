@@ -1,7 +1,5 @@
-
 %% Version: 1.0
 %% Author:  Florian Sihler, 14.08.2020
-%%
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% I've started the development on WiSe2019/2020, this is the ported and
 %% standalone version.
@@ -10,41 +8,25 @@
 %%    All internal commands and registers will be prefixed with 'btcd@'
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
-
 %% packet options
-% font
 \newif\ifbtcd@usefont@ \btcd@usefont@true
 \DeclareOption{nofont}{\btcd@usefont@false} \DeclareOption{usefont}{\btcd@usefont@true}
-
-% libs
 \newif\ifbtcd@loadlibs@ \btcd@loadlibs@true
 \DeclareOption{nolibs}{\btcd@loadlibs@false} \DeclareOption{libs}{\btcd@loadlibs@true}
-
-% emblem
 \newif\ifbtcd@placeemblem@ % default: no
 \DeclareOption{noemblem}{\btcd@placeemblem@false} \DeclareOption{emblem}{\btcd@placeemblem@true}
-% IF ENABLED: SetEmblem
-
-% theorems
 \newif\ifbtcd@theorems@ % default: no
 \DeclareOption{notheorems}{\btcd@theorems@false} \DeclareOption{theorems}{\btcd@theorems@true}
-
-% bibliography
 \newif\ifbtcd@bibliography@ \btcd@bibliography@true % default: yes/ifloaded
 \DeclareOption{nobib}{\btcd@bibliography@false} \DeclareOption{showbib}{\btcd@bibliography@true}
-
 \ProcessOptions
 
 %% load packages
-% load font
 \ifbtcd@usefont@ \RequirePackage[defaultfam,light,tabular,lining]{montserrat} \fi
 
 % load libs
-\ifbtcd@loadlibs@
-\RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox}
-\usetikzlibrary{calc,decorations.text}
-\fi
-
+\ifbtcd@loadlibs@ \RequirePackage{sfmath,tikz,fontawesome,multicol,etoolbox}
+\usetikzlibrary{calc,decorations.text} \fi
 
 %% the color profile
 % #1: primary, #2: secondary, #3: alerted
@@ -57,30 +39,16 @@
 % RGB(049,068,095) RGB(82,115,143) RGB(137,64,75)
 \SetColorProfile{049,068,095}{82,115,143}{137,64,75}
 
-\iffalse % example others
-% Theme 2
-% RGB(018,040,024) RGB(046,139,087) RGB(137,64,75)
-\SetColorProfile{018,040,024}{046,139,087}{137,64,75}
-
-% Theme 3
-% RGB(018,040,042) RGB(23,96,103) RGB(81,72,79)
-\SetColorProfile{018,040,024}{023,96,103}{81,72,79}
-\fi
-
-\definecolor{btcd@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
-\definecolor{btcd@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
+\definecolor{btcd@color@white}{RGB}{254,254,254} % RGB(254,254,254)
+\definecolor{btcd@color@black}{RGB}{009,009,009} % RGB(009,009,009)
 
 \colorlet{btcd@color@emblem}{gray}
-
 \colorlet{btcd@color@wtext}{btcd@color@white!95!btcd@color@primary}
 \colorlet{btcd@color@btext}{btcd@color@primary!20!btcd@color@black}
 \colorlet{btcd@color@text}{btcd@color@black!95!btcd@color@white}
-
 \colorlet{btcd@solidF}{btcd@color@primary!25!btcd@color@black}
 
 %% shortcut commands for the user
-
-
 \newcommand\hl[1]{\textcolor{btcd@color@secondary}{#1}}
 \newcommand\imp[1]{\emph{#1}}
 
@@ -121,10 +89,10 @@
 \setbeamerfont{section in toc}{size=\fontsize{12}{14}}
 \setbeamerfont{subsection in toc}{size=\fontsize{8}{12}}
 \setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
-\setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
+\setbeamertemplate{section in toc}{\medskip\vfill\null\inserttocsection\par}
 
-\setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
-\setbeamertemplate{disabled subsection in toc}{\@declaredcolor{gray}\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25\p@}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{disabled subsection in toc}{\@declaredcolor{gray}\qquad{\scalebox{.65}{\raisebox{1.25\p@}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
 
 % bibliography
 \setbeamertemplate{bibliography entry title}{}
@@ -141,8 +109,7 @@
 \setbeamertemplate{bibliography item}[text]
 
 \setbeamertemplate{itemize items}{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
-\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
-% \setlength{\leftmargini}{1.15em}
+\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill circle (1.65pt);}}
 \setbeamerfont{date}{size=\fontsize{10}{11}}
 
 \defbeamertemplate{description item}{colorful-dream}{\textsc{\small\insertdescriptionitem:}}
@@ -157,8 +124,7 @@
 \addtolength\btcd@leftmargini\labelsep
 \preto\itemize{\leftmargini=\btcd@leftmargini}
 
-\defbeamertemplate*{block example begin}{cdream}
-{
+\defbeamertemplate*{block example begin}{cdream}{
   \par\vskip\medskipamount%
   \begin{beamercolorbox}[colsep*=.75ex]{block title example}
     \usebeamerfont*{block title example}\insertblocktitle%
@@ -166,7 +132,7 @@
   {\parskip0pt\par}%
   \ifbeamercolorempty[bg]{block title example}
   {}
-  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-0.5pt}}%
+  {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-.5\p@}}%
   \usebeamerfont{block body example}%
   \begin{beamercolorbox}[colsep*=.75ex,vmode]{block body example}%
     \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
@@ -187,9 +153,9 @@
 
 %% head line
 \setbeamertemplate{frametitle}{%
-    \nointerlineskip\vskip-2pt\relax
+    \nointerlineskip\vskip-2\p@\relax
     \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
-     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
+    \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
 
@@ -310,8 +276,7 @@
     \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
     % Draw the symbol #2 with size #6 (same as shadow), color of #4
     \path[draw] (.02,0) node {\fontsize{#6}{16pt}\selectfont\color{#4}#2};
-\end{tikzpicture}
-}
+\end{tikzpicture}}
 \fi
 
 %% theorems
@@ -335,7 +300,6 @@
 
 \theoremstyle{solve}
 \newtheorem{solve}{Lösung}
-
 \def\th@definition{%
     \normalfont % body font
     \setbeamercolor{block title example}{bg=btcd@color@primary!75!black,fg=btcd@color@white}
@@ -364,7 +328,7 @@
         \fi
     }%
     \hspace*{-1em}\parbox{\dimexpr\textwidth+2em}{\parbox[b]{.35\textwidth}{%
-        {\small\textbf{\insertauthor}}\\
+        {\small\textbf{\insertauthor}}\par
         {\footnotesize\btcd@outro{}}%
     }\hfill\parbox[b]{.35\textwidth}{%
     {\null\hfill\footnotesize\href{mailto:\btcd@email}{\btcd@email}}%
@@ -374,8 +338,6 @@
 }
 
 %% disabled entry
-
-
 % disable hyperlink on target if disabled part
 \long\def\btcd@disabled@subsectionintoc#1#2#3#4#5#6{%
 \ifnum\c@tocdepth>1%
@@ -398,8 +360,7 @@
     }%
 }}%
 \beamer@restoreanother
-}\beamer@todo\fi\fi
-}
+}\beamer@todo\fi\fi}
 
 \def\fakesubsection{\@dblarg\btcd@fakesubsection}
 \def\btcd@fakesubsection[#1]#2{%
