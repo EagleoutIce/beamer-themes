@@ -178,7 +178,7 @@
 \newcounter{btcd@sectioncount}
 \setcounter{btcd@sectioncount}{0}
 \let\oldsection\section
-\renewcommand{\section}[2][]{%
+\renewcommand\section[2][]{%
     \write\@auxout{\noexpand\global\noexpand \stepcounter{btcd@sectioncount}}%
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi%
 }
@@ -204,7 +204,7 @@
 \setbeamertemplate{title page}{%
     \vskip2em\relax
     {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
-    {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\(\;\circ\;\){\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
+    {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle$\;\circ\;${\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
     \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\par%
     \begin{minipage}{.75\linewidth}
         \@declaredcolor{gray}\ifx\insertauthor\@empty
