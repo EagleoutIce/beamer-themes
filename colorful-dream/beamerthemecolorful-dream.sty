@@ -36,8 +36,8 @@
 \definecolor{btcd@color@alerted}{RGB}{#3}%
 }
 
-% RGB(63, 43, 44) RGB(237,39,66) RGB(173, 163, 136)
-\SetColorProfile{63,43,44}{237,39,66}{173, 163, 136}
+% RGB(21, 26, 29) RGB(79, 135, 62) RGB(0, 126, 135)
+\SetColorProfile{21, 26, 29}{79, 135, 62}{0, 126, 135}
 
 \definecolor{btcd@color@white}{RGB}{254,254,254} % RGB(254,254,254)
 \definecolor{btcd@color@black}{RGB}{009,009,009} % RGB(009,009,009)
@@ -154,7 +154,7 @@
 %% head line
 \setbeamertemplate{frametitle}{%
     \nointerlineskip\vskip-2\p@\relax
-    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=2.7ex,dp=1.125ex]{frametitle}%
+    \begin{beamercolorbox}[wd=\paperwidth,leftskip=.35cm,rightskip=.35cm,ht=3ex,dp=1.25ex]{frametitle}%
     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}%
     \end{beamercolorbox}%
 }
@@ -281,29 +281,39 @@
 
 %% theorems
 \ifbtcd@theorems@
+\colorlet{btcd@color@exercise}{btcd@color@alerted!25!btcd@color@black}
+\colorlet{btcd@color@exercise@b}{btcd@color@exercise!10}
+
 \def\th@exercise{%
     \normalfont % body font
-    \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@solidF}
-    \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+    \setbeamercolor{block title example}{use=structure,fg=btcd@color@white,bg=btcd@color@exercise}
+    \setbeamercolor{block body example}{parent=normal text,use=block title,bg=btcd@color@exercise@b}
     \def\inserttheoremblockenv{exampleblock}
 }
 
 \theoremstyle{exercise}
 \newtheorem{exercise}{Aufgabe}
 
+\colorlet{btcd@color@solve}{btcd@color@alerted!25!btcd@color@black}
+\colorlet{btcd@color@solve@b}{btcd@color@solve!10}
+
 \def\th@solve{%
     \normalfont % body font
-    \setbeamercolor{block title example}{bg=btcd@color@alerted,fg=btcd@color@white}
-    \setbeamercolor{block body example}{bg=btcd@color@alerted!10,fg=btcd@color@black}
+    \setbeamercolor{block title example}{bg=btcd@color@solve,fg=btcd@color@white}
+    \setbeamercolor{block body example}{bg=btcd@color@solve@b,fg=btcd@color@black}
     \def\inserttheoremblockenv{exampleblock}
 }
 
 \theoremstyle{solve}
 \newtheorem{solve}{Lösung}
+
+\colorlet{btcd@color@definition}{btcd@color@primary!75!btcd@color@black}
+\colorlet{btcd@color@definition@b}{btcd@color@primary!10}
+
 \def\th@definition{%
     \normalfont % body font
-    \setbeamercolor{block title example}{bg=btcd@color@primary!75!black,fg=btcd@color@white}
-    \setbeamercolor{block body example}{bg=btcd@color@primary!75!black!10,fg=btcd@color@black}
+    \setbeamercolor{block title example}{bg=btcd@color@definition,fg=btcd@color@white}
+    \setbeamercolor{block body example}{bg=btcd@color@definition@b,fg=btcd@color@black}
     \def\inserttheoremblockenv{exampleblock}
 }
 \fi
