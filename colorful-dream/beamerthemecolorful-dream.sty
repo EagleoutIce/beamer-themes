@@ -29,18 +29,20 @@
 \usetikzlibrary{calc,decorations.text} \fi
 
 %% the color profile
-% #1: primary, #2: secondary, #3: alerted
-\newcommand*\SetColorProfile[3]{%
-\definecolor{btcd@color@primary}{RGB}{#1}%
-\definecolor{btcd@color@secondary}{RGB}{#2}%
-\definecolor{btcd@color@alerted}{RGB}{#3}%
+% #1: primary, #2: secondary, #3: alerted, #4 alternative (may be primary)
+\newcommand*\SetColorProfile[4][]{%
+\definecolor{btcd@color@primary}{RGB}{#2}%
+\definecolor{btcd@color@secondary}{RGB}{#3}%
+\definecolor{btcd@color@alerted}{RGB}{#4}%
+\ifx!#1!\definecolor{btcd@color@alternative}{RGB}{#2}\else
+\definecolor{btcd@color@alternative}{RGB}{#1}\fi
 }
 
-% RGB(21, 26, 29) RGB(79, 135, 62) RGB(0, 126, 135)
-\SetColorProfile{21, 26, 29}{79, 135, 62}{0, 126, 135}
+% RGB(240, 100, 73) RGB(21, 26, 29) RGB(79, 135, 62) RGB(0, 126, 135)
+\SetColorProfile[240, 100, 73]{21, 26, 29}{79, 135, 62}{0, 126, 135}
 
-\definecolor{btcd@color@white}{RGB}{254,254,254} % RGB(254,254,254)
-\definecolor{btcd@color@black}{RGB}{009,009,009} % RGB(009,009,009)
+\definecolor{btcd@color@white}{RGB}{254,254,254} % RGB(254,253,252)
+\definecolor{btcd@color@black}{RGB}{009,009,009} % RGB(7,8,9)
 
 \colorlet{btcd@color@emblem}{gray}
 \colorlet{btcd@color@wtext}{btcd@color@white!95!btcd@color@primary}
@@ -129,7 +131,7 @@
   \begin{beamercolorbox}[colsep*=.75ex]{block title example}
     \usebeamerfont*{block title example}\insertblocktitle%
   \end{beamercolorbox}%
-  {\parskip0pt\par}%
+  {\parskip\z@\par}%
   \ifbeamercolorempty[bg]{block title example}
   {}
   {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-.5\p@}}%
@@ -142,7 +144,6 @@
 
 \setbeamertemplate{block example begin}[cdream]
 \setbeamertemplate{block example end}[cdream]
-
 
 \setbeamertemplate{theorems}[numbered]
 
