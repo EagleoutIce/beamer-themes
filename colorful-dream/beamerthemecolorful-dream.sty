@@ -248,7 +248,7 @@
     % Draw the lower text (\@@university@name) in color #3
     \path[draw,decorate,decoration={text along path,text align=center,
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
-        (-1.6,0) arc [start angle=-180, end angle=00, radius=1.6];
+        (-1.6,0) arc [start angle=-180, end angle=0, radius=1.6];
     % Draw the inner thick circle in #3
     \path[draw,thick, color=#3] (0,0) circle [radius=1.25cm];
     % Draw the outer thick circle in #3
@@ -265,7 +265,7 @@
         \ifnum\target>359
             \edef\target{\the\numexpr\target-360}
         \fi
-        \path[draw,very thin] (\r) to[bend right=7] (\target);
+        \path[draw,very thin] (\r) to[bend right=9] (\target);
     }
     % Draw the symbol #2 shading with an offset of #9 and a size of #6
     \node[opacity=.5] at(.02+#9,-#9) {\fontsize{#6}{16pt}\selectfont#2};
@@ -302,7 +302,7 @@
 \theoremstyle{solve}
 \newtheorem{solve}{Lösung}
 
-\colorlet{btcd@color@definition}{btcd@color@primary!75!btcd@color@black}
+\colorlet{btcd@color@definition}{btcd@color@primary}
 \colorlet{btcd@color@definition@b}{btcd@color@primary!10}
 
 \def\th@definition{%
