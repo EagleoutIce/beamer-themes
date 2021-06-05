@@ -195,9 +195,9 @@
 
 \setbeamertemplate{title page}{%
     \vskip2em\relax
-    {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}\par}
-    {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle$\;\circ\;${\usebeamerfont{date}\usebeamercolor{date}\insertdate}\par}%
-    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox{!}{8em}{\btcd@title@image}\vfill}\par%
+    {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase\inserttitle}\par
+    {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\ --- {\usebeamerfont{date}\usebeamercolor{date}\insertdate}}\par
+    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox!{8em}{\btcd@title@image}\vfill}\par%
     \begin{minipage}{.75\linewidth}
         \@declaredcolor{gray}\ifx\insertauthor\@empty
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
@@ -205,9 +205,9 @@
         \ifx\insertinstitut\@empty
         \else{\usebeamerfont{institute}\usebeamercolor{institute}\insertinstitute\par}%
         \fi
-    \end{minipage}\nolinebreak\hskip2em\nolinebreak\begin{minipage}{.25\linewidth}
-        \ifbtcd@placeemblem@\hfill\scalebox{.6}{\btcd@emblem}\fi%
-    \end{minipage}\vskip1em\relax
+    \end{minipage}\hfill
+    \savebox0{\ifbtcd@placeemblem@\scalebox{.5}{\btcd@emblem}\fi}%
+    \begin{minipage}{\wd0}\usebox0\end{minipage}\par\vskip1e%
 }
 
 \AtBeginDocument{\begin{frame}[plain]\titlepage\end{frame}}
@@ -248,7 +248,7 @@
     % Draw the lower text (\@@university@name) in color #3
     \path[draw,decorate,decoration={text along path,text align=center,
             text={|\footnotesize\btcd@font@eulerNormal\color{#3}|\@@university@name}}]
-        (-1.6,0) arc [start angle=-180, end angle=0, radius=1.6];
+        (-1.6,0) arc [start angle=-180, end angle=0, radius=1.65];
     % Draw the inner thick circle in #3
     \path[draw,thick, color=#3] (0,0) circle [radius=1.25cm];
     % Draw the outer thick circle in #3
