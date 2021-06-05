@@ -1,10 +1,8 @@
-%% Version: 1.0
 %% Author:  Florian Sihler, 14.08.2020
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% I've started the development on WiSe2019/2020, this is the ported and
 %% standalone version.
 %%                      ulm university, SoSe2020
-%% Development notes:
 %%    All internal commands and registers will be prefixed with 'btcd@'
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemecolorful-dream}[2019/08/17 v1.0.0 Latex-Beamertheme colorful-dream]
@@ -68,14 +66,11 @@
 \setbeamercolor{subtitle}{parent=normal text}
 \setbeamercolor{institute}{parent=normal text}
 
-% Content
 \setbeamercolor{frametitle}{fg=btcd@color@wtext,bg=btcd@color@primary}
-
-% Page Number
 \setbeamercolor{page number in head/foot}{fg=btcd@color@btext!50!btcd@color@white}
 
 \setbeamerfont{title}{size=\fontsize{22}{22}}
-\setbeamerfont{subtitle}{size=\fontsize{12}{14}}
+\setbeamerfont{subtitle}{size=\fontsize{11}{14}}
 \setbeamerfont{section title}{size=\fontsize{19}{19}}
 
 \setbeamercolor{description item}{fg=btcd@color@black}
@@ -195,9 +190,9 @@
 
 \setbeamertemplate{title page}{%
     \vskip2em\relax
-    {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase\inserttitle}\par
+    {\usebeamerfont{title}\usebeamercolor{title}\MakeUppercase\inserttitle}\smallskip\par
     {\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle\ --- {\usebeamerfont{date}\usebeamercolor{date}\insertdate}}\par
-    \vfill\parbox[t][10.5em]{\linewidth}{\vfill\centering\resizebox!{8em}{\btcd@title@image}\vfill}\par%
+    \vfill\parbox[t][11em]{\linewidth}{\vfill\centering\resizebox!{8em}{\btcd@title@image}\vfill}\par%
     \begin{minipage}{.75\linewidth}
         \@declaredcolor{gray}\ifx\insertauthor\@empty
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
@@ -205,9 +200,9 @@
         \ifx\insertinstitut\@empty
         \else{\usebeamerfont{institute}\usebeamercolor{institute}\insertinstitute\par}%
         \fi
-    \end{minipage}\hfill
-    \savebox0{\ifbtcd@placeemblem@\scalebox{.5}{\btcd@emblem}\fi}%
-    \begin{minipage}{\wd0}\usebox0\end{minipage}\par\vskip1e%
+    \end{minipage}\nolinebreak\hskip6mm\nolinebreak\begin{minipage}{.25\linewidth}
+        \ifbtcd@placeemblem@\hfill\scalebox{.5}{\btcd@emblem}\fi%
+    \end{minipage}\par
 }
 
 \AtBeginDocument{\begin{frame}[plain]\titlepage\end{frame}}
