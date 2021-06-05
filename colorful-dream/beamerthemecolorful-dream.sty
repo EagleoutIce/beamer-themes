@@ -127,11 +127,11 @@
     \usebeamerfont*{block title example}\insertblocktitle
   \endbeamercolorbox
   {\parskip\z@\par}%
-  \ifbeamercolorempty[bg]{block title example}{}
+  \ifbeamercolorempty[bg]{block title example}{}%
   {\ifbeamercolorempty[bg]{block body example}{}{\nointerlineskip\vskip-.5\p@}}%
   \usebeamerfont{block body example}%
   \beamercolorbox[colsep*=.75ex,vmode]{block body example}%
-    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.625ex}\vbox{}%
 }
 \defbeamertemplate*{block example end}{cdream}
 {\endbeamercolorbox\vskip\smallskipamount}
