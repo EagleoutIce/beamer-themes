@@ -359,6 +359,8 @@
     }
 }
 
+\def\premail#1{\def\btdl@premail{#1}}\let\btdl@premail\@empty
+
 \AtEndDocument{
 \begingroup%
 \setbeamercolor{background canvas}{bg=btdl@color@primary}%
@@ -378,7 +380,7 @@
     {\small\textbf{\insertauthor}}\\
     {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{0.35\textwidth}{%
-{\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
+{\hbox{}\hfill\footnotesize\btdl@premail\href{mailto:\btdl@email}{\btdl@email}}%
 }}%
 \end{minipage}
 \end{frame}
@@ -386,8 +388,6 @@
 }
 
 %% special frames
-
-
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
 \newenvironment{layout-imageonly}{\leavevmode%
 \hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
