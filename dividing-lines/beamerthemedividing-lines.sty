@@ -312,14 +312,16 @@
 }
 
 \def\PostTitlepage{}
+\def\PostTitlepage{}
 \AtBeginDocument{%
 \begingroup
 \begin{frame}[plain,b]%
+    \PreTitlepage%
     \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage
     \end{minipage}%
 \begin{tikzpicture}[overlay,remember picture]%
-    \node[above left,scale=0.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
+    \node[above left,scale=.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
 \end{tikzpicture}\PostTitlepage%
 \end{frame}%
 \endgroup
