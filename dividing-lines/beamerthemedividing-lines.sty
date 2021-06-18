@@ -340,8 +340,11 @@
 
 \AtEndPreamble{
     \@ifundefined{ver@biblatex.sty}{}{%
+    \def\btdl@lhook#1{\href{\thefield{url}}{#1}}%
     \DeclareBibliographyDriver{btdl@bibtheme}{%
-        \usebibmacro{bibindex}%
+        \let\@tmp\@empty
+        \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
+        \@tmp{\usebibmacro{bibindex}%
         \usebibmacro{begentry}%
         \usebibmacro{author/editor}%
         \setunit{\labelnamepunct}\newblock
@@ -349,7 +352,7 @@
         \newunit\newblock
         \usebibmacro{date}%
         \newunit\newblock
-        \usebibmacro{finentry}}
+        \usebibmacro{finentry}}}
         \DeclareBibliographyAlias{article}{btdl@bibtheme}
 \DeclareBibliographyAlias{book}{btdl@bibtheme}
 \DeclareBibliographyAlias{booklet}{btdl@bibtheme}
