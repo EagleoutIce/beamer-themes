@@ -42,7 +42,16 @@
 
 %% the color profile
 % #1: primary, #2: secondary, #3: alerted
-\newcommand*\SetColorProfile[3]{%
+\newcommand*\SetColorProfile{%
+\@ifstar\btdl@SetColorProfile\btdl@SetColorProfile@define
+}
+\def\btdl@SetColorProfile#1#2#3{%
+\colorlet{btdl@color@primary}{#1}%
+\colorlet{btdl@color@secondary}{#2}%
+\colorlet{btdl@color@alerted}{#3}%
+}
+
+\def\btdl@SetColorProfile@define#1#2#3{%
 \definecolor{btdl@color@primary}{RGB}{#1}%
 \definecolor{btdl@color@secondary}{RGB}{#2}%
 \definecolor{btdl@color@alerted}{RGB}{#3}%
