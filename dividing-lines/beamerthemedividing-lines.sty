@@ -41,8 +41,6 @@
 \fi
 
 %% the color profile
-
-
 % #1: primary, #2: secondary, #3: alerted
 \newcommand*\SetColorProfile[3]{%
 \definecolor{btdl@color@primary}{RGB}{#1}%
@@ -65,13 +63,10 @@
 \colorlet{btdl@solidF}{btdl@color@primary!25!btdl@color@black}
 
 %% shortcut commands for the user
-
-
 \newcommand\hl[1]{\textcolor{btdl@color@secondary}{#1}}
 \newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
-
 \colorlet{btdl@color@background}{btdl@color@primary!1!}
 \setbeamercolor{background canvas}{bg=btdl@color@background}
 
@@ -124,8 +119,8 @@
 \setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
 \setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
 
-\setbeamertemplate{subsection in toc}{\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
-\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{0.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
+\setbeamertemplate{disabled subsection in toc}{\color{gray}\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
 
 % bibliography
 \setbeamertemplate{bibliography entry title}{}
@@ -143,8 +138,10 @@
 \setbeamertemplate{bibliography item}[text]
 
 
-\setbeamertemplate{itemize items}{\scalebox{0.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\setbeamertemplate{itemize items}{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
+\settowidth{\leftmargini}{\usebeamertemplate{itemize items}}
+\addtolength{\leftmargini}{\labelsep}
 
 \defbeamertemplate{description item}{colorful-dream}{\fontseries{medium}\selectfont\insertdescriptionitem:\hfill}
 \setbeamertemplate{description item}[colorful-dream]
