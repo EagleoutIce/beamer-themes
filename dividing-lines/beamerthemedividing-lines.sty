@@ -169,25 +169,22 @@
 
 \setbeamertemplate{theorem end}{\end{\inserttheoremblockenv}}
 
-
 %% head line
-
-
 \newlength{\btdl@leftindent} \btdl@leftindent=6.5em
 \setbeamersize{sidebar width left=\btdl@leftindent}
 
 \newlength{\btdl@frametitle@ht} \btdl@frametitle@ht=5ex
 \newlength{\btdl@frametitle@dp} \btdl@frametitle@dp=1.25ex
+
+\def\btdl@slideshade{35}
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber}}\insertframetitle\strut%
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertslidenumber>1\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut%
     \end{beamercolorbox}%
 }
 
 %% Sidebar
-
-
 \def\btdl@sidebar@content{}
 
 \def\SidebarCite#1{%
@@ -202,15 +199,11 @@
 \hskip\beamer@leftmargin\parbox[b][\paperheight-\beamer@leftmargin]{\btdl@leftindent
 -\btdl@sidebar@offset}{\parskip=\medskipamount \parindent=\z@%
 \fontsize{3}{4}\selectfont\btdl@sidebar@content%
-}
-}
+}}
 
 %% footer
-
-
 % idee, zeige Auszug   'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
-
 \AtBeginDocument{%
     \pgfmathsetmacro\btdl@sectionmax@target@preview{int(min(6,\arabic{btdl@sectioncount}))}%
 }
@@ -258,8 +251,6 @@
 }
 
 %% start of setions
-
-
 \newif\ifsectionbanner \sectionbannertrue
 \let\nosframe\sectionbannerfalse
 
