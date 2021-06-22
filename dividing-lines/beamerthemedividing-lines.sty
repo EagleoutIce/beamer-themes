@@ -14,13 +14,10 @@
 % footfade
 \newif\ifbtdl@footfade@ \btdl@footfade@true
 \DeclareOption{nofootfade}{\btdl@footfade@false} \DeclareOption{footfade}{\btdl@footfade@true}
-
 \DeclareOption{nocenterfoot}{\def\btdl@printshort@mid{~\hfill}} \DeclareOption{centerfoot}{\def\btdl@printshort@mid{\quad}}
-
 % libs
 \newif\ifbtdl@loadlibs@ \btdl@loadlibs@true
 \DeclareOption{nolibs}{\btdl@loadlibs@false} \DeclareOption{libs}{\btdl@loadlibs@true}
-
 % bibliography
 \newif\ifbtdl@bibliography@ \btdl@bibliography@true % default: yes/ifloaded
 \DeclareOption{nobib}{\btdl@bibliography@false} \DeclareOption{showbib}{\btdl@bibliography@true}
@@ -29,8 +26,6 @@
 \ProcessOptions
 
 %% load packages
-
-
 \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
 \def\sbfamily{\fontseries{sb}\selectfont}
 
@@ -319,8 +314,6 @@
 }
 
 %% outro
-
-
 \def\btdl@outro{}
 \def\outro#1{\gdef\btdl@outro{#1}}
 
@@ -364,6 +357,9 @@
     }
 }
 
+%% Allow for another thing on the right side
+\def\btdl@outro@right{}
+\def\outroright#1{\gdef\btdl@outro@right{#1}}
 
 \AtEndDocument{
 \begingroup%
@@ -381,10 +377,10 @@
 }%
 \vfill\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
-    {\small\textbf{\insertauthor}}\\
+    {\small\ifx\btdl@outro@right\@empty\textbf{\insertauthor}\else\href{mailto:\btdl@email}{\textbf{\insertauthor}}\fi}\\
     {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{0.35\textwidth}{%
-{\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
+{\hbox{}\hfill\footnotesize\ifx\btdl@outro@right\@empty\href{mailto:\btdl@email}{\btdl@email}\else\btdl@outro@right\fi}%
 }}%
 \end{minipage}
 \end{frame}
@@ -397,10 +393,7 @@
 \hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
 }{\end{minipage}}
 
-
-
 %% license
-
 \RequirePackage{ccicons}
 \def\license{\@dblarg\btdl@license}
 \def\btdl@license[#1]#2{\gdef\@license{#2}\gdef\@short@license{#1}}
