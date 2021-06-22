@@ -364,7 +364,6 @@
     }
 }
 
-\def\premail#1{\def\btdl@premail{#1}}\let\btdl@premail\@empty
 
 \AtEndDocument{
 \begingroup%
@@ -385,7 +384,7 @@
     {\small\textbf{\insertauthor}}\\
     {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{0.35\textwidth}{%
-{\hbox{}\hfill\footnotesize\btdl@premail\href{mailto:\btdl@email}{\btdl@email}}%
+{\hbox{}\hfill\footnotesize\href{mailto:\btdl@email}{\btdl@email}}%
 }}%
 \end{minipage}
 \end{frame}
