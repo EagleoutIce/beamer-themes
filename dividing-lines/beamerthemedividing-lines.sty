@@ -208,6 +208,24 @@
 % def by op \def\btdl@printshort@mid{\hfill}
 \def\btdl@printshort@border{\hfill}
 
+\newsavebox\btdl@subs@off \savebox\btdl@subs@off{\tikz{\path[draw,lightgray!70!white] circle [radius=2\p@];}}
+\newsavebox\btdl@subs@on \savebox\btdl@subs@on{\tikz{\path[fill,draw,lightgray!70!white] circle [radius=2\p@];}}
+\def\btdl@subsections@low{{%
+\beamer@currentsubsection=0%
+\def\sectionentry##1##2##3##4##5{}%
+\def\slideentry##1##2##3##4##5##6{\ifnum##6=\c@part\ifnum##1=\c@section%
+    \ifnum##2>\beamer@currentsubsection%
+    \beamer@currentsubsection=##2%
+    \box\beamer@sectionbox\hskip1.875ex%
+    \setbox\beamer@sectionbox=
+    \hbox{\ifnum\c@subsection=##2\beamer@link(##4){\usebox\btdl@subs@on}\else\beamer@link(##4){\usebox\btdl@subs@off}\fi}%
+    \ht\beamer@sectionbox=1.875ex%
+    \dp\beamer@sectionbox=.75ex%
+    \fi\fi\fi\ignorespaces}%
+\hskip.3cm\setbox\beamer@sectionbox=\hbox{}%
+\hskip-1.875ex\dohead%
+\box\beamer@sectionbox\hfil\hskip.3cm}}
+
 \newsavebox\btdl@box@lowforsec
 \def\btdl@typesetfiveforcurrent{%
 \ifnum\btdl@sectionmax@target@preview>0
@@ -228,8 +246,8 @@
         \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
         \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}
         % note: we always calc the non(semi)bold thickness
-        \ifnum\value{section}=\i \sbfamily\hb@xt@\z@{\smash{\raisebox{-\ht\btdl@box@lowforsec-1ex}{\hskip.5\wd\btdl@box@lowforsec\relax\hb@xt@\z@{\hss xYZ abc def\hss}}}}\fi
-        \parbox{\wd\btdl@box@lowforsec+0.5em}{\strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
+        \ifnum\value{section}=\i \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{-\ht\btdl@box@lowforsec-.6ex}{\hskip.5\wd\btdl@box@lowforsec\relax\hb@xt@\z@{\hss\btdl@subsections@low\hss}}}}\sbfamily\fi
+        \parbox{\wd\btdl@box@lowforsec+.5em}{\strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
     }%
     \btdl@printshort@border~~\btdl@footer@tsymb{\inserttotalframenumber}%
 \fi%
