@@ -175,7 +175,7 @@
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertslidenumber>1\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut%
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut%
     \end{beamercolorbox}%
 }
 
