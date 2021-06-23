@@ -228,7 +228,7 @@
         \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
         \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}
         % note: we always calc the non(semi)bold thickness
-        \ifnum\value{section}=\i \sbfamily\fi
+        \ifnum\value{section}=\i \sbfamily\hb@xt@\z@{\smash{\raisebox{-\ht\btdl@box@lowforsec-1ex}{\hskip.5\wd\btdl@box@lowforsec\relax\hb@xt@\z@{\hss xYZ abc def\hss}}}}\fi
         \parbox{\wd\btdl@box@lowforsec+0.5em}{\strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
     }%
     \btdl@printshort@border~~\btdl@footer@tsymb{\inserttotalframenumber}%
