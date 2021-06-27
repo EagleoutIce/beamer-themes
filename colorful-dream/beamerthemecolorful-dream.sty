@@ -19,6 +19,41 @@
 \DeclareOption{nobib}{\btcd@bibliography@false} \DeclareOption{showbib}{\btcd@bibliography@true}
 \ProcessOptions
 
+\AtEndPreamble{
+    \@ifundefined{ver@biblatex.sty}{}{%
+    \def\btdl@lhook#1{\href{\thefield{url}}{#1}}%
+    \DeclareBibliographyDriver{btdl@bibtheme}{%
+        \let\@tmp\@empty
+        \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
+        \@tmp{\usebibmacro{bibindex}%
+        \usebibmacro{begentry}%
+        \usebibmacro{author/editor}%
+        \setunit{\labelnamepunct}\newblock
+        \usebibmacro{title}%
+        \newunit\newblock
+        \usebibmacro{date}%
+        \newunit\newblock
+        \usebibmacro{finentry}}}
+        \DeclareBibliographyAlias{article}{btdl@bibtheme}
+\DeclareBibliographyAlias{book}{btdl@bibtheme}
+\DeclareBibliographyAlias{booklet}{btdl@bibtheme}
+\DeclareBibliographyAlias{collection}{btdl@bibtheme}
+\DeclareBibliographyAlias{inbook}{btdl@bibtheme}
+\DeclareBibliographyAlias{incollection}{btdl@bibtheme}
+\DeclareBibliographyAlias{inproceedings}{btdl@bibtheme}
+\DeclareBibliographyAlias{manual}{btdl@bibtheme}
+\DeclareBibliographyAlias{misc}{btdl@bibtheme}
+\DeclareBibliographyAlias{online}{btdl@bibtheme}
+\DeclareBibliographyAlias{patent}{btdl@bibtheme}
+\DeclareBibliographyAlias{periodical}{btdl@bibtheme}
+\DeclareBibliographyAlias{proceedings}{btdl@bibtheme}
+\DeclareBibliographyAlias{report}{btdl@bibtheme}
+\DeclareBibliographyAlias{thesis}{btdl@bibtheme}
+\DeclareBibliographyAlias{unpublished}{btdl@bibtheme}
+\DeclareBibliographyAlias{*}{btdl@bibtheme}
+    }
+}
+
 %% load packages
 \ifbtcd@usefont@ \RequirePackage[defaultfam,light,tabular,lining]{montserrat} \fi
 
