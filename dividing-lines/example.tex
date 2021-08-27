@@ -19,18 +19,14 @@
 \email{florian.sihler@uni-ulm.de}
 
 \outro{Ulm, \today}
+\titleimage{\tikz\node[opacity=.45]{\includegraphics[width=\width,height=\height,keepaspectratio]{../exampletitleimage.png}};}
 
 % just an example command
 \newcommand\twosplit[3][t]{%
-    \begin{columns}[#1]
-    \begin{column}{0.475\linewidth}
-        #2
-    \end{column}\hfill
-    \begin{column}{0.475\linewidth}
-        #3
-    \end{column}
-    \end{columns}
-}
+\begin{columns}[#1]
+\begin{column}{0.475\linewidth}#2\end{column}\hfill
+\begin{column}{0.475\linewidth}#3\end{column}
+\end{columns}}
 
 \usepackage[backend=bibtex8,style=alphabetic]{biblatex}
 \addbibresource{example.bib}

@@ -298,6 +298,9 @@
     }%
 }
 
+\def\titleimage#1{\def\inserttitleimage{#1}}
+\newlength\btdl@titleheight \btdl@titleheight7em
+
 \setbeamertemplate{title page}{%
 \savebox\btdl@box@title{%
     \pbox{0.95\linewidth}{%
@@ -307,6 +310,8 @@
     {\usebox\btdl@box@title\par}
     {\tagline\par}
     \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill
+    \@ifundefined{inserttitleimage}{}{%
+    \parbox[b][\btdl@titleheight]{\linewidth}{\let\width\linewidth\let\height\btdl@titleheight\inserttitleimage}\par}
     \parbox[b][\z@]{\linewidth}{%
         \raggedleft\color{gray}%
         \ifdefempty{\btdl@tag}{}{\usebeamerfont{tag}\usebeamercolor[fg]{tag}\btdl@tag\leavevmode\\}
