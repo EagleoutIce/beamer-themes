@@ -291,10 +291,10 @@
     \ifundef{\insertauthor}{}{%
     \savebox\btdl@box@subbox{\color{btdl@color@primary}\scriptsize\sbfamily\ifdefempty{\btdl@email}{\insertauthor}{\href{mailto:\btdl@email}{\insertauthor}}}\xdef\btdl@subbox@len{\wd\btdl@box@subbox}}%
     \tikz{%
-    \begin{pgfinterruptboundingbox}
+    \pgfinterruptboundingbox
         \draw[btdl@color@primary, line width=1pt,line cap=round] (0,0) -- (\wd\btdl@box@title,0) coordinate (rslin-end);
-            \node[below left,inner xsep=0pt,outer xsep=0pt] at (rslin-end) {\usebox{\btdl@box@subbox}};
-        \end{pgfinterruptboundingbox}
+            \node[below left,inner xsep=0pt,outer xsep=0pt] at (rslin-end) {\usebox\btdl@box@subbox};
+    \endpgfinterruptboundingbox
     }%
 }
 
