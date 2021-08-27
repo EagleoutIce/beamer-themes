@@ -304,11 +304,11 @@
         \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
     }%
 }\parskip\z@ \parindent\z@ %
-    {\usebox{\btdl@box@title}\par}
+    {\usebox\btdl@box@title\par}
     {\tagline\par}
-    \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill%
-    \parbox[b][0pt]{\linewidth}{%
-        \raggedleft\color{gray}
+    \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill
+    \parbox[b][\z@]{\linewidth}{%
+        \raggedleft\color{gray}%
         \ifdefempty{\btdl@tag}{}{\usebeamerfont{tag}\usebeamercolor[fg]{tag}\btdl@tag\leavevmode\\}
         \ifundef{\insertdate}{}{\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\leavevmode\\}
         \usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par
