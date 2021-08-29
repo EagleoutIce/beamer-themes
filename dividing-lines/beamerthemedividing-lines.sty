@@ -306,7 +306,7 @@
     \pbox{0.95\linewidth}{%
         \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
     }%
-}\parskip\z@ \parindent\z@ %
+}\parskip\z@ \parindent\z@
     {\usebox\btdl@box@title\par}
     {\tagline\par}
     \parbox[t]{\wd\btdl@box@title-\btdl@subbox@len}{\usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle}\par\vfill
@@ -328,9 +328,9 @@
     \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage
     \end{minipage}%
-\begin{tikzpicture}[overlay,remember picture]%
+\tikzpicture[overlay,remember picture]%
     \node[above left,scale=.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
-\end{tikzpicture}\PostTitlepage%
+\endtikzpicture\PostTitlepage
 \end{frame}%
 \endgroup
 }
@@ -391,11 +391,11 @@
 \hspace*{-\btdl@leftindent}\begin{minipage}[c][\textheight]{\textwidth+\btdl@leftindent}
 \color{btdl@color@white}\fontseries{medium}%
 \@ifundefined{ver@biblatex.sty}{}{%
-    \ifbtdl@bibliography@%
+    \ifbtdl@bibliography@
         \vspace*{2em}%
         \defbibheading{bibliography}[\refname]{}%
         \bgroup\sectionbannerfalse\printBibCommand\egroup\hbox{}\vfill\hbox{}%
-    \fi%
+    \fi
 }%
 \vfill\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
@@ -411,7 +411,7 @@
 
 %% special frames
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
-\newenvironment{layout-imageonly}{\leavevmode%
+\newenvironment{layout-imageonly}{\leavevmode
 \hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
 }{\end{minipage}}
 
