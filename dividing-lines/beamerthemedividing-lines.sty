@@ -1,10 +1,8 @@
 
 %% Version: 1.0
 %% Author:  Florian Sihler, 3.02.2021
-%%
 %% This package is a beamer theme to be used with the latex beamer-class.
-%% Development notes:
-%%    All internal commands and registers will be prefixed with 'btdl@'
+%% Dev-Notes: All internal commands and registers will be prefixed with 'btdl@'
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemedividing-lines}[2019/08/17 v1.0.0 Latex-Beamertheme dividing-lines]
@@ -41,9 +39,7 @@
 \@ifstar\btdl@SetColorProfile\btdl@SetColorProfile@define
 }
 \def\btdl@SetColorProfile#1#2#3{%
-\colorlet{btdl@color@primary}{#1}%
-\colorlet{btdl@color@secondary}{#2}%
-\colorlet{btdl@color@alerted}{#3}%
+\colorlet{btdl@color@primary}{#1}\colorlet{btdl@color@secondary}{#2}\colorlet{btdl@color@alerted}{#3}%
 }
 
 \def\btdl@SetColorProfile@define#1#2#3{%
@@ -55,15 +51,13 @@
 % RGB(249, 166, 2) RGB(249, 224, 176) RGB(137,64,75)
 \SetColorProfile{249, 166, 2}{249, 224, 176}{137,64,75}
 
-\definecolor{btdl@color@white}{RGB}{254,254,254}    % RGB(254,254,254)
-\definecolor{btdl@color@black}{RGB}{009,009,009}    % RGB(009,009,009)
+\definecolor{btdl@color@white}{RGB}{254,254,254} % RGB(254,254,254)
+\definecolor{btdl@color@black}{RGB}{009,009,009} % RGB(009,009,009)
 
 \colorlet{btdl@color@emblem}{gray}
-
 \colorlet{btdl@color@wtext}{btdl@color@white!92!btdl@color@primary}
 \colorlet{btdl@color@btext}{btdl@color@black}
 \colorlet{btdl@color@text}{btdl@color@black!95!btdl@color@white}
-
 \colorlet{btdl@solidF}{btdl@color@primary!25!btdl@color@black}
 
 %% shortcut commands for the user
@@ -158,7 +152,7 @@
 \setbeamertemplate{theorem begin}{%
 \begin{\inserttheoremblockenv}{%
     \inserttheoremname\inserttheoremnumber%
-    \ifx\inserttheoremaddition\@empty\else:\ \inserttheoremaddition\fi%
+    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
 }%
 }
 
@@ -217,13 +211,13 @@
     \ifnum##2>\beamer@currentsubsection%
     \beamer@currentsubsection=##2%
     \box\beamer@sectionbox\hskip1.875ex%
-    \setbox\beamer@sectionbox=
+    \setbox\beamer@sectionbox=%
     \hbox{\ifnum\c@subsection=##2\beamer@link(##4){\usebox\btdl@subs@on}\else\beamer@link(##4){\usebox\btdl@subs@off}\fi}%
     \ht\beamer@sectionbox=1.875ex%
     \dp\beamer@sectionbox=.75ex%
     \fi\fi\fi\ignorespaces}%
 \hskip.3cm\setbox\beamer@sectionbox=\hbox{}%
-\hskip-1.875ex\dohead%
+\hskip-1.875ex\dohead
 \box\beamer@sectionbox\hfil\hskip.3cm}}
 
 \newsavebox\btdl@box@lowforsec
@@ -234,7 +228,7 @@
     \pgfmathsetmacro\btdl@sectionmax@target@end{int(min(\value{btdl@sectioncount},\btdl@sectionmax@target@start+\btdl@sectionmax@target@preview))}%
     % try to update lower if upper was capped
     \pgfmathsetmacro\btdl@sectionmax@target@start{int(max(1,\btdl@sectionmax@target@end-\btdl@sectionmax@target@preview))}%
-    \btdl@footer@tsymb{1}~~\btdl@printshort@border%
+    \btdl@footer@tsymb{1}~~\btdl@printshort@border
     % start: \btdl@sectionmax@target@start, end: \btdl@sectionmax@target@end
     \foreach \i in {\btdl@sectionmax@target@start,...,\btdl@sectionmax@target@end} {%
         \ifbtdl@footfade@
@@ -243,7 +237,7 @@
             \pgfmathsetmacro\btdl@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
             {\btdl@printshort@mid\color{lightgray!\btdl@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdl@printshort@mid\fi
         \color{lightgray!\btdl@disttotarget!darkgray}%
-        \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\,~\faAngleRight\,}\btdl@printshort@mid\fi\fi%
+        \else\ifnum\i>\btdl@sectionmax@target@start\btdl@printshort@mid{\thinspace~\faAngleRight\thinspace}\btdl@printshort@mid\fi\fi
         \savebox\btdl@box@lowforsec{\btdl@printshort@lowforsec{\i}}
         % note: we always calc the non(semi)bold thickness
         \ifnum\value{section}=\i \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{-\ht\btdl@box@lowforsec-.6ex}{\hskip.5\wd\btdl@box@lowforsec\relax\hb@xt@\z@{\hss\btdl@subsections@low\hss}}}}\sbfamily\fi
@@ -257,10 +251,10 @@
 
 \usenavigationsymbolstemplate{}
 \setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\dimexpr\textwidth-\beamer@rightmargin\relax,ht=3ex,dp=4ex,leftskip=\dimexpr\btdl@leftindent+\beamer@leftmargin\relax]{structure}% default color
-        \color{gray}\usebeamerfont{page number in head/foot}%
-        {\btdl@footline@data}%
-    \end{beamercolorbox}%
+\beamercolorbox[wd=\dimexpr\textwidth-\beamer@rightmargin\relax,ht=3ex,dp=4ex,leftskip=\dimexpr\btdl@leftindent+\beamer@leftmargin\relax]{structure}% default color
+    \color{gray}\usebeamerfont{page number in head/foot}%
+    {\btdl@footline@data}%
+\endbeamercolorbox
 }
 
 %% start of setions
@@ -280,7 +274,6 @@
 }
 
 %% titleimage
-
 \newsavebox\btdl@box@title
 
 \def\tag#1{\gdef\btdl@tag{#1}}
@@ -303,7 +296,7 @@
 
 \setbeamertemplate{title page}{%
 \savebox\btdl@box@title{%
-    \pbox{0.95\linewidth}{%
+    \pbox{.95\linewidth}{%
         \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
     }%
 }\parskip\z@ \parindent\z@
@@ -325,9 +318,9 @@
 \begingroup
 \begin{frame}[plain,b]%
     \PreTitlepage%
-    \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\begin{minipage}[b][.75\textheight]{\textwidth+\btdl@leftindent}
+    \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\minipage[b][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage
-    \end{minipage}%
+    \endminipage
 \tikzpicture[overlay,remember picture]%
     \node[above left,scale=.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
 \endtikzpicture\PostTitlepage
@@ -384,11 +377,11 @@
 \def\outroright#1{\gdef\btdl@outro@right{#1}}
 
 \AtEndDocument{
-\begingroup%
+\begingroup
 \setbeamercolor{background canvas}{bg=btdl@color@primary}%
 \begin{frame}[plain,t]%
 \label{btdl@slide@marker.\inserttotalframenumber}%
-\hspace*{-\btdl@leftindent}\begin{minipage}[c][\textheight]{\textwidth+\btdl@leftindent}
+\hspace*{-\btdl@leftindent}\minipage[c][\textheight]{\textwidth+\btdl@leftindent}
 \color{btdl@color@white}\fontseries{medium}%
 \@ifundefined{ver@biblatex.sty}{}{%
     \ifbtdl@bibliography@
@@ -398,13 +391,13 @@
     \fi
 }%
 \vfill\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
-\hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{0.35\textwidth}{%
+\hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{.35\textwidth}{%
     {\small\ifx\btdl@outro@right\@empty\textbf{\insertauthor}\else\href{mailto:\btdl@email}{\textbf{\insertauthor}}\fi}\\
     {\footnotesize\btdl@outro{}}%
-}\hfill\parbox[b]{0.35\textwidth}{%
+}\hfill\parbox[b]{.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\ifx\btdl@outro@right\@empty\href{mailto:\btdl@email}{\btdl@email}\else\btdl@outro@right\fi}%
 }}%
-\end{minipage}
+\endminipage
 \end{frame}
 \endgroup
 }
@@ -412,8 +405,8 @@
 %% special frames
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
 \newenvironment{layout-imageonly}{\leavevmode
-\hspace*{-\btdl@imageonly@wd@add}\begin{minipage}[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
-}{\end{minipage}}
+\hspace*{-\btdl@imageonly@wd@add}\minipage[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
+}{\endminipage}
 
 %% license
 \RequirePackage{ccicons}
