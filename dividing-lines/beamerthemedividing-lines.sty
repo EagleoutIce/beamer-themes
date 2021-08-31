@@ -1,4 +1,3 @@
-
 %% Version: 1.0
 %% Author:  Florian Sihler, 3.02.2021
 %% This package is a beamer theme to be used with the latex beamer-class.
@@ -135,7 +134,6 @@
 \setbeamercolor*{bibliography entry note}{fg=bibcolor}
 \setbeamertemplate{bibliography item}[text]
 
-
 \setbeamertemplate{itemize items}{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 \settowidth{\leftmargini}{\usebeamertemplate{itemize items}}
@@ -151,8 +149,8 @@
 
 \setbeamertemplate{theorem begin}{%
 \begin{\inserttheoremblockenv}{%
-    \inserttheoremname\inserttheoremnumber%
-    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi%
+    \inserttheoremname\inserttheoremnumber
+    \ifx\inserttheoremaddition\@empty\else:\space\inserttheoremaddition\fi
 }%
 }
 
@@ -162,20 +160,19 @@
 \newlength{\btdl@leftindent} \btdl@leftindent=6.5em
 \setbeamersize{sidebar width left=\btdl@leftindent}
 
-\newlength{\btdl@frametitle@ht} \btdl@frametitle@ht=5ex
-\newlength{\btdl@frametitle@dp} \btdl@frametitle@dp=1.25ex
+\newlength\btdl@frametitle@ht \btdl@frametitle@ht=5ex
+\newlength\btdl@frametitle@dp \btdl@frametitle@dp=1.25ex
 
 \def\btdl@slideshade{35}
 \setbeamertemplate{frametitle}{%
     \nointerlineskip%
     \begin{beamercolorbox}[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut%
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut
     \end{beamercolorbox}%
 }
 
 %% Sidebar
 \def\btdl@sidebar@content{}
-
 \def\SidebarCite#1{%
     \appto\btdl@sidebar@content{%
         \cite{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
@@ -186,12 +183,11 @@
 \newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
 \setbeamertemplate{sidebar left}{%
 \hskip\beamer@leftmargin\parbox[b][\paperheight-\beamer@leftmargin]{\btdl@leftindent
--\btdl@sidebar@offset}{\parskip=\medskipamount \parindent=\z@%
-\fontsize{3}{4}\selectfont\btdl@sidebar@content%
-}}
+-\btdl@sidebar@offset}{\parskip=\medskipamount \parindent=\z@
+\fontsize{3}{4}\selectfont\btdl@sidebar@content}}
 
 %% footer
-% idee, zeige Auszug   'C > D > E > F > G' für 'Abschnitt E',
+% idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
 \AtBeginDocument{%
     \pgfmathsetmacro\btdl@sectionmax@target@preview{int(min(6,\arabic{btdl@sectioncount}))}%
@@ -244,8 +240,7 @@
         \parbox{\wd\btdl@box@lowforsec+.5em}{\strut\hyperlink{btdl@section.\i}{\btdl@printshort@lowforsec{\i}}}%
     }%
     \btdl@printshort@border~~\btdl@footer@tsymb{\inserttotalframenumber}%
-\fi%
-}
+\fi}
 
 \def\btdl@footline@data{\btdl@typesetfiveforcurrent}
 
@@ -276,8 +271,8 @@
 %% titleimage
 \newsavebox\btdl@box@title
 
-\def\tag#1{\gdef\btdl@tag{#1}}
-\def\btdl@tag{}
+\def\tag#1{\def\btdl@tag{#1}}
+\let\btdl@tag\@empty
 \def\btdl@subbox@len{1em}
 \newsavebox\btdl@box@subbox
 \def\tagline{%
