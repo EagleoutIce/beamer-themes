@@ -179,6 +179,8 @@
     }%
 }
 
+\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
+
 \def\SidebarReset{\def\btdl@sidebar@content{}}
 \newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
 \setbeamertemplate{sidebar left}{%
@@ -245,12 +247,12 @@
 \def\btdl@footline@data{\btdl@typesetfiveforcurrent}
 
 \usenavigationsymbolstemplate{}
-\setbeamertemplate{footline}{%
+\newif\ifbtfoot \btfoottrue
+\setbeamertemplate{footline}{\ifbtfoot
 \beamercolorbox[wd=\dimexpr\textwidth-\beamer@rightmargin\relax,ht=3ex,dp=4ex,leftskip=\dimexpr\btdl@leftindent+\beamer@leftmargin\relax]{structure}% default color
     \color{gray}\usebeamerfont{page number in head/foot}%
     {\btdl@footline@data}%
-\endbeamercolorbox
-}
+\endbeamercolorbox\fi}
 
 %% start of setions
 \newif\ifsectionbanner \sectionbannertrue
