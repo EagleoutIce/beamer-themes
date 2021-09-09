@@ -81,6 +81,7 @@
 \setbeamercolor{alerted text}{fg=btdl@color@text}
 \setbeamerfont{alerted text}{}}
 \mode<all>
+\setbeamercolor{button}{bg=btdl@color@primary!\btdl@slideshade!white}
 
 % Titlepage
 \setbeamercolor{title}{parent=normal text}
@@ -102,8 +103,10 @@
 \setbeamerfont{tag}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{institute}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{date}{size=\fontsize{8}{10},series=\mdseries}
-\setbeamerfont{section title}{size=\fontsize{19}{19}}
+\setbeamerfont{section title}{size=\0fontsize{19}{19}}
 \setbeamerfont{license}{size=\fontsize{6}{8},series=\mdseries}
+
+\setbeamerfont{button}{series=\sbfamily}
 
 \setbeamercolor{description item}{fg=btdl@color@black}
 
@@ -134,10 +137,12 @@
 \setbeamercolor*{bibliography entry note}{fg=bibcolor}
 \setbeamertemplate{bibliography item}[text]
 
-\setbeamertemplate{itemize items}{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
-\settowidth{\leftmargini}{\usebeamertemplate{itemize items}}
-\addtolength{\leftmargini}{\labelsep}
+
+\def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
+\settowidth\leftmargini{\usebeamertemplate{itemize items}}%
+\addtolength\leftmargini{\labelsep}}
+\updateitemize{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
 
 \defbeamertemplate{description item}{colorful-dream}{\fontseries{medium}\selectfont\insertdescriptionitem:\hfill}
 \setbeamertemplate{description item}[colorful-dream]
@@ -245,6 +250,13 @@
 \fi}
 
 \def\btdl@footline@data{\btdl@typesetfiveforcurrent}
+
+\newcommand\fullheight[1]{\global\beamer@shrinktrue
+\gdef\beamer@shrinkframebox{%
+    \setbox\beamer@framebox=\vbox to\beamer@frametextheight{
+        \centering\let\contentheight\beamer@frametextheight#1\relax
+    }%
+}}
 
 \usenavigationsymbolstemplate{}
 \newif\ifbtfoot \btfoottrue
