@@ -348,6 +348,7 @@
 
 \AtEndPreamble{
     \@ifundefined{ver@biblatex.sty}{}{%
+    \let\finentrypunct\@empty
     \def\btdl@lhook#1{\href{\thefield{url}}{#1}}%
     \DeclareBibliographyDriver{btdl@bibtheme}{%
         \let\@tmp\@empty
@@ -357,9 +358,10 @@
         \usebibmacro{author/editor}%
         \setunit{\labelnamepunct}\newblock
         \usebibmacro{title}%
-        \newunit\newblock
-        \usebibmacro{date}%
-        \newunit\newblock
+        \newblock
+        \printtext{\space}%
+        \textcolor{btdl@color@primary!35!white}{\usebibmacro{date}}%
+        \newblock
         \usebibmacro{finentry}}}
         \DeclareBibliographyAlias{article}{btdl@bibtheme}
 \DeclareBibliographyAlias{book}{btdl@bibtheme}
