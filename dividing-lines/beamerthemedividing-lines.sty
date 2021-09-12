@@ -184,7 +184,7 @@
     }%
 }
 
-\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
+\long\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
 
 \def\SidebarReset{\def\btdl@sidebar@content{}}
 \newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
