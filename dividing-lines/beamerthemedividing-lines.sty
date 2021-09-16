@@ -137,12 +137,17 @@
 \setbeamercolor*{bibliography entry note}{fg=bibcolor}
 \setbeamertemplate{bibliography item}[text]
 
-\setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 
 \def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
 \settowidth\leftmargini{\usebeamertemplate{itemize items}}%
 \addtolength\leftmargini{\labelsep}}
+\def\updateitemizesub#1{\setbeamertemplate{itemize subitem}{#1}%
+\settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
+\addtolength\leftmarginii{\labelsep}}
+
 \updateitemize{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\updateitemizesub{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
+
 
 \defbeamertemplate{description item}{colorful-dream}{\fontseries{medium}\selectfont\insertdescriptionitem:\hfill}
 \setbeamertemplate{description item}[colorful-dream]
