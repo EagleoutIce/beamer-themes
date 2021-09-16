@@ -354,7 +354,8 @@
 \def\btdl@email{}
 \def\email#1{\gdef\btdl@email{#1}}
 
-\def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={},notcategory={@hide}]}
+\let\btdlbibfont\footnotesize
+\def\printBibCommand{\renewcommand*{\bibfont}{\btdlbibfont}\printbibliography[title={},notcategory={@hide}]}
 
 \AtEndPreamble{
     \@ifundefined{ver@biblatex.sty}{}{%
