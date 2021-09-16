@@ -188,6 +188,12 @@
         \cite{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
     }%
 }
+\DeclareBibliographyCategory{@hide}
+\def\SidebarFakeCite#1{%
+    \addtocategory{@hide}{#1}%
+    {\edef\mayurl{\citeurl{#1}}%
+    \mayurl\SidebarCite{#1}}%
+}
 
 \long\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
 
@@ -349,7 +355,7 @@
 \def\btdl@email{}
 \def\email#1{\gdef\btdl@email{#1}}
 
-\def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={}]}
+\def\printBibCommand{\renewcommand*{\bibfont}{\footnotesize}\printbibliography[title={},notcategory={@hide}]}
 
 \AtEndPreamble{
     \@ifundefined{ver@biblatex.sty}{}{%
