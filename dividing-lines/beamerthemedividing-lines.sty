@@ -191,8 +191,7 @@
 \DeclareBibliographyCategory{@hide}
 \def\SidebarFakeCite#1{%
     \addtocategory{@hide}{#1}%
-    {\edef\mayurl{\citeurl{#1}}%
-    \mayurl\SidebarCite{#1}}%
+    \SidebarCite{#1}%
 }
 
 \long\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
