@@ -191,7 +191,9 @@
 \DeclareBibliographyCategory{@hide}
 \def\SidebarFakeCite#1{%
     \addtocategory{@hide}{#1}%
-    \SidebarCite{#1}%
+    \appto\btdl@sidebar@content{%
+        \citefield{#1}{title}~\hfill\textcolor{gray}{\citefield{#1}{year}}\par
+    }%
 }
 
 \long\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
@@ -355,43 +357,46 @@
 \def\email#1{\gdef\btdl@email{#1}}
 
 \let\btdlbibfont\footnotesize
-\def\printBibCommand{\renewcommand*{\bibfont}{\btdlbibfont}\printbibliography[title={},notcategory={@hide}]}
+\def\printBibCommand{\renewcommand*{\bibfont}{\btdlbibfont}\printbibliography[title={},notcategory={@hide},locallabelwidth,resetnumbers]}
 
-\AtEndPreamble{
-    \@ifundefined{ver@biblatex.sty}{}{%
-    \let\finentrypunct\@empty
-    \def\btdl@lhook#1{\href{\thefield{url}}{#1}}%
-    \DeclareBibliographyDriver{btdl@bibtheme}{%
-        \let\@tmp\@empty
-        \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
-        \@tmp{\usebibmacro{bibindex}%
-        \usebibmacro{begentry}%
-        \usebibmacro{author/editor}%
-        \setunit{\labelnamepunct}\newblock
-        \usebibmacro{title}%
-        \newblock
-        \printtext{\space}%
-        \textcolor{btdl@color@primary!35!white}{\usebibmacro{date}}%
-        \newblock
-        \usebibmacro{finentry}}}
-        \DeclareBibliographyAlias{article}{btdl@bibtheme}
-\DeclareBibliographyAlias{book}{btdl@bibtheme}
-\DeclareBibliographyAlias{booklet}{btdl@bibtheme}
-\DeclareBibliographyAlias{collection}{btdl@bibtheme}
-\DeclareBibliographyAlias{inbook}{btdl@bibtheme}
-\DeclareBibliographyAlias{incollection}{btdl@bibtheme}
-\DeclareBibliographyAlias{inproceedings}{btdl@bibtheme}
-\DeclareBibliographyAlias{manual}{btdl@bibtheme}
-\DeclareBibliographyAlias{misc}{btdl@bibtheme}
-\DeclareBibliographyAlias{online}{btdl@bibtheme}
-\DeclareBibliographyAlias{patent}{btdl@bibtheme}
-\DeclareBibliographyAlias{periodical}{btdl@bibtheme}
-\DeclareBibliographyAlias{proceedings}{btdl@bibtheme}
-\DeclareBibliographyAlias{report}{btdl@bibtheme}
-\DeclareBibliographyAlias{thesis}{btdl@bibtheme}
-\DeclareBibliographyAlias{unpublished}{btdl@bibtheme}
-\DeclareBibliographyAlias{*}{btdl@bibtheme}
-    }
+\AtEndPreamble{%
+\@ifundefined{ver@biblatex.sty}{}{%
+    \btdl@setup@bib
+}}
+
+\def\btdl@setup@bib{%
+\let\finentrypunct\@empty
+\def\btdl@lhook##1{\href{\thefield{url}}{##1}}%
+\DeclareBibliographyDriver{btdl@bibtheme}{%
+    \let\@tmp\@empty
+    \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
+    \@tmp{\usebibmacro{bibindex}%
+    \usebibmacro{begentry}%
+    \usebibmacro{author/editor}%
+    \setunit{\labelnamepunct}\newblock
+    \usebibmacro{title}%
+    \newblock
+    \printtext{\space}%
+    \textcolor{btdl@color@primary!35!white}{\usebibmacro{date}}%
+    \newblock
+    \usebibmacro{finentry}}}%
+\DeclareBibliographyAlias{article}{btdl@bibtheme}%
+\DeclareBibliographyAlias{book}{btdl@bibtheme}%
+\DeclareBibliographyAlias{booklet}{btdl@bibtheme}%
+\DeclareBibliographyAlias{collection}{btdl@bibtheme}%
+\DeclareBibliographyAlias{inbook}{btdl@bibtheme}%
+\DeclareBibliographyAlias{incollection}{btdl@bibtheme}%
+\DeclareBibliographyAlias{inproceedings}{btdl@bibtheme}%
+\DeclareBibliographyAlias{manual}{btdl@bibtheme}%
+\DeclareBibliographyAlias{misc}{btdl@bibtheme}%
+\DeclareBibliographyAlias{online}{btdl@bibtheme}%
+\DeclareBibliographyAlias{patent}{btdl@bibtheme}%
+\DeclareBibliographyAlias{periodical}{btdl@bibtheme}%
+\DeclareBibliographyAlias{proceedings}{btdl@bibtheme}%
+\DeclareBibliographyAlias{report}{btdl@bibtheme}%
+\DeclareBibliographyAlias{thesis}{btdl@bibtheme}%
+\DeclareBibliographyAlias{unpublished}{btdl@bibtheme}%
+\DeclareBibliographyAlias{*}{btdl@bibtheme}%
 }
 
 %% Allow for another thing on the right side
