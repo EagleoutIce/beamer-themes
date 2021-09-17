@@ -188,23 +188,6 @@
         \cite{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
     }%
 }
-\DeclareNameFormat{btdl@blx@nf}{\namepartfamily}
-\DeclareCiteCommand\btdl@sb@rawcite
-  {\citetrackerfalse\pagetrackerfalse
-   \usebibmacro{prenote}}
-  {\ifciteindex
-     {\indexfield{indextitle}}
-     {}%
-    \let\@tmp\@empty
-    \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
-    \@tmp{%
-    \printfield{labeltitle}~\hfill\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author},~\printfield{year}}%
-    }%
-  }
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\DeclareBibliographyCategory{@hide}
 \def\SidebarFakeCite#1{%
     \addtocategory{@hide}{#1}%
     \appto\btdl@sidebar@content{%
@@ -415,6 +398,22 @@
 \DeclareBibliographyAlias{thesis}{btdl@bibtheme}%
 \DeclareBibliographyAlias{unpublished}{btdl@bibtheme}%
 \DeclareBibliographyAlias{*}{btdl@bibtheme}%
+\DeclareNameFormat{btdl@blx@nf}{\namepartfamily}
+\DeclareCiteCommand\btdl@sb@rawcite
+{\citetrackerfalse\pagetrackerfalse
+\usebibmacro{prenote}}%
+{\ifciteindex
+    {\indexfield{indextitle}}
+    {}%
+\let\@tmp\@empty
+\ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
+\@tmp{%
+\printfield{labeltitle}~\hfill\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author},~\printfield{year}}%
+}%
+}%
+{\multicitedelim}%
+{\usebibmacro{postnote}}%
+\DeclareBibliographyCategory{@hide}%
 }
 
 %% Allow for another thing on the right side
