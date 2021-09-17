@@ -208,7 +208,7 @@
 \def\SidebarFakeCite#1{%
     \addtocategory{@hide}{#1}%
     \appto\btdl@sidebar@content{%
-        \btdl@sb@rawcite{#1}\par
+        \cite{#1}:~\btdl@sb@rawcite{#1}\par
     }%
 }
 
@@ -216,7 +216,7 @@
 
 \def\SidebarReset{\def\btdl@sidebar@content{}}
 \def\SetSidebarFont#1{\def\btdl@sidebar@fn{#1}}
-\SetSidebarFont{\fontsize{3}{4}}
+\SetSidebarFont{\fontsize{3}{4}\raggedright}
 \newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
 \setbeamertemplate{sidebar left}{%
 \hskip\beamer@leftmargin\parbox[b][\paperheight-\beamer@leftmargin]{\btdl@leftindent
