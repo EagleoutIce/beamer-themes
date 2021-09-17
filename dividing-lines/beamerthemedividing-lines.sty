@@ -198,8 +198,7 @@
     \let\@tmp\@empty
     \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
     \@tmp{%
-    \printfield{labeltitle}%
-    ~\hfill\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author}, \printfield{year}}%
+    \printfield{labeltitle}~\hfill\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author},~\printfield{year}}%
     }%
   }
   {\multicitedelim}
@@ -216,11 +215,13 @@
 \long\def\SidebarRaw#1{\appto\btdl@sidebar@content{#1\par}}
 
 \def\SidebarReset{\def\btdl@sidebar@content{}}
+\def\SetSidebarFont#1{\def\btdl@sidebar@fn{#1}}
+\SetSidebarFont{\fontsize{3}{4}}
 \newlength\btdl@sidebar@offset \btdl@sidebar@offset=1.5em
 \setbeamertemplate{sidebar left}{%
 \hskip\beamer@leftmargin\parbox[b][\paperheight-\beamer@leftmargin]{\btdl@leftindent
 -\btdl@sidebar@offset}{\parskip=\medskipamount \parindent=\z@
-\fontsize{3}{4}\selectfont\btdl@sidebar@content}}
+\btdl@sidebar@fn\selectfont\btdl@sidebar@content}}
 
 %% footer
 % idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
