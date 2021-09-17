@@ -188,7 +188,7 @@
         \cite{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
     }%
 }
-
+\DeclareNameFormat{btdl@blx@nf}{\namepartfamily}
 \DeclareCiteCommand\btdl@sb@rawcite
   {\citetrackerfalse\pagetrackerfalse
    \usebibmacro{prenote}}
@@ -198,8 +198,8 @@
     \let\@tmp\@empty
     \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
     \@tmp{%
-    \printfield[citetitle]{labeltitle}%
-    ~\hfill\textcolor{gray}{\printfield{year}}%
+    \printfield{labeltitle}%
+    ~\hfill\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author}, \printfield{year}}%
     }%
   }
   {\multicitedelim}
