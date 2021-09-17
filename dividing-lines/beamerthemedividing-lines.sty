@@ -188,11 +188,28 @@
         \cite{#1}: \citetitle{#1}~\hfill\textcolor{gray}{\citeyear{#1}}\par
     }%
 }
+
+\DeclareCiteCommand\btdl@sb@rawcite
+  {\citetrackerfalse\pagetrackerfalse
+   \usebibmacro{prenote}}
+  {\ifciteindex
+     {\indexfield{indextitle}}
+     {}%
+    \let\@tmp\@empty
+    \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
+    \@tmp{%
+    \printfield[citetitle]{labeltitle}%
+    ~\hfill\textcolor{gray}{\printfield{year}}%
+    }%
+  }
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
 \DeclareBibliographyCategory{@hide}
 \def\SidebarFakeCite#1{%
     \addtocategory{@hide}{#1}%
     \appto\btdl@sidebar@content{%
-        \citefield{#1}{title}~\hfill\textcolor{gray}{\citefield{#1}{year}}\par
+        \btdl@sb@rawcite{#1}\par
     }%
 }
 
