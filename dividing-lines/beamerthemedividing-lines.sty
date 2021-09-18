@@ -409,9 +409,8 @@
 \let\@tmp\@empty
 \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
 \@tmp{%
-\printfield[btdl@sb@title]{labeltitle}\hfill\mbox{\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author},~\printfield{year}}}%
-}%
-}%
+\printfield[btdl@sb@title]{labeltitle}\hfill\null\nobreak\hfill\nobreak\mbox{\textcolor{gray}{\printnames[btdl@blx@nf][1-1]{author},~\printfield{year}}}%
+}}%
 {\multicitedelim}%
 {\usebibmacro{postnote}}%
 \DeclareBibliographyCategory{@hide}%
