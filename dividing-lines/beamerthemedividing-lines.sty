@@ -183,15 +183,15 @@
 
 %% Sidebar
 \def\btdl@sidebar@content{}
-\def\SidebarCite#1{%
+\newcommand<>\SidebarCite[1]{%
     \appto\btdl@sidebar@content{%
-        \cite{#1}:~~\btdl@sb@rawcite{#1}\par
+        \onslide#2{\cite{#1}:~~\btdl@sb@rawcite{#1}\par}
     }%
 }
-\def\SidebarFakeCite#1{%
+\newcommand<>\SidebarFakeCite[1]{%
     \addtocategory{@hide}{#1}%
     \appto\btdl@sidebar@content{%
-        \cite{#1}:~\btdl@sb@rawcite{#1}\par
+        \onslide#2{\cite{#1}:~\btdl@sb@rawcite{#1}\par}\relax
     }%
 }
 
