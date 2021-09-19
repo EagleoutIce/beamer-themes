@@ -377,7 +377,7 @@
     \setunit{\labelnamepunct}\newblock
     \usebibmacro{title}%
     \newblock
-    \printtext{\space}%
+    \printtext{\space}% so it will be executed in sync
     \mbox{\textcolor{btdl@color@primary!35!white}{\usebibmacro{date}}}%
     \newblock
     \usebibmacro{finentry}}}%
@@ -403,9 +403,7 @@
 \DeclareCiteCommand\btdl@sb@rawcite
 {\citetrackerfalse\pagetrackerfalse
 \usebibmacro{prenote}}%
-{\ifciteindex
-    {\indexfield{indextitle}}
-    {}%
+{\ifciteindex{\indexfield{indextitle}}{}%
 \let\@tmp\@empty
 \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdl@lhook}}{}%
 \@tmp{%
