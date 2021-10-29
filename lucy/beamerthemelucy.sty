@@ -120,10 +120,10 @@
 %% head line
 \defbeamertemplate*{frametitle}{lucy}[1][]{%
     \vskip.35cm%
-    \hspace*{-.25cm}\begin{tikzpicture}
+    \hspace*{-.25cm}\tikzpicture
         \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
         \node[right,text width=\paperwidth-.5cm-.666em] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};%smash
-    \end{tikzpicture}%
+    \endtikzpicture%
 }
 
 %% footer
@@ -137,12 +137,12 @@
 
 \providecommand\totalframes{\inserttotalframenumber}
 \defbeamertemplate*{footline}{lucy}[1][] {
-\hskip.25cm\begin{tikzpicture}[fnote/.style={cwhite,font={\lfseries\supertiny}}]
+\hskip.25cm\tikzpicture[fnote/.style={cwhite,font={\lfseries\supertiny}}]
     \path[fill=csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-.5cm,\lucy@len@footheight);
     \node[right,fnote] at(0,\lucy@len@footheight/2) {\lucy@nolink\insertshorttitle};
     \node[fnote] at(\paperwidth/2,\lucy@len@footheight/2) {\lucy@nolink\insertshortauthor};
     \node[left,fnote] at(\paperwidth-.5cm,\lucy@len@footheight/2) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
-\end{tikzpicture}%
+\endtikzpicture
 \vskip.25cm%
 }
 
