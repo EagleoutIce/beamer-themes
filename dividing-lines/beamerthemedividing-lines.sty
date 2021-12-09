@@ -336,8 +336,7 @@
 }
 
 \def\PreTitlepage{}\def\PostTitlepage{}
-\AtBeginDocument{%
-\begingroup
+\def\DoTitlepage{\begingroup
 \begin{frame}[plain,b]%
     \PreTitlepage%
     \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\minipage[b][.75\textheight]{\textwidth+\btdl@leftindent}
@@ -347,8 +346,8 @@
     \node[above left,scale=.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
 \endtikzpicture\PostTitlepage
 \end{frame}%
-\endgroup
-}
+\endgroup}
+\AtBeginDocument{\DoTitlepage}
 
 %% outro
 \def\btdl@outro{}
