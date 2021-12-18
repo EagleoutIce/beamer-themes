@@ -232,9 +232,9 @@
     \ht\beamer@sectionbox=1.875ex%
     \dp\beamer@sectionbox=.75ex%
     \fi\fi\fi\ignorespaces}%
-\hskip.3cm\setbox\beamer@sectionbox=\hbox{}%
+\hskip.15cm\setbox\beamer@sectionbox=\hbox{}%
 \hskip-1.875ex\dohead
-\box\beamer@sectionbox\hfil\hskip.3cm}}
+\box\beamer@sectionbox\hfil\hskip.15cm}}
 
 \newsavebox\btdl@box@lowforsec
 \def\btdl@typesetfiveforcurrent{%
@@ -336,8 +336,7 @@
 }
 
 \def\PreTitlepage{}\def\PostTitlepage{}
-\AtBeginDocument{%
-\begingroup
+\def\DoTitlepage{\begingroup
 \begin{frame}[plain,b]%
     \PreTitlepage%
     \label{btdl@slide@marker.1}\hspace*{-\btdl@leftindent}\minipage[b][.75\textheight]{\textwidth+\btdl@leftindent}
@@ -347,8 +346,8 @@
     \node[above left,scale=.5] at(current page.south east) {\usebeamerfont{license}\usebeamercolor[fg]{license}\@license};
 \endtikzpicture\PostTitlepage
 \end{frame}%
-\endgroup
-}
+\endgroup}
+\AtBeginDocument{\DoTitlepage}
 
 %% outro
 \def\btdl@outro{}
