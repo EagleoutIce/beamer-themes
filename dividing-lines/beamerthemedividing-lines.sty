@@ -414,10 +414,8 @@
 }
 
 %% Allow for another thing on the right side
-\def\btdl@outro@right{}
-\def\outroright#1{\gdef\btdl@outro@right{#1}}
-\def\btdl@postpage{}
-\def\PostPage#1{\def\btdl@postpage{#1}}
+\def\btdl@outro@right{} \def\outroright#1{\gdef\btdl@outro@right{#1}}
+\def\btdl@postpage{} \def\PostPage#1{\def\btdl@postpage{#1}}
 \AtEndDocument{%
 \begingroup
 \setbeamercolor{background canvas}{bg=btdl@color@primary}%
