@@ -448,6 +448,10 @@
 \hspace*{-\btdl@imageonly@wd@add}\minipage[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
 }{\endminipage}
 
+\newenvironment{layout-full}{\begingroup\leavevmode
+\hspace*{-\btdl@leftindent}\fboxsep\z@\minipage[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@leftindent}%
+}{\endminipage\endgroup}
+
 %% license
 \RequirePackage{ccicons}
 \def\license{\@dblarg\btdl@license}
