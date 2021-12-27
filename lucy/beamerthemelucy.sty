@@ -1,6 +1,5 @@
 %% Version: 1.0
 %% Author:  Florian Sihler, 17.08.2020
-%%
 %% This package is a beamer theme to be used with the latex beamer-class.
 %% I've used this theme at school for my abitur. It uses my old way of
 %% dealing with colors having cprimary, csecondary and cwhite as colors.
@@ -20,9 +19,8 @@
 
 % load font
 \ifbtl@usefont@
-\RequirePackage{aurical}
+\RequirePackage{aurical,mathastext}
 \RequirePackage[default]{lato}
-\RequirePackage{mathastext}
 \AtBeginDocument{\fontseries{m}\selectfont}
 \def\lfseries{\fontseries{l}\selectfont}
 \else\def\lfseries{\selectfont}\fi
@@ -30,12 +28,11 @@
 % load libs
 \ifbtl@loadlibs@\RequirePackage{tikz}\fi
 
-\definecolor{cprimary}{HTML}{335d7e}     %% #335d7e
-\definecolor{csecondary}{HTML}{6c747a}   %% #6c747a
-\definecolor{cwhite}{RGB}{255, 255, 255} %% #FFFFFF
-\definecolor{cblack}{RGB}{1, 0, 0}       %% #010000
-
-\def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
+\definecolor{cprimary}{HTML}{335d7e}   %% #335d7e
+\definecolor{csecondary}{HTML}{6c747a} %% #6c747a
+\definecolor{cwhite}{RGB}{255,255,255} %% #FFFFFF
+\definecolor{cblack}{RGB}{1,0,0}       %% #010000
+\def\supertiny{\fontsize{4.5\p@}{4.5\p@}\selectfont}
 
 %% beamer configuration
 % color
@@ -90,15 +87,13 @@
 \begin{center}
     {\Huge\color{cprimary}\inserttitle}\\[3.5em]
     \color{csecondary}\insertauthor
-\end{center}
-}
+\end{center}}
 \else
 \defbeamertemplate*{title page}{lucy}[1][] {\lucy@tocfont
 \begin{center}
     {\Huge\color{cprimary}\inserttitle}\\[3.5em]
     \color{csecondary}\insertauthor\ $\circ$ \insertdate
-\end{center}
-}
+\end{center}}
 \fi
 
 %% head line
@@ -106,9 +101,8 @@
 \vskip.35cm%
 \hspace*{-.25cm}\tikzpicture
     \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
-    \node[right,text width=\paperwidth-.5cm-.666em] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};%smash
-\endtikzpicture
-}
+    \node[right,text width=\paperwidth-.5cm-.666em] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};
+\endtikzpicture}
 
 %% footer
 \def\lucy@nolink{}
@@ -122,7 +116,7 @@
 \providecommand\totalframes{\inserttotalframenumber}
 \def\lucy@thinspace{\kern.16667em}
 \tikzset{lucy@fnote/.style={cwhite,font={\lfseries\supertiny}}}
-\defbeamertemplate*{footline}{lucy}[1][] {\lucy@len@footheight1.175em\relax
+\defbeamertemplate*{footline}{lucy}[1][]{\lucy@len@footheight1.175em\relax
 \hskip.25cm\tikzpicture
     \path[fill=csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-.5cm,\lucy@len@footheight);
     \node[right,lucy@fnote] at(0,.5\lucy@len@footheight) {\lucy@nolink\insertshorttitle};
@@ -135,8 +129,7 @@
 \setbeamertemplate{section in toc}{%
   {\lucy@tocfont$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamercolor{subsection in toc}{bg=white,fg=structure}
-\setbeamertemplate{subsection in toc}{%
-  \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3\p@}{3\p@}}~~\small\inserttocsubsection\par}
+\setbeamertemplate{subsection in toc}{\hskip1.2em{\color{csecondary}\rule[.3ex]{3\p@}{3\p@}}~~\small\inserttocsubsection\par}
 \setbeamertemplate{section in toc shaded}[default][40]
 \setbeamertemplate{subsection in toc shaded}[default][40]
 \beamertemplatenavigationsymbolsempty
