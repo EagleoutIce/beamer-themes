@@ -77,6 +77,10 @@
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\path[fill] circle (1.65\p@);}}
 \setbeamersize{text margin left=5mm,text margin right=5mm}
 
+\ifbtl@usefont@
+\let\lucy@tocfont\Fontauri
+\else\def\lucy@tocfont{}\fi
+
 %% title page
 \newcommand\btl@true{true}
 \providecommand\lucyUseAlternativeTitle{false}
@@ -84,17 +88,14 @@
 \ifx\lucyUseAlternativeTitle\btl@true
 \defbeamertemplate*{title page}{lucy}[1][] {%
 \begin{center}
-    {\Huge\color{cprimary}\inserttitle}
-\\[3.5em]
+    {\Huge\color{cprimary}\inserttitle}\\[3.5em]
     \color{csecondary}\insertauthor
 \end{center}
 }
 \else
-\defbeamertemplate*{title page}{lucy}[1][] {%
-\ifbtl@usefont@\Fontauri\fi
+\defbeamertemplate*{title page}{lucy}[1][] {\lucy@tocfont
 \begin{center}
-    {\Huge\color{cprimary}\inserttitle}
-\\[3.5em]
+    {\Huge\color{cprimary}\inserttitle}\\[3.5em]
     \color{csecondary}\insertauthor\ $\circ$ \insertdate
 \end{center}
 }
@@ -119,25 +120,23 @@
 \newdimen\lucy@len@footheight
 
 \providecommand\totalframes{\inserttotalframenumber}
+\def\lucy@thinspace{\kern.16667em}
+\tikzset{lucy@fnote/.style={cwhite,font={\lfseries\supertiny}}}
 \defbeamertemplate*{footline}{lucy}[1][] {\lucy@len@footheight1.175em\relax
-\hskip.25cm\tikzpicture[fnote/.style={cwhite,font={\lfseries\supertiny}}]
+\hskip.25cm\tikzpicture
     \path[fill=csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-.5cm,\lucy@len@footheight);
-    \node[right,fnote] at(0,.5\lucy@len@footheight) {\lucy@nolink\insertshorttitle};
-    \node[fnote] at(.5\paperwidth,.5\lucy@len@footheight) {\lucy@nolink\insertshortauthor};
-    \node[left,fnote] at(\paperwidth-.5cm,.5\lucy@len@footheight) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
+    \node[right,lucy@fnote] at(0,.5\lucy@len@footheight) {\lucy@nolink\insertshorttitle};
+    \node[lucy@fnote] at(.5\paperwidth,.5\lucy@len@footheight) {\lucy@nolink\insertshortauthor};
+    \node[left,lucy@fnote] at(\paperwidth-.5cm,.5\lucy@len@footheight) {\lucy@nolink\insertframenumber\lucy@thinspace/\lucy@thinspace\totalframes};
 \endtikzpicture
 \vskip.25cm}
 
 %% table of contents
-\ifbtl@usefont@
-\let\lucy@tocfont\Fontauri
-\else\def\lucy@tocfont{}\fi
-
 \setbeamertemplate{section in toc}{%
   {\lucy@tocfont$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamercolor{subsection in toc}{bg=white,fg=structure}
 \setbeamertemplate{subsection in toc}{%
-  \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
+  \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3\p@}{3\p@}}~~\small\inserttocsubsection\par}
 \setbeamertemplate{section in toc shaded}[default][40]
 \setbeamertemplate{subsection in toc shaded}[default][40]
 \beamertemplatenavigationsymbolsempty
