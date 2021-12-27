@@ -1,14 +1,12 @@
-
 %% Version: 1.0
 %% Author:  Florian Sihler, 17.08.2020
 %%
 %% This package is a beamer theme to be used with the latex beamer-class.
-%% I've used this team at school for my abitur. It uses my old way of
+%% I've used this theme at school for my abitur. It uses my old way of
 %% dealing with colors having cprimary, csecondary and cwhite as colors.
 %%                      ulm university, SoSe2020
 %% Development notes:
 %%    All internal commands and registers will be prefixed with 'btl@'
-%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemelucy}[2019/08/17 v1.0.0 Latex-Beamertheme lucy]
 %% packet options
@@ -23,7 +21,6 @@
 % load font
 \ifbtl@usefont@
 \RequirePackage{aurical}
-% \RequirePackage[cmintegrals,cmbraces,ebgaramond]{newtxmath}
 \RequirePackage[default]{lato}
 \RequirePackage{mathastext}
 \AtBeginDocument{\fontseries{m}\selectfont}
@@ -33,10 +30,10 @@
 % load libs
 \ifbtl@loadlibs@\RequirePackage{tikz}\fi
 
-\definecolor{cprimary}{HTML}{335d7e}                 %% #335d7e
-\definecolor{csecondary}{HTML}{6c747a}               %% #6c747a
-\definecolor{cwhite}{RGB}{255, 255, 255}             %% #FFFFFF
-\definecolor{cblack}{RGB}{1, 0, 0}                   %% #010000
+\definecolor{cprimary}{HTML}{335d7e}     %% #335d7e
+\definecolor{csecondary}{HTML}{6c747a}   %% #6c747a
+\definecolor{cwhite}{RGB}{255, 255, 255} %% #FFFFFF
+\definecolor{cblack}{RGB}{1, 0, 0}       %% #010000
 
 \def\supertiny{\fontsize{4.5pt}{4.5pt}\selectfont}
 
@@ -56,13 +53,9 @@
 \setbeamercolor{itemize/enumerate subbody}{fg=csecondary}
 \setbeamercolor{itemize/enumerate subsubbody}{fg=csecondary!90!white}
 
-\setbeamercolor{itemize item}{fg=csecondary}
-\setbeamercolor{itemize subitem}{fg=csecondary!90!white}
-\setbeamercolor{itemize subsubitem}{fg=csecondary!80!white}
-
-\setbeamercolor{enumerate item}{fg=csecondary}
-\setbeamercolor{enumerate subitem}{fg=csecondary!90!white}
-\setbeamercolor{enumerate subsubitem}{fg=csecondary!80!white}
+\setbeamercolor{itemize/enumerate item}{fg=csecondary}
+\setbeamercolor{itemize/enumerate subitem}{fg=csecondary!90!white}
+\setbeamercolor{itemize/enumerate subsubitem}{fg=csecondary!80!white}
 
 \setbeamercolor{description item}{fg=csecondary}
 \setbeamercolor{description subitem}{fg=csecondary!90!white}
@@ -76,11 +69,8 @@
 \setbeamertemplate{bibliography item}[text]
 
 \setbeamercolor{section in toc}{fg=cprimary}
-\setbeamercolor{subsection in toc}{fg=csecondary}
 \setbeamercolor{section in toc shaded}{fg=cprimary}
 \setbeamercolor{subsection in toc shaded}{fg=csecondary}
-
-\setbeamercolor{alerted text}{fg=cprimary}
 
 % font
 \setbeamerfont{itemize/enumerate subbody}{size=\scriptsize}
@@ -91,7 +81,6 @@
 \setbeamertemplate{itemize items}{\tiny\raisebox{1.45\p@}{$\blacksquare$}}
 \newcommand*\impitem[1][]{\item[{\color{cprimary}\tiny\raisebox{1.45\p@}{$\blacksquare$}}]\textcolor{cprimary}{#1}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\path[fill] circle (1.65\p@);}}
-
 \setbeamersize{text margin left=5mm,text margin right=5mm}
 
 %% title page
@@ -119,11 +108,11 @@
 
 %% head line
 \defbeamertemplate*{frametitle}{lucy}[1][]{%
-    \vskip.35cm%
-    \hspace*{-.25cm}\tikzpicture
-        \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
-        \node[right,text width=\paperwidth-.5cm-.666em] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};%smash
-    \endtikzpicture%
+\vskip.35cm%
+\hspace*{-.25cm}\tikzpicture
+    \path[fill=cprimary, rounded corners=1.25pt] rectangle ++(\paperwidth-.5cm,2.125em);
+    \node[right,text width=\paperwidth-.5cm-.666em] at(0,2.125em/2-.075em){\LARGE\strut\insertframetitle};%smash
+\endtikzpicture
 }
 
 %% footer
@@ -143,12 +132,15 @@
     \node[fnote] at(\paperwidth/2,\lucy@len@footheight/2) {\lucy@nolink\insertshortauthor};
     \node[left,fnote] at(\paperwidth-.5cm,\lucy@len@footheight/2) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
 \endtikzpicture
-\vskip.25cm%
-}
+\vskip.25cm}
 
 %% table of contents
+\ifbtl@usefont@
+\let\lucy@tocfont\Fontauri
+\else\def\lucy@tocfont{}\fi
+
 \setbeamertemplate{section in toc}{%
-  {\ifbtl@usefont@\Fontauri\fi$\inserttocsectionnumber$}.~~\inserttocsection}
+  {\lucy@tocfont$\inserttocsectionnumber$}.~~\inserttocsection}
 \setbeamercolor{subsection in toc}{bg=white,fg=structure}
 \setbeamertemplate{subsection in toc}{%
   \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
