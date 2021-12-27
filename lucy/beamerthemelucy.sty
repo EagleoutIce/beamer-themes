@@ -65,7 +65,6 @@
 \setbeamertemplate{bibliography item}[text]
 
 \setbeamercolor{section in toc}{fg=cprimary}
-\setbeamercolor{section in toc shaded}{fg=cprimary}
 \setbeamercolor{subsection in toc shaded}{fg=csecondary}
 
 % font
@@ -73,7 +72,6 @@
 \setbeamerfont{itemize/enumerate subsubbody}{size=\scriptsize}
 \setbeamerfont{description item}{series=\mdseries}
 
-\beamertemplatenavigationsymbolsempty
 \setbeamertemplate{itemize items}{\tiny\raisebox{1.45\p@}{$\blacksquare$}}
 \newcommand*\impitem[1][]{\item[{\color{cprimary}\tiny\raisebox{1.45\p@}{$\blacksquare$}}]\textcolor{cprimary}{#1}}
 \setbeamertemplate{itemize subitem}{\tiny\tikz[baseline=-.85ex]{\path[fill] circle (1.65\p@);}}
@@ -118,15 +116,15 @@
 \fi
 
 % make em font dependent!
-\def\lucy@len@footheight{1.175em}
+\newdimen\lucy@len@footheight
 
 \providecommand\totalframes{\inserttotalframenumber}
-\defbeamertemplate*{footline}{lucy}[1][] {
+\defbeamertemplate*{footline}{lucy}[1][] {\lucy@len@footheight1.175em\relax
 \hskip.25cm\tikzpicture[fnote/.style={cwhite,font={\lfseries\supertiny}}]
     \path[fill=csecondary, rounded corners=1.25pt] (0,0) rectangle ++ (\paperwidth-.5cm,\lucy@len@footheight);
-    \node[right,fnote] at(0,\lucy@len@footheight/2) {\lucy@nolink\insertshorttitle};
-    \node[fnote] at(\paperwidth/2,\lucy@len@footheight/2) {\lucy@nolink\insertshortauthor};
-    \node[left,fnote] at(\paperwidth-.5cm,\lucy@len@footheight/2) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
+    \node[right,fnote] at(0,.5\lucy@len@footheight) {\lucy@nolink\insertshorttitle};
+    \node[fnote] at(.5\paperwidth,.5\lucy@len@footheight) {\lucy@nolink\insertshortauthor};
+    \node[left,fnote] at(\paperwidth-.5cm,.5\lucy@len@footheight) {\lucy@nolink\insertframenumber\thinspace/\thinspace\totalframes};
 \endtikzpicture
 \vskip.25cm}
 
@@ -142,4 +140,5 @@
   \hspace{1.2em}{\color{csecondary}\rule[.3ex]{3pt}{3pt}}~~\small\inserttocsubsection\par}
 \setbeamertemplate{section in toc shaded}[default][40]
 \setbeamertemplate{subsection in toc shaded}[default][40]
+\beamertemplatenavigationsymbolsempty
 \endinput
