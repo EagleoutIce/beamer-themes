@@ -85,7 +85,7 @@
 
 %% shortcut commands for the user
 \newcommand\hl[1]{\textcolor{btcd@color@secondary}{#1}}
-\newcommand\imp[1]{\emph{#1}}
+\let\imp\emph
 
 %% beamer configuration
 % General
@@ -157,7 +157,7 @@
 \preto\itemize{\leftmargini=\btcd@leftmargini}
 
 \defbeamertemplate*{block example begin}{cdream}{
-  \par\vskip\medskipamount%
+  \par\vskip\medskipamount
   \beamercolorbox[colsep*=.75ex]{block title example}
     \usebeamerfont*{block title example}\insertblocktitle
   \endbeamercolorbox
@@ -208,9 +208,9 @@
 \def\btcd@tikzcirc#1{\tikz{\path[draw,thick] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}};}}
 \def\fbtcd@tikzcirc#1{\tikz{\path[draw,thick,fill=btcd@color@wtext] circle [radius=6\p@] node[font=\scriptsize,align=center] {\hyperlink{section.#1}{\phantom{Ig}}} node[font=\fontseries{sb}\scriptsize,text=btcd@color@primary] {\thesection};}}
 
-\AtBeginSection[]{\ifsectionbanner\begingroup%
+\AtBeginSection[]{\ifsectionbanner\begingroup
     \setbeamercolor{background canvas}{bg=btcd@color@primary}%
-    \def\btcd@footline@data{\color{btcd@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
+    \def\btcd@footline@data{\@declaredcolor{btcd@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
     \begin{frame}[t]
         \hypertarget{section.\thesection}{}%
         \vskip4em\vfill
@@ -231,7 +231,7 @@
     \begin{minipage}{.75\linewidth}
         \@declaredcolor{gray}\ifx\insertauthor\@empty
         \else{\usebeamerfont{author}\usebeamercolor{author}\insertauthor\par}%
-        \fi%
+        \fi
         \ifx\insertinstitut\@empty
         \else{\usebeamerfont{institute}\usebeamercolor{institute}\insertinstitute\par}%
         \fi
