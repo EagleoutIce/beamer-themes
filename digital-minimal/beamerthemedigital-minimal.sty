@@ -8,4 +8,19 @@
 % die idee: gaanz unten ein dünner grauer block der alle Metainformationen enthält, oben nur ein Titel
 % break Folien für Sections mit simpler Dreiecks optic und übersicht über TOC -- neues Tut design
 
+\RequirePackage{relsize}
+
+\setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=gray}
+\setbeamercolor{foot-page-structure}{parent=foot-structure,fg=gray!75!darkgray}
+
+\usenavigationsymbolstemplate{}
+\newif\ifdmfoot \dmfoottrue
+\setbeamertemplate{footline}{\ifdmfoot
+\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,sep=2pt,shadow=false]{foot-structure}% default color
+    \minipage{\dimexpr\paperwidth-.5cm}%
+    \usebeamerfont{page number in head/foot}%
+    \mbox{\insertshortauthor~| \insertshortdate~ }\hfill{\strut\textbf{\usebeamercolor[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\inserttotalframenumber}%
+    \endminipage
+\endbeamercolorbox\fi}
+
 \endinput
