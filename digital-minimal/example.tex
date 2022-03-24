@@ -11,13 +11,17 @@
 \title{Example Presentation}
 \subtitle{This is madness}
 
-\date[14.08.2020]{14, August 2020}
+\date[14.08.2020]{14. August 2020}
 
 \author[F.~Sihler]{Florian Sihler}
 
 \usepackage[backend=bibtex8,style=alphabetic]{biblatex}
 \addbibresource{example.bib}
 \begin{document}
+
+\begin{frame}[plain,c]
+    \titlepage
+\end{frame}
 
 \section{Theoretische Grundlagen}
 \subsection{Der Algorithmusbegriff}
@@ -119,7 +123,7 @@
 \end{frame}
 
 \begin{frame}{Bibliography}
-    \printbibliography
+    \printBibCommand
 \end{frame}
 
 \end{document}

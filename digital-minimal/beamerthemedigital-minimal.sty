@@ -23,8 +23,11 @@
 \RequirePackage{tikz} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
+\colorlet{btdm@color@primary}{purple!80!teal} % todo
+\setbeamercolor{palette primary}{fg=btdm@color@primary}
+
 \colorlet{btdm@text}{black!99!gray}
-\setbeamercolor{structure}{fg=btdm@text}
+\setbeamercolor{structure}{fg=btdm@text!80!btdm@color@primary}
 \colorlet{btdm@background}{white!99!gray}
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
@@ -124,6 +127,63 @@
 \endbeamercolorbox\fi}
 
 % TODO: make this a customizable end slide so that i can have more fun with it and the penguins
+\let\btdmbibfont\footnotesize
+\def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth,resetnumbers]}
+
+\AtEndPreamble{%
+\@ifundefined{ver@biblatex.sty}{}{%
+    \btdm@setup@bib
+}}
+
+\def\btdm@setup@bib{%
+\let\finentrypunct\@empty
+\def\btdm@lhook##1{\href{\thefield{url}}{##1}}%
+\DeclareBibliographyDriver{btdm@bibtheme}{%
+    \let\@tmp\@empty
+    \ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdm@lhook}}{}%
+    \@tmp{\usebibmacro{bibindex}%
+    \usebibmacro{begentry}%
+    \usebibmacro{author/editor}%
+    \setunit{\labelnamepunct}\newblock
+    \usebibmacro{title}%
+    \newblock
+    \printtext{\space}% so it will be executed in sync
+    \mbox{\textcolor{btdm@color@primary!35!white}{\usebibmacro{date}}}%
+    \newblock
+    \usebibmacro{finentry}}}%
+\DeclareBibliographyAlias{article}{btdm@bibtheme}%
+\DeclareBibliographyAlias{book}{btdm@bibtheme}%
+\DeclareBibliographyAlias{booklet}{btdm@bibtheme}%
+\DeclareBibliographyAlias{collection}{btdm@bibtheme}%
+\DeclareBibliographyAlias{inbook}{btdm@bibtheme}%
+\DeclareBibliographyAlias{incollection}{btdm@bibtheme}%
+\DeclareBibliographyAlias{inproceedings}{btdm@bibtheme}%
+\DeclareBibliographyAlias{manual}{btdm@bibtheme}%
+\DeclareBibliographyAlias{misc}{btdm@bibtheme}%
+\DeclareBibliographyAlias{online}{btdm@bibtheme}%
+\DeclareBibliographyAlias{patent}{btdm@bibtheme}%
+\DeclareBibliographyAlias{periodical}{btdm@bibtheme}%
+\DeclareBibliographyAlias{proceedings}{btdm@bibtheme}%
+\DeclareBibliographyAlias{report}{btdm@bibtheme}%
+\DeclareBibliographyAlias{thesis}{btdm@bibtheme}%
+\DeclareBibliographyAlias{unpublished}{btdm@bibtheme}%
+\DeclareBibliographyAlias{*}{btdm@bibtheme}%
+\DeclareNameFormat{btdm@blx@nf}{\namepartfamily}%
+\DeclareFieldFormat{btdm@sb@title}{\textit{##1}}%
+\DeclareCiteCommand\btdm@sb@rawcite
+{\citetrackerfalse\pagetrackerfalse
+\usebibmacro{prenote}}%
+{\ifciteindex{\indexfield{indextitle}}{}%
+\let\@tmp\@empty
+\ifhyperref{\iffieldundef{url}{}{\let\@tmp\btdm@lhook}}{}%
+\@tmp{%
+\printfield[btdm@sb@title]{labeltitle}\hfill\null\nobreak\hfill\nobreak\mbox{\textcolor{gray}{\printnames[btdm@blx@nf][1-1]{author},~\printfield{year}}}%
+}}%
+{\multicitedelim}%
+{\usebibmacro{postnote}}%
+\DeclareBibliographyCategory{@hide}%
+}
+
 \def\btdm@outro{}
 \def\outro#1{\gdef\btdm@outro{#1}}
 \def\btdm@email{}
