@@ -15,16 +15,20 @@
 \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
 \def\sbfamily{\fontseries{sb}\selectfont}
 
-\RequirePackage{sfmath} % TODO: no libs option
+\RequirePackage{sfmath} % TODO: no-libs option
+% TODO: titlepage
 
 \RequirePackage{relsize}
 
 \RequirePackage{tikz} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
-
-
-
+\colorlet{btdm@text}{black!99!gray}
+\setbeamercolor{structure}{fg=btdm@text}
+\colorlet{btdm@background}{white!99!gray}
+\setbeamercolor{background canvas}{bg=btdm@background}%
+\setbeamercolor{normal text}{fg=btdm@text}
+\setbeamerfont{structure}{family=\sbfamily}
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
@@ -74,10 +78,10 @@
         \pgfmathsetmacro\btdm@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
         \ifnum\i>\btdm@sectionmax@target@start
             \pgfmathsetmacro\btdm@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
-            {\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\,~\faAngleRight\,}\btdm@printshort@mid\fi
+            {\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\,\faAngleRight\,}\btdm@printshort@mid\fi
         \color{lightgray!\btdm@disttotarget!darkgray}%
         \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\faAngleRight\thinspace}\btdm@printshort@mid\fi\fi
-        \savebox\btdm@box@lowforsec{\btdm@printshort@lowforsec{\i}}%
+        \savebox\btdm@box@lowforsec{\btdm@printshort@lowforsec{\i}} % intentional space
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
@@ -119,4 +123,27 @@
     \endminipage\strut
 \endbeamercolorbox\fi}
 
+% TODO: make this a customizable end slide so that i can have more fun with it and the penguins
+\def\btdm@outro{}
+\def\outro#1{\gdef\btdm@outro{#1}}
+\def\btdm@email{}
+\def\email#1{\gdef\btdm@email{#1}}
+\def\btdm@outro@right{} \def\outroright#1{\gdef\btdm@outro@right{#1}}
+\def\btdm@postpage{} \def\PostPage#1{\def\btdm@postpage{#1}}
+\AtEndDocument{%
+\begingroup
+\begin{frame}[c]{\@empty}%
+\label{btdm@slide@marker.\inserttotalframenumber}% the important end marker
+\fontseries{medium}%
+\vfill\pgfmathsetmacro\btdm@extlenw{\textwidth+2em}
+\hspace*{-1em}\parbox{\btdm@extlenw pt}{\parbox[b]{.35\textwidth}{%
+    {\small\ifx\btdm@outro@right\@empty\textbf{\insertauthor}\else\href{mailto:\btdm@email}{\textbf{\insertauthor}}\fi}\\
+    {\footnotesize\btdm@outro{}}%
+}\hfill\parbox[b]{.35\textwidth}{%
+{\hbox{}\hfill\footnotesize\ifx\btdm@outro@right\@empty\href{mailto:\btdm@email}{\btdm@email}\else\btdm@outro@right\fi}%
+}}%
+\btdm@postpage
+\end{frame}
+\endgroup
+}
 \endinput
