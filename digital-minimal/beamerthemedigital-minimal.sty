@@ -23,28 +23,31 @@
 \RequirePackage{tikz} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
-\colorlet{btdm@color@primary}{purple!80!teal} % todo
-\setbeamercolor{palette primary}{fg=btdm@color@primary}
+\colorlet{btdm@primary}{purple!80!teal} % todo
+\setbeamercolor{palette primary}{fg=btdm@primary}
 
 \colorlet{btdm@text}{black!99!gray}
-\setbeamercolor{structure}{fg=btdm@color@primary}
+\setbeamercolor{structure}{fg=btdm@primary}
+\setbeamercolor{description item}{fg=btdm@text}
+\setbeamercolor{bibliography item}{fg=btdm@text}
 \colorlet{btdm@background}{white!99!gray}
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamerfont{structure}{family=\sbfamily}
-
+\setbeamercolor{structure-title}{parent=structure,fg=white!99!btdm@primary,bg=btdm@primary}
+\setbeamerfont{strcuture-title}{parent=structure,size=\LARGE}
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
 % idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
 \AtBeginDocument{%
-    \pgfmathsetmacro\btdm@sectionmax@target@preview{int(min(6,\arabic{btdm@sectioncount}))}%
+    \pgfmathsetmacro\btdm@sectionmax@target@preview{int(min(4,\arabic{btdm@sectioncount}))}%
 }
 
 \def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\ifnum\insertframenumber=#1\relax\(\blacklozenge\)\else\(\lozenge\)\fi}}
 \def\btdm@printshort@lowforsec#1{\@nameuse{btdm@section@#1@content}}
 
-\def\btdm@printshort@border{~~}
+\def\btdm@printshort@border{~~} % todo make customizable with hfill for center option so that id does not jump on clip and allow the section count displayed to be changeable (autochange?)
 \def\btdm@printshort@mid{~~}
 
 % we use very flat icons as sort of banners
@@ -151,7 +154,7 @@
     \usebibmacro{title}%
     \newblock
     \printtext{\space}% so it will be executed in sync
-    \mbox{\textcolor{btdm@color@primary!35!white}{\usebibmacro{date}}}%
+    \mbox{\textcolor{btdm@primary!35!white}{\usebibmacro{date}}}%
     \newblock
     \usebibmacro{finentry}}}%
 \DeclareBibliographyAlias{article}{btdm@bibtheme}%
@@ -197,7 +200,7 @@
 \def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
-\begin{frame}[c]{\@empty}%
+\begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
 \vfill\pgfmathsetmacro\btdm@extlenw{\textwidth+2em}
@@ -211,4 +214,12 @@
 \end{frame}
 \endgroup
 }
+% TODO: deal with overfull hboxes
+
+\defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
+\vskip2mm\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
+    \strut\minipage{\dimexpr\paperwidth-.5cm}%
+      \usebeamerfont{structure-title}\strut\insertframetitle
+    \endminipage\strut
+\endbeamercolorbox\hspace*{-1cm}}
 \endinput
