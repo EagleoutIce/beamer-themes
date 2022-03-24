@@ -27,7 +27,7 @@
 \setbeamercolor{palette primary}{fg=btdm@color@primary}
 
 \colorlet{btdm@text}{black!99!gray}
-\setbeamercolor{structure}{fg=btdm@text!80!btdm@color@primary}
+\setbeamercolor{structure}{fg=btdm@color@primary}
 \colorlet{btdm@background}{white!99!gray}
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
@@ -41,7 +41,7 @@
     \pgfmathsetmacro\btdm@sectionmax@target@preview{int(min(6,\arabic{btdm@sectioncount}))}%
 }
 
-\def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\(\lozenge\)}}
+\def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\ifnum\insertframenumber=#1\relax\(\blacklozenge\)\else\(\lozenge\)\fi}}
 \def\btdm@printshort@lowforsec#1{\@nameuse{btdm@section@#1@content}}
 
 \def\btdm@printshort@border{~~}
@@ -91,7 +91,7 @@
         \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.3ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
         \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\strut\hyperlink{btdm@section.\i}{\btdm@printshort@lowforsec{\i}}}%
     }%
-    \btdm@printshort@border~~\btdm@footer@tsymb{\inserttotalframenumber}%
+    \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
 
 \def\btdm@footline@data{\btdm@typesetfiveforcurrent}
@@ -115,14 +115,17 @@
 
 \usenavigationsymbolstemplate{}
 \newif\ifdmfoot \dmfoottrue
+\def\revealfooton#1{\only<-\the\numexpr#1-1|handout:0>{\global\dmfootfalse}\only<#1->{\global\dmfoottrue}}
+% allows to display foot on animations
+\def\dmfootbottomleft{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
 \setbeamertemplate{footline}{\ifdmfoot
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4ex,sep=2pt,shadow=false]{foot-structure}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
-    \mbox{\insertshortauthor~| \insertshortdate~ }\hfill
+    \mbox{\dmfootbottomleft}\hfill
     \parbox{.6\paperwidth}{\centering\smaller\btdm@footline@data}% TODO: configure width
     \hfill% 6em should be enough space
-    \makebox[6em][r]{\strut\textbf{\usebeamercolor[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\inserttotalframenumber}%
+    \makebox[6em][r]{\strut\textbf{\usebeamercolor[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
 
@@ -190,10 +193,12 @@
 \def\email#1{\gdef\btdm@email{#1}}
 \def\btdm@outro@right{} \def\outroright#1{\gdef\btdm@outro@right{#1}}
 \def\btdm@postpage{} \def\PostPage#1{\def\btdm@postpage{#1}}
+% we have to fake the totals because at end document is not recorded:
+\def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
 \begin{frame}[c]{\@empty}%
-\label{btdm@slide@marker.\inserttotalframenumber}% the important end marker
+\label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
 \vfill\pgfmathsetmacro\btdm@extlenw{\textwidth+2em}
 \hspace*{-1em}\parbox{\btdm@extlenw pt}{\parbox[b]{.35\textwidth}{%
