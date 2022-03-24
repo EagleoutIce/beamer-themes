@@ -61,9 +61,9 @@
     \beamer@currentsubsection=##2%
     \box\beamer@sectionbox\hskip1.25ex%
     \setbox\beamer@sectionbox=%
-    \hbox{\beamer@link(##4){\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi}}% TODO: deal with height, it is wrong with subs
-    \ht\beamer@sectionbox=\z@
-    \dp\beamer@sectionbox=\z@
+    \hbox{\beamer@link(##4){\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi}}%
+    \ht\beamer@sectionbox=.3ex%
+    \dp\beamer@sectionbox=.25ex%
     \fi\fi\fi\ignorespaces}%
 \hskip1mm\setbox\beamer@sectionbox=\hbox{}%
 \hskip-1.25ex\dohead
@@ -91,8 +91,8 @@
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.3ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
-        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\strut\hyperlink{btdm@section.\i}{\btdm@printshort@lowforsec{\i}}}%
+        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.2ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
+        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\i}{\vphantom{A}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
