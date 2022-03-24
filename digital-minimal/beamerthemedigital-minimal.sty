@@ -12,8 +12,12 @@
 \DeclareOption{nofootfade}{\btdm@footfade@false} \DeclareOption{footfade}{\btdm@footfade@true}
 \ProcessOptions
 
-\RequirePackage[defaultfam,light,tabular,lining]{montserrat}
-\def\sbfamily{\fontseries{sb}\selectfont}
+% \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
+\RequirePackage[sfdefault,proportional,lining,light,scaled=.95]{FiraSans}
+\RequirePackage[scaled=.95]{FiraMono}
+% TODO: set all to Fira Family
+% TODO: check Londrina Solid
+\def\sbfamily{\fontseries{m}\selectfont}
 
 \RequirePackage{sfmath} % TODO: no-libs option
 % TODO: titlepage
@@ -40,6 +44,15 @@
 \setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=btdm@foot}
 \setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
 
+\def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
+\settowidth\leftmargini{\usebeamertemplate{itemize items}}%
+\addtolength\leftmargini{\labelsep}}
+\def\updateitemizesub#1{\setbeamertemplate{itemize subitem}{#1}%
+\settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
+\addtolength\leftmarginii{\labelsep}}
+
+\updateitemize{\faAngleRight}
+\updateitemizesub{\raisebox{2.5pt}{\scalebox{.5}{\faCircleO}}}
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
@@ -132,7 +145,7 @@
     \mbox{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
     \hfill% 6em should be enough space
-    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\btdm@inserttotalframenumber}%
+    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\/\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
 
@@ -224,7 +237,7 @@
 \vskip2mm% l margin is the left margin so it is aligned with the text
 \strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{title-structure}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
-\centering\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle\endgraf
+\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle
 \endminipage\strut
 \endbeamercolorbox
 }
