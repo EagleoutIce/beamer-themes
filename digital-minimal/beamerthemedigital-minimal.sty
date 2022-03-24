@@ -34,8 +34,12 @@
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamerfont{structure}{family=\sbfamily}
-\setbeamercolor{structure-title}{parent=structure,fg=white!99!btdm@primary,bg=btdm@primary}
+\setbeamercolor{structure-title}{parent=structure,fg=btdm@primary,bg=lightgray!20!white}
 \setbeamerfont{strcuture-title}{parent=structure,size=\LARGE}
+\setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=gray}
+\setbeamercolor{foot-page-structure}{parent=foot-structure,fg=gray!75!darkgray}
+
+
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
 % idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
@@ -111,10 +115,6 @@
     \write\@auxout{\noexpand\global\noexpand\stepcounter{btdm@sectioncount}\noexpand\btdmcustomauxdef{\thesection}{#1}}%
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi\hypertarget{btdm@section.\thesection}{}%
 }
-
-
-\setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=gray}
-\setbeamercolor{foot-page-structure}{parent=foot-structure,fg=gray!75!darkgray}
 
 \usenavigationsymbolstemplate{}
 \newif\ifdmfoot \dmfoottrue
