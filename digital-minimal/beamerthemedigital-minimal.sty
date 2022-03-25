@@ -13,13 +13,16 @@
 \ProcessOptions
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
-\RequirePackage[sfdefault,proportional,lining,light,scaled=.95]{FiraSans}
+\RequirePackage[sfdefault,proportional,lining,scaled=.95]{FiraSans}
 \RequirePackage[scaled=.95]{FiraMono}
+
 % TODO: set all to Fira Family
 % TODO: check Londrina Solid
-\def\sbfamily{\fontseries{m}\selectfont}
+\def\sbfamily{\fontseries{sb}\selectfont}
 
 \RequirePackage{sfmath} % TODO: no-libs option
+% update math figures
+
 % TODO: titlepage
 
 \RequirePackage{relsize}
@@ -38,7 +41,7 @@
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamerfont{structure}{family=\sbfamily}
-\setbeamercolor{title-structure}{parent=structure,fg=btdm@text,bg=lightgray!10!white}
+\setbeamercolor{title-structure}{parent=structure,fg=btdm@text,bg=lightgray!40!white}
 \setbeamerfont{strcuture-title}{parent=structure,size=\LARGE}
 \colorlet{btdm@foot}{gray}
 \setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=btdm@foot}
@@ -52,7 +55,7 @@
 \addtolength\leftmarginii{\labelsep}}
 
 \updateitemize{\faAngleRight}
-\updateitemizesub{\raisebox{2.5pt}{\scalebox{.5}{\faCircleO}}}
+\updateitemizesub{\raisebox{1.5pt}{\scalebox{.45}{\faCircleO}}}
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
@@ -109,7 +112,7 @@
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.2ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
+        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
         \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\i}{\vphantom{A}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
@@ -145,7 +148,7 @@
     \mbox{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
     \hfill% 6em should be enough space
-    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else{\/\smaller[2].\insertslidenumber}\fi}\smaller\,/\,\btdm@inserttotalframenumber}%
+    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}{\color{btdm@primary}\insertframenumber}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
 
@@ -233,12 +236,16 @@
 }
 % TODO: deal with overfull hboxes
 
+\def\btdm@righttitle{}
+\def\setrightitle#1{\def\btdm@righttitle{#1}}
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
-\vskip2mm% l margin is the left margin so it is aligned with the text
+\vskip1.5mm% l margin is the left margin so it is aligned with the text
 \strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{title-structure}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
-\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle
-\endminipage\strut
+\hskip.5mm\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle
+\endminipage
+\setbox0=\hbox{\resizebox*!{\dimexpr3.55ex+.45ex+3.85pt}{\@declaredcolor{btdm@text}\faCaretLeft}}%
+\llap{\smash{\raisebox{\dimexpr-3.55ex/2-1.425pt}{\usebox0}}\hskip\dimexpr-.25cm-.25ex}\llap{\btdm@righttitle}\strut
 \endbeamercolorbox
 }
 \endinput
