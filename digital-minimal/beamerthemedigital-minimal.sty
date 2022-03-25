@@ -107,8 +107,8 @@
 \def\btdm@printshort@mid{~~}
 
 % we use very flat icons as sort of banners
-\newsavebox\btdm@subs@off \savebox\btdm@subs@off{\tikz{\path[draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
-\newsavebox\btdm@subs@on \savebox\btdm@subs@on{\tikz{\path[fill,draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
+\newsavebox\btdm@subs@off \setbox\btdm@subs@off=\hbox{\tikz{\path[draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
+\newsavebox\btdm@subs@on \setbox\btdm@subs@on=\hbox{\tikz{\path[fill,draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
 \def\btdm@subsections@low#1{{% #1 is the section to filter
 \beamer@currentsubsection=0%
 \def\sectionentry##1##2##3##4##5{}%
@@ -143,7 +143,7 @@
             {\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\,\faAngleRight\,}\btdm@printshort@mid\fi
         \color{lightgray!\btdm@disttotarget!darkgray}%
         \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\faAngleRight\thinspace}\btdm@printshort@mid\fi\fi
-        \savebox\btdm@box@lowforsec{\btdm@printshort@lowforsec{\i}} % intentional space
+        \setbox\btdm@box@lowforsec=\hbox{\btdm@printshort@lowforsec{\i}}~% intentional space
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
