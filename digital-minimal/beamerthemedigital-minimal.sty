@@ -36,7 +36,7 @@
 
 \RequirePackage{relsize}
 
-\RequirePackage{tikz} % i do need it... always :)
+\RequirePackage{pgf,pgffor} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
 
@@ -107,8 +107,15 @@
 \def\btdm@printshort@mid{~~}
 
 % we use very flat icons as sort of banners
-\newsavebox\btdm@subs@off \setbox\btdm@subs@off=\hbox{\tikz{\path[draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
-\newsavebox\btdm@subs@on \setbox\btdm@subs@on=\hbox{\tikz{\path[fill,draw,btdm@foot!55!btdm@background,rounded corners=.2mm] (-.09,-.02) rectangle (.09,.02);}}
+\def\btdm@sub#1{\pgfpicture
+\color{btdm@foot!55!btdm@background}
+\pgfsetcornersarced{\pgfpoint{.2mm}{.2mm}}
+\pgfpathrectanglecorners{\pgfpoint{-.9mm}{-.2mm}}{\pgfpoint{.9mm}{.2mm}}
+\pgfusepath{#1}
+\endpgfpicture}
+\newsavebox\btdm@subs@off \setbox\btdm@subs@off=\hbox{\btdm@sub{stroke}}
+\newsavebox\btdm@subs@on \setbox\btdm@subs@on=\hbox{\btdm@sub{stroke,fill}}
+\let\btdm@sub\relax
 \def\btdm@subsections@low#1{{% #1 is the section to filter
 \beamer@currentsubsection=0%
 \def\sectionentry##1##2##3##4##5{}%
