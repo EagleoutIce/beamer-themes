@@ -160,7 +160,7 @@
         \let\btdm@thesec\thesection
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \sbfamily\fi
+        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \sbfamily\fi
         \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
@@ -264,7 +264,7 @@
 \def\email#1{\gdef\btdm@email{#1}}
 \def\btdm@outro@right{} \def\outroright#1{\gdef\btdm@outro@right{#1}}
 \def\btdm@postpage{} \def\PostPage#1{\def\btdm@postpage{#1}}
-% we have to fake the totals because at end document is not recorded:
+% we have to fake the totals because at end document is not recorded
 \def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
@@ -289,18 +289,18 @@
 \newdimen\btdm@vertshift \btdm@vertshift=1.5mm
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
 \vskip\btdm@vertshift% l margin is the left margin so it is aligned with the text
-\usebeamerfont{structure-title}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
+\usebeamerfont{structure-title}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
 \hskip.5mm\usebeamercolor*[fg]{structure-title}\strut\insertframetitle
 \endminipage
 \ifbtdm@largetrig@
    % size, y shift and x shift
-   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt+1.3\btdm@vertshift\relax
-   \@tempdimb=\dimexpr-3.55ex/2-1.45pt-.65\btdm@vertshift\relax
+   \@tempdima=\dimexpr3.75ex+.45ex+3.85pt+1.3\btdm@vertshift\relax
+   \@tempdimb=\dimexpr-3.75ex/2-1.45pt-.65\btdm@vertshift\relax
    \@tempdimc=\dimexpr-.25cm-.4ex\relax
 \else
-   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt\relax
-   \@tempdimb=\dimexpr-3.55ex/2-1.425pt\relax
+   \@tempdima=\dimexpr3.75ex+.45ex+4.05pt\relax
+   \@tempdimb=\dimexpr-3.75ex/2-.94pt\relax
    \@tempdimc=\dimexpr-.25cm-.25ex\relax
 \fi
 \setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\faCaretLeft}}%
