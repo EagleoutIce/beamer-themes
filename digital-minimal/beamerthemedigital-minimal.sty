@@ -35,18 +35,20 @@
 
 \ifbtdm@darkmode@
 \colorlet{btdm@text}{black!1!white}
+\colorlet{btdm@frametitle}{btdm@text}
 \colorlet{btdm@primary}{green!80!yellow!80!orange} % todo
 \colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
 \else
+\colorlet{btdm@primary}{purple!80!teal} % todo
 \colorlet{btdm@text}{black!99!gray}
+\colorlet{btdm@frametitle}{btdm@primary}
 \colorlet{btdm@block}{black!99!gray}
 \colorlet{btdm@background}{white!99!gray}
-\colorlet{btdm@border@up}{lightgray!52!white}
-\colorlet{btdm@border@down}{lightgray!10!white}
-\colorlet{btdm@primary}{purple!80!teal} % todo
+\colorlet{btdm@border@up}{lightgray!12!white}
+\colorlet{btdm@border@down}{lightgray!12!white}
 \fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
@@ -56,8 +58,8 @@
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamerfont{structure}{family=\sbfamily}
-\setbeamercolor{title-structure}{parent=structure,fg=btdm@text,bg=btdm@border@up}
-\setbeamerfont{strcuture-title}{parent=structure,size=\LARGE}
+\setbeamercolor{structure-title}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
+\setbeamerfont{structure-title}{parent=structure,size=\Large}
 \colorlet{btdm@foot}{gray}
 \setbeamercolor{foot-structure}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
@@ -255,9 +257,9 @@
 \def\setrightitle#1{\def\btdm@righttitle{#1}}
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
 \vskip1.5mm% l margin is the left margin so it is aligned with the text
-\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{title-structure}% default color
+\usebeamerfont{structure-title}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
-\hskip.5mm\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle
+\hskip.5mm\usebeamercolor*[fg]{structure-title}\strut\insertframetitle
 \endminipage
 \setbox0=\hbox{\resizebox*!{\dimexpr3.55ex+.45ex+3.85pt}{\@declaredcolor{btdm@block}\faCaretLeft}}%
 \llap{\smash{\raisebox{\dimexpr-3.55ex/2-1.425pt}{\usebox0}}\hskip\dimexpr-.25cm-.25ex}\llap{\btdm@righttitle}\strut
