@@ -42,6 +42,7 @@
 
 \ifbtdm@darkmode@
 \colorlet{btdm@text}{black!1!white}
+\colorlet{btdm@softtext}{gray!20!white!95!btdm@primary}
 \colorlet{btdm@frametitle}{btdm@text}
 \colorlet{btdm@primary}{green!80!yellow!80!orange} % todo
 \colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
@@ -52,6 +53,7 @@
 \definecolor{btdm@primary}{HTML}{335d7e}   %% #335d7e
 % \colorlet{btdm@primary}{purple!80!teal} % todo
 \colorlet{btdm@text}{black!99!gray}
+\colorlet{btdm@softtext}{gray!60!white!95!btdm@primary}
 \ifbtdm@filled@
 \colorlet{btdm@frametitle}{white!99!btdm@primary}
 \colorlet{btdm@border@up}{btdm@primary}
@@ -293,8 +295,11 @@
 \endbeamercolorbox
 }
 
+\def\titlenumber#1{\def\btdm@titlepage@number{#1}}
+\let\btdm@titlepage@number\@empty
+
 \defbeamertemplate*{title page}{digital-minimal}[1][]{%
-\null\vfill
+\smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{64pt}{64pt}\sbfamily\btdm@titlepage@number}}}\vfill
 \begin{center}
 \parskip=\medskipamount
 % TODO: switch to beamer font system for style
@@ -302,6 +307,7 @@
     {\LARGE\color{btdm@primary}\slshape\insertsubtitle}
 \end{center}
 \vfill\null}
+
 
 \def\setauthormailsubject#1{\def\btdm@authormailsuff{?Subject=#1}}
 \let\btdm@authormailsuff\@empty
