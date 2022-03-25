@@ -15,6 +15,11 @@
 \DeclareOption{darkmode}{\btdm@darkmode@true\btdm@filled@false}
 \DeclareOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
 \DeclareOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
+
+\let\btdm@trig@factor1
+\DeclareOption{small-triangle}{\let\btdm@trig@factor1}
+\DeclareOption{medium-triangle}{\let\btdm@trig@factor1.75}
+\DeclareOption{large-triangle}{\let\btdm@trig@factor2.5}
 \ProcessOptions
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
@@ -171,7 +176,7 @@
 \def\btdm@bottomtoc@w{.7\paperwidth}
 %{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
 \setbeamertemplate{footline}{\ifdmfoot
-\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.33ex,sep=3pt,shadow=false]{foot-structure}% default color
+\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{foot-structure}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
     \mbox{\btdm@footbottomleft}\hfill
@@ -267,14 +272,25 @@
 
 \def\btdm@righttitle{}
 \def\setrightitle#1{\def\btdm@righttitle{#1}}
+\newdimen\btdm@vertshift \btdm@vertshift=1.5mm
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
-\vskip1.5mm% l margin is the left margin so it is aligned with the text
+\vskip\btdm@vertshift% l margin is the left margin so it is aligned with the text
 \usebeamerfont{structure-title}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.55ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
 \hskip.5mm\usebeamercolor*[fg]{structure-title}\strut\insertframetitle
 \endminipage
-\setbox0=\hbox{\resizebox*!{\dimexpr3.55ex+.45ex+3.85pt}{\@declaredcolor{btdm@block}\faCaretLeft}}%
-\llap{\smash{\raisebox{\dimexpr-3.55ex/2-1.425pt}{\usebox0}}\hskip\dimexpr-.25cm-.25ex}\llap{\btdm@righttitle}\strut
+\ifbtdm@largetrig@
+   % size, y shift and x shift
+   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt+2.5\btdm@vertshift\relax
+   \@tempdimb=\dimexpr-3.55ex/2-1.45pt-1.25\btdm@vertshift\relax
+   \@tempdimc=\dimexpr-.25cm-.4ex\relax
+\else
+   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt\relax
+   \@tempdimb=\dimexpr-3.55ex/2-1.425pt\relax
+   \@tempdimc=\dimexpr-.25cm-.25ex\relax
+\fi
+\setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\faCaretLeft}}%
+\llap{\smash{\raisebox\@tempdimb{\usebox0}}\hskip\@tempdimc}\llap{\btdm@righttitle}\strut
 \endbeamercolorbox
 }
 \endinput
