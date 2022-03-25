@@ -123,8 +123,8 @@
     \ifnum##2>\beamer@currentsubsection
     \beamer@currentsubsection=##2%
     \box\beamer@sectionbox\hskip1.25ex%
-    \setbox\beamer@sectionbox=%
-    \hbox{\beamer@link(##4){\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi}}%
+    \setbox\beamer@sectionbox=% we always disable on last
+    \hbox{\beamer@link(##4){\ifnum\insertframenumber=\btdm@inserttotalframenumber \usebox\btdm@subs@off\else\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi\fi}}%
     \ht\beamer@sectionbox=.3ex%
     \dp\beamer@sectionbox=.25ex%
     \fi\fi\fi\ignorespaces}%
@@ -174,8 +174,8 @@
 \let\oldsection\section
 
 \def\btdmcustomauxdef#1#2{\expandafter\gdef\csname btdm@section@#1@content\endcsname{#2}}
-
-\def\section{\@xdblarg\btdm@section}
+% we do not record star sections
+\def\section{\@ifstar{\oldsection*}{\@xdblarg\btdm@section}}
 \def\btdm@section[#1]#2{%
     \write\@auxout{\noexpand\global\noexpand\stepcounter{btdm@sectioncount}\noexpand\btdmcustomauxdef{\thesection}{#1}}%
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi\hypertarget{btdm@section.\thesection}{}%
@@ -195,7 +195,7 @@
     \usebeamerfont{page number in head/foot}%
     \mbox{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
-    \hfill% 6em should be enough space
+    \hskip3em% we pad solid right so that it does not jump  6em should be enough space
     \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}{\color{btdm@primary}\insertframenumber}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
@@ -262,22 +262,16 @@
 \def\outro#1{\gdef\btdm@outro{#1}}
 \def\btdm@email{}
 \def\email#1{\gdef\btdm@email{#1}}
-\def\btdm@outro@right{} \def\outroright#1{\gdef\btdm@outro@right{#1}}
 \def\btdm@postpage{} \def\PostPage#1{\def\btdm@postpage{#1}}
 % we have to fake the totals because at end document is not recorded
 \def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
+\setfootmarker{\insertauthoremail~| \insertshortdate~}%
 \begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
-\vfill\pgfmathsetmacro\btdm@extlenw{\textwidth+2em}
-\hspace*{-1em}\parbox{\btdm@extlenw pt}{\parbox[b]{.35\textwidth}{%
-    {\small\ifx\btdm@outro@right\@empty\textbf{\insertauthor}\else\href{mailto:\btdm@email}{\textbf{\insertauthor}}\fi}\\
-    {\footnotesize\btdm@outro{}}%
-}\hfill\parbox[b]{.35\textwidth}{%
-{\hbox{}\hfill\footnotesize\ifx\btdm@outro@right\@empty\href{mailto:\btdm@email}{\btdm@email}\else\btdm@outro@right\fi}%
-}}%
+\btdm@outro{}
 \btdm@postpage
 \end{frame}
 \endgroup
