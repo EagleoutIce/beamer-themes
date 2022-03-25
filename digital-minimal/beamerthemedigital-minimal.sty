@@ -293,18 +293,24 @@
 \endbeamercolorbox
 }
 
-\defbeamertemplate*{title page}{digital-minimal}[1][]{
-\centering
+\defbeamertemplate*{title page}{digital-minimal}[1][]{%
+\null\vfill
+\begin{center}
 \parskip=\medskipamount
 % TODO: switch to beamer font system for style
     {\Huge\color{btdm@primary}\sbfamily\inserttitle}\par
-    {\LARGE\color{btdm@primary}\slshape\insertsubtitle}\par
-}
+    {\LARGE\color{btdm@primary}\slshape\insertsubtitle}
+\end{center}
+\vfill\null}
+
+\def\setauthormailsubject#1{\def\btdm@authormailsuff{?Subject=#1}}
+\let\btdm@authormailsuff\@empty
+\def\insertauthoremail{\ifx\btdm@email\@empty\insertauthor\else\href{mailto:\btdm@email\btdm@authormailsuff}{\insertauthor}\fi}
 
 \newcommand\titleframe[1][]{% post tilepage
 % default reveal
 \begingroup % keep local
-\setfootmarker{\insertauthor~| \insertshortdate~}%
+\setfootmarker{\insertauthoremail~| \insertshortdate~}%
 \begin{frame}[c]
    \revealfooton{2}% can be overriden
    \titlepage#1
