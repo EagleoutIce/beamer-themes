@@ -10,6 +10,8 @@
 
 \newif\ifbtdm@footfade@
 \DeclareOption{nofootfade}{\btdm@footfade@false} \DeclareOption{footfade}{\btdm@footfade@true}
+\newif\ifbtdm@darkmode@
+\DeclareOption{darkmode}{\btdm@darkmode@true} \DeclareOption{lightmode}{\btdm@darkmode@false}
 \ProcessOptions
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
@@ -30,21 +32,34 @@
 \RequirePackage{tikz} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
+
+\ifbtdm@darkmode@
+\colorlet{btdm@text}{black!1!white}
+\definecolor{btdm@primary}{RGB}{202,43,67} % todo
+\colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
+\colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
+\colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
+\colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
+\else
+\colorlet{btdm@text}{black!99!gray}
+\colorlet{btdm@block}{black!99!gray}
+\colorlet{btdm@background}{white!99!gray}
+\colorlet{btdm@border@up}{lightgray!40!white}
+\colorlet{btdm@border@down}{lightgray!10!white}
 \colorlet{btdm@primary}{purple!80!teal} % todo
+\fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
-\colorlet{btdm@text}{black!99!gray}
 \setbeamercolor{structure}{fg=btdm@primary}
 \setbeamercolor{description item}{fg=btdm@text}
 \setbeamercolor{bibliography item}{fg=btdm@text}
-\colorlet{btdm@background}{white!99!gray}
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamerfont{structure}{family=\sbfamily}
-\setbeamercolor{title-structure}{parent=structure,fg=btdm@text,bg=lightgray!40!white}
+\setbeamercolor{title-structure}{parent=structure,fg=btdm@text,bg=btdm@border@up}
 \setbeamerfont{strcuture-title}{parent=structure,size=\LARGE}
 \colorlet{btdm@foot}{gray}
-\setbeamercolor{foot-structure}{bg=lightgray!10!white,fg=btdm@foot}
+\setbeamercolor{foot-structure}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
 
 \def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
@@ -113,7 +128,7 @@
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
         \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
-        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\i}{\vphantom{A}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
+        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\i}{\vphantom{\textbf{A}}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
@@ -244,7 +259,7 @@
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
 \hskip.5mm\usebeamercolor*[fg]{title-structure}\usebeamerfont{title-structure}\strut\insertframetitle
 \endminipage
-\setbox0=\hbox{\resizebox*!{\dimexpr3.55ex+.45ex+3.85pt}{\@declaredcolor{btdm@text}\faCaretLeft}}%
+\setbox0=\hbox{\resizebox*!{\dimexpr3.55ex+.45ex+3.85pt}{\@declaredcolor{btdm@block}\faCaretLeft}}%
 \llap{\smash{\raisebox{\dimexpr-3.55ex/2-1.425pt}{\usebox0}}\hskip\dimexpr-.25cm-.25ex}\llap{\btdm@righttitle}\strut
 \endbeamercolorbox
 }
