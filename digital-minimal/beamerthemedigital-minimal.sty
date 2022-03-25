@@ -141,6 +141,7 @@
 \color{lightgray!\btdm@disttotarget!darkgray}}
 
 \def\btdm@typesetfiveforcurrent{%
+\setbox\@tempboxa=\hbox{\vphantom{\textbf{A}}}%
 \ifnum\btdm@sectionmax@target@preview>0
     % get start index as sec-2
     \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\value{section}-2))}%
@@ -160,7 +161,7 @@
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
         \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \sbfamily\fi
-        \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\vphantom{\textbf{A}}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
+        \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
