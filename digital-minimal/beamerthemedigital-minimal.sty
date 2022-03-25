@@ -16,10 +16,9 @@
 \DeclareOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
 \DeclareOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
 
-\let\btdm@trig@factor1
-\DeclareOption{small-triangle}{\let\btdm@trig@factor1}
-\DeclareOption{medium-triangle}{\let\btdm@trig@factor1.75}
-\DeclareOption{large-triangle}{\let\btdm@trig@factor2.5}
+\newif\ifbtdm@largetrig@
+\DeclareOption{small-triangle}{\btdm@largetrig@false}
+\DeclareOption{large-triangle}{\btdm@largetrig@true}
 \ProcessOptions
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
@@ -281,8 +280,8 @@
 \endminipage
 \ifbtdm@largetrig@
    % size, y shift and x shift
-   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt+2.5\btdm@vertshift\relax
-   \@tempdimb=\dimexpr-3.55ex/2-1.45pt-1.25\btdm@vertshift\relax
+   \@tempdima=\dimexpr3.55ex+.45ex+3.85pt+1.3\btdm@vertshift\relax
+   \@tempdimb=\dimexpr-3.55ex/2-1.45pt-.65\btdm@vertshift\relax
    \@tempdimc=\dimexpr-.25cm-.4ex\relax
 \else
    \@tempdima=\dimexpr3.55ex+.45ex+3.85pt\relax
