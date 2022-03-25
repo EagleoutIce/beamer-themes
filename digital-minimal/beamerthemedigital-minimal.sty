@@ -11,7 +11,10 @@
 \newif\ifbtdm@footfade@
 \DeclareOption{nofootfade}{\btdm@footfade@false} \DeclareOption{footfade}{\btdm@footfade@true}
 \newif\ifbtdm@darkmode@
-\DeclareOption{darkmode}{\btdm@darkmode@true} \DeclareOption{lightmode}{\btdm@darkmode@false}
+\newif\ifbtdm@filled@ % use color for upper banner, only for light mode atm
+\DeclareOption{darkmode}{\btdm@darkmode@true\btdm@filled@false}
+\DeclareOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
+\DeclareOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
 \ProcessOptions
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
@@ -45,10 +48,16 @@
 \definecolor{btdm@primary}{HTML}{335d7e}   %% #335d7e
 % \colorlet{btdm@primary}{purple!80!teal} % todo
 \colorlet{btdm@text}{black!99!gray}
+\ifbtdm@filled@
 \colorlet{btdm@frametitle}{white!99!btdm@primary}
-\colorlet{btdm@block}{btdm@primary!60!btdm@text}
-\colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@up}{btdm@primary}
+\colorlet{btdm@block}{btdm@primary!60!btdm@text}
+\else
+\colorlet{btdm@block}{black!95!btdm@primary}
+\colorlet{btdm@frametitle}{btdm@primary}
+\colorlet{btdm@border@up}{lightgray!12!white}
+\fi
+\colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
 \fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
