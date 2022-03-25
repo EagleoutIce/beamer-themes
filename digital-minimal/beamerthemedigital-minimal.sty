@@ -44,17 +44,18 @@
 \RequirePackage{pgf,pgffor} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
-% \definecolor{btdm@primary@default@dark}{RGB}{245,235,103} % todo
-% \definecolor{btdm@primary@default@dark}{RGB}{255,161,92}
-\definecolor{btdm@primary@default@dark}{RGB}{68,212,146}
-% \definecolor{btdm@primary@default@dark}{RGB}{250,35,62}
+% \definecolor{btdm@primary@default@dark}{RGB}{136, 247, 226} % rgb(136, 247, 226)
+% \definecolor{btdm@primary@default@dark}{RGB}{245,235,103} % rgb(245,235,103) % todo
+\definecolor{btdm@primary@default@dark}{RGB}{255,161,92} % rgb(255,161,92)
+% \definecolor{btdm@primary@default@dark}{RGB}{68,212,146} % rgb(68,212,146)
+% \definecolor{btdm@primary@default@dark}{RGB}{250,35,62} % rgb(250,35,62)
 \definecolor{btdm@primary@default@light}{RGB}{51,93,126}  % taken from lucy
 
 \ifbtdm@darkmode@
 \def\btdm@defaultcolor{btdm@primary@default@dark}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!1!white}
-\colorlet{btdm@softtext}{gray!20!white!87!btdm@primary}
+\colorlet{btdm@softtext}{btdm@primary!35!white}
 \colorlet{btdm@frametitle}{btdm@text}
 \colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
@@ -233,7 +234,7 @@
     \usebibmacro{title}%
     \newblock
     \printtext{\space}% so it will be executed in sync
-    \mbox{\textcolor{btdm@primary!35!white}{\usebibmacro{date}}}%
+    \mbox{\textcolor{btdm@softtext}{\usebibmacro{date}}}%
     \newblock
     \usebibmacro{finentry}}}%
 \DeclareBibliographyAlias{article}{btdm@bibtheme}%
