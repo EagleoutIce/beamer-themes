@@ -170,7 +170,7 @@
 \newif\ifdmfoot \dmfoottrue
 \def\revealfooton#1{\only<-\the\numexpr#1-1|handout:0>{\global\dmfootfalse}\only<#1->{\global\dmfoottrue}}
 % allows to display foot on animations
-\def\btdm@footbottomleft{\insertshortauthor~| \insertshortdate~ }%
+\let\btdm@footbottomleft\@empty%
 \def\setfootmarker#1{\def\btdm@footbottomleft{#1}}
 \def\btdm@bottomtoc@w{.7\paperwidth}
 %{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
@@ -291,5 +291,24 @@
 \setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\faCaretLeft}}%
 \llap{\smash{\raisebox\@tempdimb{\usebox0}}\hskip\@tempdimc}\llap{\btdm@righttitle}\strut
 \endbeamercolorbox
+}
+
+\defbeamertemplate*{title page}{digital-minimal}[1][]{
+\centering
+\parskip=\medskipamount
+% TODO: switch to beamer font system for style
+    {\Huge\color{btdm@primary}\sbfamily\inserttitle}\par
+    {\LARGE\color{btdm@primary}\slshape\insertsubtitle}\par
+}
+
+\newcommand\titleframe[1][]{% post tilepage
+% default reveal
+\begingroup % keep local
+\setfootmarker{\insertauthor~| \insertshortdate~}%
+\begin{frame}[c]
+   \revealfooton{2}% can be overriden
+   \titlepage#1
+\end{frame}
+\endgroup
 }
 \endinput
