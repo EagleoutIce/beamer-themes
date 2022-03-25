@@ -42,12 +42,13 @@
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
 \else
-\colorlet{btdm@primary}{purple!80!teal} % todo
+\definecolor{btdm@primary}{HTML}{335d7e}   %% #335d7e
+% \colorlet{btdm@primary}{purple!80!teal} % todo
 \colorlet{btdm@text}{black!99!gray}
-\colorlet{btdm@frametitle}{btdm@primary}
-\colorlet{btdm@block}{black!99!gray}
+\colorlet{btdm@frametitle}{white!99!btdm@primary}
+\colorlet{btdm@block}{btdm@primary!60!btdm@text}
 \colorlet{btdm@background}{white!99!gray}
-\colorlet{btdm@border@up}{lightgray!12!white}
+\colorlet{btdm@border@up}{btdm@primary}
 \colorlet{btdm@border@down}{lightgray!12!white}
 \fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
@@ -63,6 +64,8 @@
 \colorlet{btdm@foot}{gray}
 \setbeamercolor{foot-structure}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
+
+\setbeamersize{text margin left=6mm,text margin right=6mm}
 
 \def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
 \settowidth\leftmargini{\usebeamertemplate{itemize items}}%
@@ -159,7 +162,7 @@
 \def\btdm@bottomtoc@w{.7\paperwidth}
 %{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
 \setbeamertemplate{footline}{\ifdmfoot
-\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4ex,sep=2pt,shadow=false]{foot-structure}% default color
+\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.33ex,sep=3pt,shadow=false]{foot-structure}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
     \mbox{\btdm@footbottomleft}\hfill
