@@ -8,18 +8,23 @@
 % die idee: gaanz unten ein dünner grauer block der alle Metainformationen enthält, oben nur ein Titel
 % break Folien für Sections mit simpler Dreiecks optic und übersicht über TOC -- neues Tut design
 
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=btdm,prefix=btdm@}
+
 \newif\ifbtdm@footfade@
-\DeclareOption{nofootfade}{\btdm@footfade@false} \DeclareOption{footfade}{\btdm@footfade@true}
+\DeclareVoidOption{nofootfade}{\btdm@footfade@false} \DeclareVoidOption{footfade}{\btdm@footfade@true}
 \newif\ifbtdm@darkmode@
 \newif\ifbtdm@filled@ % use color for upper banner, only for light mode atm
-\DeclareOption{darkmode}{\btdm@darkmode@true\btdm@filled@false}
-\DeclareOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
-\DeclareOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
+\DeclareVoidOption{darkmode}{\btdm@darkmode@true\btdm@filled@false}
+\DeclareVoidOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
+\DeclareVoidOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
 
 \newif\ifbtdm@largetrig@
-\DeclareOption{small-triangle}{\btdm@largetrig@false}
-\DeclareOption{large-triangle}{\btdm@largetrig@true}
-\ProcessOptions
+\DeclareVoidOption{small-triangle}{\btdm@largetrig@false}
+\DeclareVoidOption{large-triangle}{\btdm@largetrig@true}
+
+\DeclareStringOption[\btdm@defaultcolor]{color}[\btdm@defaultcolor]
+\ProcessKeyvalOptions*
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
 \RequirePackage[sfdefault,proportional,lining,scaled=.95]{FiraSans}
@@ -39,29 +44,35 @@
 \RequirePackage{pgf,pgffor} % i do need it... always :)
 \RequirePackage{fontawesome} % foot symbols
 
+% \definecolor{btdm@primary@default@dark}{RGB}{245,235,103} % todo
+% \definecolor{btdm@primary@default@dark}{RGB}{255,161,92}
+\definecolor{btdm@primary@default@dark}{RGB}{68,212,146}
+% \definecolor{btdm@primary@default@dark}{RGB}{250,35,62}
+\definecolor{btdm@primary@default@light}{RGB}{51,93,126}  % taken from lucy
 
 \ifbtdm@darkmode@
+\def\btdm@defaultcolor{btdm@primary@default@dark}
+\colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!1!white}
-\colorlet{btdm@softtext}{gray!20!white!95!btdm@primary}
+\colorlet{btdm@softtext}{gray!20!white!87!btdm@primary}
 \colorlet{btdm@frametitle}{btdm@text}
-\colorlet{btdm@primary}{green!80!yellow!80!orange} % todo
 \colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
 \else
-\definecolor{btdm@primary}{HTML}{335d7e}   %% #335d7e
-% \colorlet{btdm@primary}{purple!80!teal} % todo
+\def\btdm@defaultcolor{btdm@primary@default@light}
+\colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!99!gray}
-\colorlet{btdm@softtext}{gray!60!white!95!btdm@primary}
+\colorlet{btdm@softtext}{gray!42!white!95!btdm@primary}
 \ifbtdm@filled@
 \colorlet{btdm@frametitle}{white!99!btdm@primary}
 \colorlet{btdm@border@up}{btdm@primary}
 \colorlet{btdm@block}{btdm@primary!60!btdm@text}
 \else
-\colorlet{btdm@block}{black!95!btdm@primary}
 \colorlet{btdm@frametitle}{btdm@primary}
 \colorlet{btdm@border@up}{lightgray!12!white}
+\colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
 \fi
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
@@ -271,7 +282,7 @@
 \begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
-\btdm@outro{}
+\btdm@outro\relax
 \btdm@postpage
 \end{frame}
 \endgroup
@@ -306,7 +317,7 @@
 \let\btdm@titlepage@number\@empty
 
 \defbeamertemplate*{title page}{digital-minimal}[1][]{%
-\smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{64pt}{64pt}\sbfamily\btdm@titlepage@number}}}\vfill
+\smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{72pt}{72pt}\sbfamily\btdm@titlepage@number}}}\vfill
 \begin{center}
 \parskip=\medskipamount
 % TODO: switch to beamer font system for style
