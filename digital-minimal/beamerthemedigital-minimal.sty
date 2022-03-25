@@ -142,21 +142,25 @@
     \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\btdm@sectionmax@target@end-\btdm@sectionmax@target@preview))}%
     \btdm@footer@tsymb{1}~~\btdm@printshort@border
     % start: \btdm@sectionmax@target@start, end: \btdm@sectionmax@target@end
-    \foreach \i in {\btdm@sectionmax@target@start,...,\btdm@sectionmax@target@end} {%
+    % \foreach \i in {\btdm@sectionmax@target@start,...,\btdm@sectionmax@target@end} {%
+    \@tempcnta\btdm@sectionmax@target@start\relax
+    \loop
         \ifbtdm@footfade@
-        \pgfmathsetmacro\btdm@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
-        \ifnum\i>\btdm@sectionmax@target@start
-            \pgfmathsetmacro\btdm@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
+        \pgfmathsetmacro\btdm@disttotarget{int(min(100,max(5,30*abs(\the\@tempcnta-\value{section}))))}%
+        \ifnum\the\@tempcnta>\btdm@sectionmax@target@start
+            \pgfmathsetmacro\btdm@disttotarget@last{int(min(100,max(5,30*abs(\the\@tempcnta-\value{section}-1))))}%
             {\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\,\faAngleRight\,}\btdm@printshort@mid\fi
         \color{lightgray!\btdm@disttotarget!darkgray}%
-        \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\faAngleRight\thinspace}\btdm@printshort@mid\fi\fi
-        \setbox\btdm@box@lowforsec=\hbox{\btdm@printshort@lowforsec{\i}}~% intentional space
+        \else\ifnum\the\@tempcnta>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\faAngleRight\thinspace}\btdm@printshort@mid\fi\fi
+        \setbox\btdm@box@lowforsec=\hbox{\btdm@printshort@lowforsec{\the\@tempcnta}}~% intentional space
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
         \let\btdm@thesec\thesection
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}}\ifnum\value{section}=\i \sbfamily\fi % todo ubs for all?
-        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\i}{\vphantom{\textbf{A}}\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
-    }%
+        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.233ex}{\hskip.5\wd\btdm@box@lowforsec\relax\hb@xt@\z@{\hss\btdm@subsections@low{\the\@tempcnta}\hss}}}}\ifnum\value{section}=\the\@tempcnta \sbfamily\fi % todo ubs for all?
+        \parbox{\dimexpr\wd\btdm@box@lowforsec+.5em}{\hyperlink{btdm@section.\the\@tempcnta}{\vphantom{\textbf{A}}\smash{\btdm@printshort@lowforsec{\the\@tempcnta}}}}% we erase all depth to allow sublinks to be clicked more easily
+        \advance\@tempcnta\@ne\relax
+        \ifnum\@tempcnta>\btdm@sectionmax@target@end\else
+        \repeat
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
 
