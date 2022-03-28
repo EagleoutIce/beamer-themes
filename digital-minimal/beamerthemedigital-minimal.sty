@@ -23,6 +23,11 @@
 \DeclareVoidOption{small-triangle}{\btdm@largetrig@false}
 \DeclareVoidOption{large-triangle}{\btdm@largetrig@true}
 
+% bibliography
+\newif\ifbtdm@bibliography@ \btdm@bibliography@true % default: yes/ifloaded
+\DeclareVoidOption{nobib}{\btdm@bibliography@false}
+\DeclareVoidOption{showbib}{\btdm@bibliography@true}
+
 \DeclareStringOption[\btdm@defaultcolor]{color}[\btdm@defaultcolor]
 \ProcessKeyvalOptions*
 
@@ -218,7 +223,7 @@
 
 \AtEndPreamble{%
 \@ifundefined{ver@biblatex.sty}{}{%
-    \btdm@setup@bib
+    \ifbtdm@bibliography@\btdm@setup@bib\fi
 }}
 
 \def\btdm@setup@bib{%
