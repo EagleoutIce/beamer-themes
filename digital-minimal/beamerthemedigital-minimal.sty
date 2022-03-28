@@ -37,7 +37,7 @@
 
 % TODO: set all to Fira Family
 % TODO: check Londrina Solid
-\def\sbfamily{\fontseries{sb}\selectfont}
+\def\btdm@sbseries{\fontseries{sb}\selectfont}
 
 \RequirePackage{sfmath} % TODO: no-libs option
 % update math figures
@@ -85,10 +85,12 @@
 \fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
-\setbeamerfont{structure}{family=\sbfamily}
+\setbeamerfont{structure}{series=\btdm@sbseries}
 \setbeamerfont{frametitle}{parent=structure,size=\Large}
 \setbeamerfont{title}{parent=structure,size=\Huge}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
+% active section in the footline, custom
+\setbeamerfont{active section in head/foot}{series=\btdm@sbseries}
 
 \setbeamercolor{structure}{fg=btdm@primary}
 \setbeamercolor{title}{fg=btdm@primary}
@@ -186,7 +188,7 @@
         \let\btdm@thesec\thesection
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \sbfamily\fi
+        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \usebeamerfont{active section in head/foot}\fi
         \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
@@ -333,7 +335,7 @@
 \let\btdm@titlepage@number\@empty
 
 \defbeamertemplate*{title page}{digital-minimal}[1][]{%
-\smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{72pt}{72pt}\sbfamily\btdm@titlepage@number}}}\vfill
+\smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{72pt}{72pt}\btdm@sbseries\btdm@titlepage@number}}}\vfill
 \begin{center}
 \parskip=\medskipamount
     {\usebeamerfont{title}\usebeamercolor*[fg]{title}\inserttitle}\par
