@@ -85,14 +85,19 @@
 \fi
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
+\setbeamerfont{structure}{family=\sbfamily}
+\setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{title}{parent=structure,size=\Huge}
+\setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
+
 \setbeamercolor{structure}{fg=btdm@primary}
+\setbeamercolor{title}{fg=btdm@primary}
 \setbeamercolor{description item}{fg=btdm@text}
 \setbeamercolor{bibliography item}{fg=btdm@text}
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
-\setbeamerfont{structure}{family=\sbfamily}
-\setbeamercolor{structure-title}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
-\setbeamerfont{structure-title}{parent=structure,size=\Large}
+\setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
+
 \colorlet{btdm@foot}{gray}
 \setbeamercolor{foot-structure}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
@@ -304,9 +309,9 @@
 \newdimen\btdm@vertshift \btdm@vertshift=1.5mm
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
 \vskip\btdm@vertshift% l margin is the left margin so it is aligned with the text
-\usebeamerfont{structure-title}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{structure-title}% default color
+\usebeamerfont{frametitle}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{frametitle}% default color
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
-\hskip.5mm\usebeamercolor*[fg]{structure-title}\strut\insertframetitle
+\hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle
 \endminipage
 \ifbtdm@largetrig@
    % size, y shift and x shift
@@ -330,9 +335,8 @@
 \smash{\hskip\textwidth\llap{\raisebox{-.5\height}{\@declaredcolor{btdm@softtext}\fontsize{72pt}{72pt}\sbfamily\btdm@titlepage@number}}}\vfill
 \begin{center}
 \parskip=\medskipamount
-% TODO: switch to beamer font system for style
-    {\Huge\color{btdm@primary}\sbfamily\inserttitle}\par
-    {\LARGE\color{btdm@primary}\slshape\insertsubtitle}
+    {\usebeamerfont{title}\usebeamercolor*[fg]{title}\inserttitle}\par
+    {\usebeamerfont{subtitle}\usebeamercolor*[fg]{subtitle}\insertsubtitle}\relax
 \end{center}
 \vfill\null}
 
