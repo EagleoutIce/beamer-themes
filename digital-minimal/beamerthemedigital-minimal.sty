@@ -114,7 +114,11 @@
 % idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
 \AtBeginDocument{%
-    \pgfmathsetmacro\btdm@sectionmax@target@preview{int(min(4,\arabic{btdm@sectioncount}))}%
+    \ifnum\value{btdm@sectioncount}<4\relax
+        \let\btdm@sectionmax@target@preview\thebtdm@sectioncount
+    \else
+        \edef\btdm@sectionmax@target@preview{4}%
+    \fi
 }
 
 \def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\ifnum\insertframenumber=#1\relax\(\blacklozenge\)\else\(\lozenge\)\fi}}
