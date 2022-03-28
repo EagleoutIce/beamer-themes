@@ -13,9 +13,11 @@
 
 \newif\ifbtdm@footfade@
 \DeclareVoidOption{nofootfade}{\btdm@footfade@false} \DeclareVoidOption{footfade}{\btdm@footfade@true}
+% todo: maybe change to something more flexible with beamer colorthemes
 \DeclareVoidOption{darkmode}{\def\btdm@mode{darkmode}}
 \DeclareVoidOption{lightmode}{\def\btdm@mode{lightmode}}
 \DeclareVoidOption{lightmode-fill}{\def\btdm@mode{lightmode-fill}}
+\DeclareVoidOption{darkmode-soft}{\def\btdm@mode{darkmode-soft}}
 
 \newif\ifbtdm@largetrig@
 \DeclareVoidOption{small-triangle}{\btdm@largetrig@false}
@@ -64,6 +66,7 @@
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
+\colorlet{btdm@foot}{gray}
 }
 \@namedef{btdm@mode@lightmode}{
 \def\btdm@defaultcolor{btdm@primary@default@light}
@@ -75,6 +78,7 @@
 \colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
+\colorlet{btdm@foot}{gray}
 }
 \@namedef{btdm@mode@lightmode-filled}{
 \def\btdm@defaultcolor{btdm@primary@default@light}
@@ -86,8 +90,20 @@
 \colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
+\colorlet{btdm@foot}{gray}
 }
-
+\@namedef{btdm@mode@darkmode-soft}{
+\def\btdm@defaultcolor{btdm@primary@default@dark}
+\colorlet{btdm@primary}{\btdm@color}
+\definecolor{btdm@text}{RGB}{173,186,199}
+\colorlet{btdm@frametitle}{btdm@text}
+\definecolor{btdm@background}{RGB}{34,39,46}
+\definecolor{btdm@border@up}{RGB}{28,33,40}
+\colorlet{btdm@border@down}{btdm@border@up}
+\colorlet{btdm@softtext}{btdm@primary!26!btdm@background}
+\colorlet{btdm@block}{btdm@border@up!80!black!99!btdm@primary}
+\colorlet{btdm@foot}{btdm@text!36!btdm@border@down}
+}
 
 % execute mode
 \csname btdm@mode@\btdm@mode\endcsname
@@ -109,7 +125,6 @@
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
 
-\colorlet{btdm@foot}{gray}
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
 
