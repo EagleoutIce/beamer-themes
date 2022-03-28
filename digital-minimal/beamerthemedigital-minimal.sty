@@ -13,11 +13,9 @@
 
 \newif\ifbtdm@footfade@
 \DeclareVoidOption{nofootfade}{\btdm@footfade@false} \DeclareVoidOption{footfade}{\btdm@footfade@true}
-\newif\ifbtdm@darkmode@
-\newif\ifbtdm@filled@ % use color for upper banner, only for light mode atm
-\DeclareVoidOption{darkmode}{\btdm@darkmode@true\btdm@filled@false}
-\DeclareVoidOption{lightmode}{\btdm@darkmode@false\btdm@filled@false}
-\DeclareVoidOption{lightmode-fill}{\btdm@darkmode@false\btdm@filled@true}
+\DeclareVoidOption{darkmode}{\def\btdm@mode{darkmode}}
+\DeclareVoidOption{lightmode}{\def\btdm@mode{lightmode}}
+\DeclareVoidOption{lightmode-fill}{\def\btdm@mode{lightmode-fill}}
 
 \newif\ifbtdm@largetrig@
 \DeclareVoidOption{small-triangle}{\btdm@largetrig@false}
@@ -56,7 +54,7 @@
 % \definecolor{btdm@primary@default@dark}{RGB}{250,35,62} % rgb(250,35,62)
 \definecolor{btdm@primary@default@light}{RGB}{51,93,126}  % taken from lucy
 
-\ifbtdm@darkmode@
+\@namedef{btdm@mode@darkmode}{
 \def\btdm@defaultcolor{btdm@primary@default@dark}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!1!white}
@@ -66,23 +64,34 @@
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
-\else
+}
+\@namedef{btdm@mode@lightmode}{
 \def\btdm@defaultcolor{btdm@primary@default@light}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!99!gray}
 \colorlet{btdm@softtext}{gray!42!white!95!btdm@primary}
-\ifbtdm@filled@
-\colorlet{btdm@frametitle}{white!99!btdm@primary}
-\colorlet{btdm@border@up}{btdm@primary}
-\colorlet{btdm@block}{btdm@primary!60!btdm@text}
-\else
 \colorlet{btdm@frametitle}{btdm@primary}
 \colorlet{btdm@border@up}{lightgray!12!white}
 \colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
-\fi
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
-\fi
+}
+\@namedef{btdm@mode@lightmode-filled}{
+\def\btdm@defaultcolor{btdm@primary@default@light}
+\colorlet{btdm@primary}{\btdm@color}
+\colorlet{btdm@text}{black!99!gray}
+\colorlet{btdm@softtext}{gray!42!white!95!btdm@primary}
+\colorlet{btdm@frametitle}{btdm@primary}
+\colorlet{btdm@border@up}{lightgray!12!white}
+\colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
+\colorlet{btdm@background}{white!99!gray}
+\colorlet{btdm@border@down}{lightgray!12!white}
+}
+
+
+% execute mode
+\csname btdm@mode@\btdm@mode\endcsname
+
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
 \setbeamerfont{structure}{series=\btdm@sbseries}
