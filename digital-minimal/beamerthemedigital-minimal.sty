@@ -214,7 +214,7 @@
 
 % TODO: make this a customizable end slide so that i can have more fun with it and the penguins
 \let\btdmbibfont\footnotesize
-\def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth,resetnumbers]}
+\def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth]}
 
 \AtEndPreamble{%
 \@ifundefined{ver@biblatex.sty}{}{%
@@ -337,6 +337,7 @@
 \begingroup % keep local
 \setfootmarker{\insertauthoremail~| \insertshortdate~}%
 \begin{frame}[c]
+   \label{btdm@slide@marker.1}%
    \revealfooton{2}% can be overriden
    \titlepage#1
 \end{frame}
