@@ -99,8 +99,8 @@
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
 
 \colorlet{btdm@foot}{gray}
-\setbeamercolor{foot-structure}{bg=btdm@border@down,fg=btdm@foot}
-\setbeamercolor{foot-page-structure}{parent=foot-structure,fg=btdm@foot!75!darkgray}
+\setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
+\setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
 
 \setbeamersize{text margin left=6mm,text margin right=6mm}
 
@@ -216,13 +216,13 @@
 \def\btdm@bottomtoc@w{.7\paperwidth}
 %{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
 \setbeamertemplate{footline}{\ifdmfoot
-\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{foot-structure}% default color
+\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{footline}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
     \mbox{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
     \hskip3em% we pad solid right so that it does not jump  6em should be enough space
-    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{foot-page-structure}{\color{btdm@primary}\insertframenumber}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
+    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{page number in head/foot}{\color{btdm@primary}\insertframenumber}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
 
