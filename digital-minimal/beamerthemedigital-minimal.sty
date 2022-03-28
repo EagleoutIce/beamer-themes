@@ -67,6 +67,7 @@
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@foot}{gray}
+\colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode}{
 \def\btdm@defaultcolor{btdm@primary@default@light}
@@ -79,6 +80,7 @@
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
 \colorlet{btdm@foot}{gray}
+\colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode-filled}{
 \def\btdm@defaultcolor{btdm@primary@default@light}
@@ -91,6 +93,7 @@
 \colorlet{btdm@background}{white!99!gray}
 \colorlet{btdm@border@down}{lightgray!12!white}
 \colorlet{btdm@foot}{gray}
+\colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@darkmode-soft}{
 \def\btdm@defaultcolor{btdm@primary@default@dark}
@@ -103,6 +106,7 @@
 \colorlet{btdm@softtext}{btdm@primary!26!btdm@background}
 \colorlet{btdm@block}{btdm@border@up!80!black!99!btdm@primary}
 \colorlet{btdm@foot}{btdm@text!36!btdm@border@down}
+\colorlet{btdm@foot@page}{btdm@primary!70!btdm@background}
 }
 
 % execute mode
@@ -127,6 +131,7 @@
 
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
+\setbeamercolor{current page number in head/foot}{parent=footline,fg=btdm@foot@page}
 
 \setbeamersize{text margin left=6mm,text margin right=6mm}
 
@@ -248,7 +253,7 @@
     \mbox{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
     \hskip3em% we pad solid right so that it does not jump  6em should be enough space
-    \makebox[6em][r]{\strut\textbf{\usebeamercolor*[fg]{page number in head/foot}{\color{btdm@primary}\insertframenumber}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
+    \makebox[6em][r]{\strut\textbf{{\usebeamercolor[fg]{current page number in head/foot}\insertframenumber}\usebeamercolor*[fg]{page number in head/foot}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi}
 
