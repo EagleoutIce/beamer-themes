@@ -111,8 +111,8 @@
 \settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
 \addtolength\leftmarginii{\labelsep}}
 
-\updateitemize{\faAngleRight}
-\updateitemizesub{\raisebox{1.5pt}{\scalebox{.45}{\faCircleO}}}
+\updateitemize{\mdseries\faAngleRight}
+\updateitemizesub{\raisebox{1.5pt}{\scalebox{.45}{\mdseries\faCircleO}}}
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
@@ -163,7 +163,7 @@
 \ifnum\i>\btdm@sectionmax@target@start
 \pgfmathsetmacro\btdm@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
 \pgfmathsetmacro\btdm@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
-{\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\,\faAngleRight\,}\btdm@printshort@mid\fi
+{\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\mdseries\,\faAngleRight\,}\btdm@printshort@mid\fi
 \color{lightgray!\btdm@disttotarget!darkgray}}
 
 \def\btdm@typesetfiveforcurrent{%
@@ -179,7 +179,7 @@
     \foreach \i in {\btdm@sectionmax@target@start,...,\btdm@sectionmax@target@end} {%
         \ifbtdm@footfade@
             \btdm@typesetfiveforcurrent@footfade
-        \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\faAngleRight~}\btdm@printshort@mid\fi\fi
+        \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\mdseries\faAngleRight~}\btdm@printshort@mid\fi\fi
         \setbox\btdm@box@lowforsec=\hbox{\btdm@printshort@lowforsec{\i}}%
         % note: we always calc the non(semi)bold thickness
         % \ifnum\value{section}=\i % old secton guard
@@ -313,6 +313,7 @@
 \strut\minipage{\dimexpr\paperwidth-.5cm}%
 \hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle
 \endminipage
+% currently we do this recalculation for one single reason: the font size could change mid-document
 \ifbtdm@largetrig@
    % size, y shift and x shift
    \@tempdima=\dimexpr3.75ex+.45ex+3.85pt+1.3\btdm@vertshift\relax
@@ -323,7 +324,7 @@
    \@tempdimb=\dimexpr-3.75ex/2-.94pt\relax
    \@tempdimc=\dimexpr-.25cm-.25ex\relax
 \fi
-\setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\faCaretLeft}}%
+\setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\mdseries\faCaretLeft}}%
 \llap{\smash{\raisebox\@tempdimb{\usebox0}}\hskip\@tempdimc}\llap{\btdm@righttitle}\strut
 \endbeamercolorbox
 }
