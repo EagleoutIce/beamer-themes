@@ -13,9 +13,9 @@ The example bibliography-file is based on an [overleaf-example](https://www.over
 
 All preview images have been created with the bash-file [genpreview](genpreview) which uses `convert` and `montage` from imagemagick. Therefore some graphical effects might be based on a faulty conversion.
 
-## digital-minimum
+## digital-minimal
 
-This theme is located [here](./digital-minimum) and _has_ BibLaTeX-Support.
+This theme is located [here](./digital-minimal) and _has_ BibLaTeX-Support.
 Valid Options (defaults are marked):
 
 - __`footfade`__/`nofootfade` (automatic foot fading for sections)
@@ -24,9 +24,9 @@ Valid Options (defaults are marked):
 - __`small-triangle`__/`large-triangle` (switch between a smaller and a larger triangle for the upper right position)
 - __`showbib`__/`nobib` (enable bibliography)
 
-![digital-minimum example image](digital-minimum/example.png)
+![digital-minimal example image](digital-minimal/example.png)
 
-Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/digital-minimum/example.pdf).
+Another (up-to-date) example is located at [example.pdf](https://github.com/EagleoutIce/beamer-themes/blob/gh-pages/digital-minimal/example.pdf).
 
 This is a new layout i work on to be used for my university presentations (it offers a darkmode).
 
