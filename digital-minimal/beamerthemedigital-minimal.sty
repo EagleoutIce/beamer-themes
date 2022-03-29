@@ -13,7 +13,7 @@
 
 \newif\ifbtdm@footfade@
 \DeclareVoidOption{nofootfade}{\btdm@footfade@false} \DeclareVoidOption{footfade}{\btdm@footfade@true}
-% todo: maybe change to something more flexible with beamer colorthemes
+% todo: maybe change to something more flexible with beamer color-themes
 \DeclareVoidOption{darkmode}{\def\btdm@mode{darkmode}}
 \DeclareVoidOption{lightmode}{\def\btdm@mode{lightmode}}
 \DeclareVoidOption{lightmode-fill}{\def\btdm@mode{lightmode-fill}}
@@ -35,14 +35,11 @@
 \RequirePackage[sfdefault,proportional,lining,scaled=.95]{FiraSans}
 \RequirePackage[scaled=.95]{FiraMono}
 
-% TODO: set all to Fira Family
-% TODO: check Londrina Solid
+% mabye check Londrina Solid
 \def\btdm@sbseries{\fontseries{sb}\selectfont}
 
 \RequirePackage{sfmath} % TODO: no-libs option
 % update math figures
-
-% TODO: titlepage
 
 \RequirePackage{relsize}
 
@@ -50,7 +47,7 @@
 \RequirePackage{fontawesome} % foot symbols
 
 % \definecolor{btdm@primary@default@dark}{RGB}{136, 247, 226} % rgb(136, 247, 226)
-% \definecolor{btdm@primary@default@dark}{RGB}{245,235,103} % rgb(245,235,103) % todo
+% \definecolor{btdm@primary@default@dark}{RGB}{245,235,103} % rgb(245,235,103)
 \definecolor{btdm@primary@default@dark}{RGB}{255,161,92} % rgb(255,161,92)
 % \definecolor{btdm@primary@default@dark}{RGB}{68,212,146} % rgb(68,212,146)
 % \definecolor{btdm@primary@default@dark}{RGB}{250,35,62} % rgb(250,35,62)
@@ -160,7 +157,7 @@
 \def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\ifnum\insertframenumber=#1\relax\(\blacklozenge\)\else\(\lozenge\)\fi}}
 \def\btdm@printshort@lowforsec#1{\@nameuse{btdm@section@#1@content}}
 
-\def\btdm@printshort@border{~~} % todo make customizable with hfill for center option so that id does not jump on clip and allow the section count displayed to be changeable (autochange?)
+\def\btdm@printshort@border{~~}
 \def\btdm@printshort@mid{~~}
 
 % we use very flat icons as sort of banners
@@ -242,10 +239,10 @@
 \newif\ifdmfoot \dmfoottrue
 \def\revealfooton#1{\only<-\the\numexpr#1-1|handout:0>{\global\dmfootfalse}\only<#1->{\global\dmfoottrue}}
 % allows to display foot on animations
-\let\btdm@footbottomleft\@empty%
+\let\btdm@footbottomleft\@empty
+
 \def\setfootmarker#1{\def\btdm@footbottomleft{#1}}
 \def\btdm@bottomtoc@w{.7\paperwidth}
-%{\insertshortauthor~| \insertshortdate~ }% Todo allow for stuff like tut
 \setbeamertemplate{footline}{\ifdmfoot
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{footline}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
@@ -257,7 +254,6 @@
     \endminipage\strut
 \endbeamercolorbox\fi}
 
-% TODO: make this a customizable end slide so that i can have more fun with it and the penguins
 \let\btdmbibfont\footnotesize
 \def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth]}
 
@@ -333,7 +329,6 @@
 \end{frame}
 \endgroup
 }
-% TODO: deal with overfull hboxes
 
 \def\btdm@righttitle{}
 \def\setrightitle#1{\def\btdm@righttitle{#1}}
