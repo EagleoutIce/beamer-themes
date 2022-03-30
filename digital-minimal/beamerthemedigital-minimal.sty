@@ -112,7 +112,10 @@
 \btdm@update@mode
 % optional argument can be used to change the mode
 % #2 is the new color to use (btdm@primary can be used to only change mode)
-\newcommand*\UpdateBtdmColor[2][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\btdm@update@triangle}
+\newcommand*\UpdateBtdmColor{\@ifstar\update@btdm@full\update@btdm@main}
+\newcommand*\update@btdm@main[2][\btdm@mode]{\update@btdm@full[#1]{#2}\relax}
+% the third argument allows for manual color modifications
+\newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle}
 % we update the triangle as it is cached
 
 % TODO: table of contents should be more lowered if there are noo subsections at all
