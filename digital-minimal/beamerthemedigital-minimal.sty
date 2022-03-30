@@ -331,15 +331,10 @@
 \endgroup
 }
 
-\def\btdm@righttitle{}
-\def\setrightitle#1{\def\btdm@righttitle{#1}}
 \newdimen\btdm@vertshift \btdm@vertshift=1.5mm
 \defbeamertemplate*{frametitle}{digital-minimal}[1][]{%
 \vskip\btdm@vertshift% l margin is the left margin so it is aligned with the text
-\usebeamerfont{frametitle}\strut\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{frametitle}% default color
-\strut\minipage{\dimexpr\paperwidth-.5cm}%
-\hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle
-\endminipage
+\usebeamerfont{frametitle}\strut
 % currently we do this recalculation for one single reason: the font size could change mid-document
 \ifbtdm@largetrig@
    % size, y shift and x shift
@@ -352,7 +347,13 @@
    \@tempdimc=\dimexpr-.25cm-.25ex\relax
 \fi
 \setbox0=\hbox{\resizebox*!\@tempdima{\@declaredcolor{btdm@block}\mdseries\faCaretLeft}}%
-\llap{\smash{\raisebox\@tempdimb{\usebox0}}\hskip\@tempdimc}\llap{\btdm@righttitle}\strut
+\beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{frametitle}% default color
+\strut\minipage{\dimexpr\paperwidth-.5cm}%
+\hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle
+\hskip\dimexpr\wd0+\@tempdimc+.45ex\null% account for the triangle if present
+% we use @tempdimc as it accounts for the negative shift of the whole box
+\endminipage
+\llap{\smash{\raisebox\@tempdimb{\usebox0}}\hskip\@tempdimc}\strut
 \endbeamercolorbox
 }
 
