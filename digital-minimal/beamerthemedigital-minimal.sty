@@ -62,6 +62,7 @@
 \colorlet{btdm@text}{black!1!white}
 \colorlet{btdm@softtext}{btdm@primary!35!white}
 \colorlet{btdm@frametitle}{btdm@text}
+\colorlet{btdm@contrast}{btdm@frametitle}
 \colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
@@ -76,6 +77,7 @@
 \colorlet{btdm@text}{black!99!gray}
 \colorlet{btdm@softtext}{gray!42!white!95!btdm@primary}
 \colorlet{btdm@frametitle}{btdm@primary}
+\colorlet{btdm@contrast}{white!75!btdm@primary}
 \colorlet{btdm@border@up}{lightgray!12!white}
 \colorlet{btdm@block}{black!90!btdm@primary!90!btdm@border@up}
 \colorlet{btdm@background}{white!99!gray}
@@ -90,6 +92,7 @@
 \colorlet{btdm@text}{black!99!gray}
 \colorlet{btdm@softtext}{gray!42!white!95!btdm@primary}
 \colorlet{btdm@frametitle}{white!99!btdm@primary}
+\colorlet{btdm@contrast}{btdm@frametitle}
 \colorlet{btdm@border@up}{btdm@primary}
 \colorlet{btdm@block}{btdm@primary!60!btdm@text}
 \colorlet{btdm@background}{white!99!gray}
@@ -103,6 +106,7 @@
 \colorlet{btdm@primary}{\btdm@color}
 \definecolor{btdm@text}{RGB}{173,186,199}
 \colorlet{btdm@frametitle}{btdm@text}
+\colorlet{btdm@contrast}{white!99!btdm@primary}
 \definecolor{btdm@background}{RGB}{34,39,46}
 \definecolor{btdm@border@up}{RGB}{28,33,40}
 \colorlet{btdm@border@down}{btdm@border@up}
@@ -123,7 +127,6 @@
 \newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle}
 % we update the triangle as it is cached
 % TODO: custom pages for new tasks
-% TODO: institut!!
 
 \long\def\@btdm@firstoftwo#1#2{#1}
 \long\def\@btdm@secondoftwo#1#2{#2}
@@ -152,7 +155,7 @@
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
-\setbeamercolor{section title}{parent=structure,fg=btdm@frametitle}
+\setbeamercolor{section title}{parent=structure,fg=btdm@contrast}
 % TODO: option to have no triangle
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
@@ -247,7 +250,7 @@
         \let\btdm@thesec\thesection
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
-        \if@btdm@footer@has@sub@\hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\fi\ifnum\value{section}=\i\ifnum\insertpagenumber=\btdm@inserttotalframenumber\else \usebeamerfont{active section in head/foot}\fi\fi
+        \if@btdm@footer@has@sub@\hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.13ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\fi\ifnum\value{section}=\i\ifnum\insertframenumber=\btdm@inserttotalframenumber \else \usebeamerfont{active section in head/foot}\fi\fi
         \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
@@ -264,10 +267,11 @@
 % we do not record star sections
 \def\section{\@ifstar{\oldsection*}{\@xdblarg\btdm@section}}
 \def\btdm@section[#1]#2{%
-    \write\@auxout{\noexpand\global\noexpand\stepcounter{btdm@sectioncount}\noexpand\btdmcustomauxdef{\thesection}{#1}}%
+    \write\@auxout{\noexpand\btdmcustomauxdef{\thesection}{#1}}%
     \hypertarget{btdm@section.\the\numexpr\value{section}+1}{}%hook to the next section
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi
 }
+\AtEndDocument{\write\@auxout{\noexpand\setcounter{btdm@sectioncount}{\number\c@section}}}
 
 \usenavigationsymbolstemplate{}
 \newif\ifdmfoot \dmfoottrue
@@ -277,16 +281,16 @@
 
 \def\setfootmarker#1{\def\btdm@footbottomleft{#1}}
 \def\btdm@bottomtoc@w{.7\paperwidth}
-\setbeamertemplate{footline}{\ifdmfoot
+\setbeamertemplate{footline}{\begingroup\btdm@footline@prefix\ifdmfoot
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{footline}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
     \mbox{\btdm@footbottomleft}\hfill
-    \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}% TODO: configure width
-    \hskip3em% we pad solid right so that it does not jump  6em should be enough space
+    \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}%
+    \hskip.95cm% we pad solid right so that it does not jump  6em should be enough space
     \makebox[6em][r]{\strut\textbf{{\usebeamercolor[fg]{current page number in head/foot}\insertframenumber}\usebeamercolor*[fg]{page number in head/foot}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
-\endbeamercolorbox\fi}
+\endbeamercolorbox\fi\endgroup}
 
 \let\btdmbibfont\footnotesize
 \def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth]}
@@ -346,7 +350,7 @@
 }
 
 \def\btdm@outro{}
-\def\outro#1{\gdef\btdm@outro{#1}}
+\long\def\outro#1{\gdef\btdm@outro{#1}}
 \def\btdm@email{}
 \def\email#1{\gdef\btdm@email{#1}}
 \def\btdm@postpage{} \def\PostPage#1{\def\btdm@postpage{#1}}
@@ -417,6 +421,7 @@
 % default reveal
 \begingroup % keep local
 \setfootmarker{\insertauthoremail~| \insertshortdate~}%
+\@btdm@footer@has@sub@false
 \begin{frame}[c]
    \label{btdm@slide@marker.1}%
    \revealfooton{2}% can be overriden
@@ -429,16 +434,21 @@
 \newif\ifsectionbanner \sectionbannertrue
 \let\nosframe\sectionbannerfalse
 
+\def\BtdmMakeNextFullBottom{%
+% we do it globally so it can be used with animations that clear themselves up
+\gdef\btdm@footline@prefix{% do not show sub in foots:
+\@btdm@footer@has@sub@false\colorlet{btdm@border@down}{btdm@primary}%
+\colorlet{btdm@foot}{btdm@contrast}%
+\colorlet{btdm@foot@page}{btdm@contrast}\global\let\btdm@footline@prefix\@empty}%
+}
+\let\btdm@footline@prefix\@empty
+
 \AtBeginSection[]{\ifsectionbanner\begingroup
     \setbeamercolor{background canvas}{bg=btdm@primary}%
     \setfootmarker{\insertauthoremail~| \insertshortdate~}%
-    % do not show sub in foots:
-    \@btdm@footer@has@sub@false
     % TODO: auch hier kann Name und Datum stehen
     % \def\btcd@footline@data{\@declaredcolor{btcm@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
-    \colorlet{btdm@border@down}{btdm@primary}%
-    \colorlet{btdm@foot}{btdm@frametitle}%
-    \colorlet{btdm@foot@page}{btdm@frametitle}%
+    \BtdmMakeNextFullBottom
     \begin{frame}[c]
         \hypertarget{section.\thesection}{}%
         \vskip4em\vfill
