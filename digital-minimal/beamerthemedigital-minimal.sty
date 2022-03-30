@@ -122,6 +122,8 @@
 % the third argument allows for manual color modifications
 \newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle}
 % we update the triangle as it is cached
+% TODO: custom pages for new tasks
+% TODO: institut!!
 
 \long\def\@btdm@firstoftwo#1#2{#1}
 \long\def\@btdm@secondoftwo#1#2{#2}
@@ -134,6 +136,7 @@
 
 \setbeamerfont{structure}{series=\btdm@sbseries}
 \setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{section title}{parent=frametitle,size=\LARGE}
 \setbeamerfont{title}{parent=structure,size=\Huge}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
 % active section in the footline, custom
@@ -149,6 +152,7 @@
 \setbeamercolor{background canvas}{bg=btdm@background}%
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
+\setbeamercolor{section title}{parent=structure,fg=btdm@frametitle}
 % TODO: option to have no triangle
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
@@ -203,22 +207,27 @@
     \box\beamer@sectionbox\hskip1.25ex%
     \setbox\beamer@sectionbox=% we always disable on last
     \hbox{\beamer@link(##4){\ifnum\insertframenumber=\btdm@inserttotalframenumber \usebox\btdm@subs@off\else\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi\fi}}%
-    \ht\beamer@sectionbox=.3ex%
+    \ht\beamer@sectionbox=.35ex%
     \dp\beamer@sectionbox=.25ex%
     \fi\fi\fi\ignorespaces}%
-\hskip.1mm\setbox\beamer@sectionbox=\hbox{}%
+\setbox\beamer@sectionbox=\hbox{}%
 \hskip-1.25ex\dohead
-\box\beamer@sectionbox\hfil\hskip.1mm}}
+\box\beamer@sectionbox\hfil}}
 
 \newsavebox\btdm@box@lowforsec
-\def\btdm@typesetfiveforcurrent@footfade{%
+\def\btdm@typesetftocfooter@footfade{%
 \ifnum\i>\btdm@sectionmax@target@start
 \pgfmathsetmacro\btdm@disttotarget{int(min(100,max(5,30*abs(\i-\value{section}))))}%
 \pgfmathsetmacro\btdm@disttotarget@last{int(min(100,max(5,30*abs(\i-\value{section}-1))))}%
 {\btdm@printshort@mid\color{lightgray!\btdm@disttotarget@last!darkgray}\mdseries\,\faAngleRight\,}\btdm@printshort@mid\fi
 \color{lightgray!\btdm@disttotarget!darkgray}}
 
-\def\btdm@typesetfiveforcurrent{%
+\newif\if@btdm@footer@has@sub@
+\@btdm@footer@has@sub@true
+% allow to disable if not wanted
+\let\BtdmNoSubsInFooter\@btdm@footer@has@sub@true
+
+\def\btdm@typesetftocfooter{%
 \setbox\@tempboxa=\hbox{\vphantom{\textbf{A}}}%
 \ifnum\btdm@sectionmax@target@preview>0
     % get start index as sec-2
@@ -230,7 +239,7 @@
     % start: \btdm@sectionmax@target@start, end: \btdm@sectionmax@target@end
     \foreach \i in {\btdm@sectionmax@target@start,...,\btdm@sectionmax@target@end} {%
         \ifbtdm@footfade@
-            \btdm@typesetfiveforcurrent@footfade
+            \btdm@typesetftocfooter@footfade
         \else\ifnum\i>\btdm@sectionmax@target@start\btdm@printshort@mid{\thinspace~\mdseries\faAngleRight~}\btdm@printshort@mid\fi\fi
         \setbox\btdm@box@lowforsec=\hbox{\btdm@printshort@lowforsec{\i}}%
         % note: we always calc the non(semi)bold thickness
@@ -238,13 +247,13 @@
         \let\btdm@thesec\thesection
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
-        \hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\ifnum\value{section}=\i \usebeamerfont{active section in head/foot}\fi
+        \if@btdm@footer@has@sub@\hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.23ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\fi\ifnum\value{section}=\i\ifnum\insertpagenumber=\btdm@inserttotalframenumber\else \usebeamerfont{active section in head/foot}\fi\fi
         \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
 \fi}
 
-\def\btdm@footline@data{\btdm@typesetfiveforcurrent}
+\def\btdm@footline@data{\btdm@typesetftocfooter}
 
 % inject sections
 \newcounter{btdm@sectioncount}
@@ -256,7 +265,8 @@
 \def\section{\@ifstar{\oldsection*}{\@xdblarg\btdm@section}}
 \def\btdm@section[#1]#2{%
     \write\@auxout{\noexpand\global\noexpand\stepcounter{btdm@sectioncount}\noexpand\btdmcustomauxdef{\thesection}{#1}}%
-    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi\hypertarget{btdm@section.\thesection}{}%
+    \hypertarget{btdm@section.\the\numexpr\value{section}+1}{}%hook to the next section
+    \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi
 }
 
 \usenavigationsymbolstemplate{}
@@ -414,4 +424,26 @@
 \end{frame}
 \endgroup
 }
+
+% allows for section banners if wanted
+\newif\ifsectionbanner \sectionbannertrue
+\let\nosframe\sectionbannerfalse
+
+\AtBeginSection[]{\ifsectionbanner\begingroup
+    \setbeamercolor{background canvas}{bg=btdm@primary}%
+    \setfootmarker{\insertauthoremail~| \insertshortdate~}%
+    % do not show sub in foots:
+    \@btdm@footer@has@sub@false
+    % TODO: auch hier kann Name und Datum stehen
+    % \def\btcd@footline@data{\@declaredcolor{btcm@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
+    \colorlet{btdm@border@down}{btdm@primary}%
+    \colorlet{btdm@foot}{btdm@frametitle}%
+    \colorlet{btdm@foot@page}{btdm@frametitle}%
+    \begin{frame}[c]
+        \hypertarget{section.\thesection}{}%
+        \vskip4em\vfill
+        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\insertsectionhead\strut
+        \vfill
+    \end{frame}
+\endgroup\fi}
 \endinput
