@@ -54,7 +54,9 @@
 % \definecolor{btdm@primary@default@dark}{RGB}{250,35,62} % rgb(250,35,62)
 \definecolor{btdm@primary@default@light}{RGB}{51,93,126}  % taken from lucy
 
-\@namedef{btdm@mode@darkmode}{
+\newif\if@btdm@darkmode@
+\@namedef{btdm@mode@darkmode}{%
+\@btdm@darkmode@true
 \def\btdm@defaultcolor{btdm@primary@default@dark}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!1!white}
@@ -68,6 +70,7 @@
 \colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode}{
+\@btdm@darkmode@false
 \def\btdm@defaultcolor{btdm@primary@default@light}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!99!gray}
@@ -81,6 +84,7 @@
 \colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode-fill}{
+\@btdm@darkmode@false
 \def\btdm@defaultcolor{btdm@primary@default@light}
 \colorlet{btdm@primary}{\btdm@color}
 \colorlet{btdm@text}{black!99!gray}
@@ -94,6 +98,7 @@
 \colorlet{btdm@foot@page}{btdm@primary}
 }
 \@namedef{btdm@mode@darkmode-git}{
+\@btdm@darkmode@true
 \def\btdm@defaultcolor{btdm@primary@default@dark}
 \colorlet{btdm@primary}{\btdm@color}
 \definecolor{btdm@text}{RGB}{173,186,199}
@@ -117,6 +122,11 @@
 % the third argument allows for manual color modifications
 \newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle}
 % we update the triangle as it is cached
+
+\long\def\@btdm@firstoftwo#1#2{#1}
+\long\def\@btdm@secondoftwo#1#2{#2}
+\def\IfBtdmMode#1{\def\@tmp{#1}\ifx\@tmp\btdm@mode\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
+\def\IfBtdmDarkmode{\if@btdm@darkmode@\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
 
 % TODO: table of contents should be more lowered if there are noo subsections at all
 
