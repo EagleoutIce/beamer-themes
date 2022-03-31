@@ -63,7 +63,7 @@
 \colorlet{btdm@softtext}{btdm@primary!35!white}
 \colorlet{btdm@frametitle}{btdm@text}
 \colorlet{btdm@contrast}{btdm@frametitle}
-\colorlet{btdm@block}{darkgray!60!black!99!btdm@primary}
+\colorlet{btdm@block}{darkgray!55!black!99!btdm@primary}
 \colorlet{btdm@background}{darkgray!99!white!99!btdm@primary}
 \colorlet{btdm@border@up}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
@@ -444,15 +444,14 @@
 \let\btdm@footline@prefix\@empty
 
 \AtBeginSection[]{\ifsectionbanner\begingroup
-    \setbeamercolor{background canvas}{bg=btdm@primary}%
     \setfootmarker{\insertauthoremail~| \insertshortdate~}%
-    % TODO: auch hier kann Name und Datum stehen
-    % \def\btcd@footline@data{\@declaredcolor{btcm@color@white!72!btcd@color@primary}\insertshorttitle\hfill\insertshortauthor, \insertdate}
-    \BtdmMakeNextFullBottom
+    \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
     \begin{frame}[c]
         \hypertarget{section.\thesection}{}%
         \vskip4em\vfill
-        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\insertsectionhead\strut
+        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\if@btdm@darkmode@
+        \setbox\z@\hbox{\insertsectionhead}\rlap{\color{btdm@primary}\kern-3\p@\rule[-\dp\z@]{\dimexpr\wd\z@+6\p@}{\dp\z@}}\box\z@%
+        \else\insertsectionhead\fi\strut\par
         \vfill
     \end{frame}
 \endgroup\fi}
