@@ -139,7 +139,7 @@
 
 \setbeamerfont{structure}{series=\btdm@sbseries}
 \setbeamerfont{frametitle}{parent=structure,size=\Large}
-\setbeamerfont{section title}{parent=frametitle,size=\LARGE}
+\setbeamerfont{section title}{parent=frametitle,size=\huge}
 \setbeamerfont{title}{parent=structure,size=\Huge}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
 % active section in the footline, custom
@@ -449,9 +449,7 @@
     \begin{frame}[c]
         \hypertarget{section.\thesection}{}%
         \vskip4em\vfill
-        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\if@btdm@darkmode@
-        \setbox\z@\hbox{\insertsectionhead}\rlap{\color{btdm@primary}\kern-3\p@\rule[-\dp\z@]{\dimexpr\wd\z@+6\p@}{\dp\z@}}\box\z@%
-        \else\insertsectionhead\fi\strut\par
+        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\par
         \vfill
     \end{frame}
 \endgroup\fi}
