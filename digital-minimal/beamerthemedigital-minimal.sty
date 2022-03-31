@@ -292,8 +292,8 @@
     \usebeamerfont{page number in head/foot}%
     \strut\rlap{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}%
-    \hskip.95cm% we pad solid right so that it does not jump  6em should be enough space
-    \makebox[6em][r]{\strut\textbf{{\usebeamercolor[fg]{current page number in head/foot}\insertframenumber}\usebeamercolor*[fg]{page number in head/foot}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
+    \hfill% we lap so it does not jump
+    \llap{\strut\textbf{{\usebeamercolor[fg]{current page number in head/foot}\insertframenumber}\usebeamercolor*[fg]{page number in head/foot}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
     \endminipage\strut
 \endbeamercolorbox\fi\endgroup}
 
