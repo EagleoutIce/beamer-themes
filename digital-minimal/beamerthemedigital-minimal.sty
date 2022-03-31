@@ -282,6 +282,9 @@
 \let\btdm@footbottomleft\@empty
 
 \def\setfootmarker#1{\def\btdm@footbottomleft{#1}}
+\def\setfoottitlemarker#1{\def\btdm@footbottomleft@title{#1}}
+\setfoottitlemarker{\insertauthoremail~/ \insertshortdate}
+
 \def\btdm@bottomtoc@w{.7\paperwidth}
 \setbeamertemplate{footline}{\begingroup\btdm@footline@prefix\ifdmfoot
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{footline}% default color
@@ -360,7 +363,7 @@
 \def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
-\setfootmarker{\insertauthoremail~/ \insertshortdate~}%
+\setfootmarker{\btdm@footbottomleft@title}%
 \begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
@@ -422,7 +425,7 @@
 \newcommand\titleframe[1][]{% post tilepage
 % default reveal
 \begingroup % keep local
-\setfootmarker{\insertauthoremail~/ \insertshortdate~}%
+\setfootmarker{\btdm@footbottomleft@title}%
 \@btdm@footer@has@sub@false
 \begin{frame}[c]
    \label{btdm@slide@marker.1}%
@@ -446,7 +449,7 @@
 \let\btdm@footline@prefix\@empty
 
 \AtBeginSection[]{\ifsectionbanner\begingroup
-    \setfootmarker{\insertauthoremail~/ \insertshortdate~}%
+    \setfootmarker{\btdm@footbottomleft@title}%
     \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
     \begin{frame}[c]
         \hypertarget{section.\thesection}{}%
