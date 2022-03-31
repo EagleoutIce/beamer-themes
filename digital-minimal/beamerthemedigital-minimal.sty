@@ -360,7 +360,7 @@
 \def\btdm@inserttotalframenumber{\the\numexpr\inserttotalframenumber+1\relax}
 \AtEndDocument{%
 \begingroup
-\setfootmarker{\insertauthoremail~| \insertshortdate~}%
+\setfootmarker{\insertauthoremail~/ \insertshortdate~}%
 \begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
@@ -422,7 +422,7 @@
 \newcommand\titleframe[1][]{% post tilepage
 % default reveal
 \begingroup % keep local
-\setfootmarker{\insertauthoremail~| \insertshortdate~}%
+\setfootmarker{\insertauthoremail~/ \insertshortdate~}%
 \@btdm@footer@has@sub@false
 \begin{frame}[c]
    \label{btdm@slide@marker.1}%
@@ -446,7 +446,7 @@
 \let\btdm@footline@prefix\@empty
 
 \AtBeginSection[]{\ifsectionbanner\begingroup
-    \setfootmarker{\insertauthoremail~| \insertshortdate~}%
+    \setfootmarker{\insertauthoremail~/ \insertshortdate~}%
     \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
     \begin{frame}[c]
         \hypertarget{section.\thesection}{}%
