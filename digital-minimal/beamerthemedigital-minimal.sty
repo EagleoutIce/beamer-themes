@@ -290,7 +290,7 @@
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=4.5ex,sep=3pt,shadow=false]{footline}% default color
     \strut\minipage{\dimexpr\paperwidth-.5cm}%
     \usebeamerfont{page number in head/foot}%
-    \mbox{\btdm@footbottomleft}\hfill
+    \strut\rlap{\btdm@footbottomleft}\hfill
     \parbox\btdm@bottomtoc@w{\centering\smaller\btdm@footline@data}%
     \hskip.95cm% we pad solid right so that it does not jump  6em should be enough space
     \makebox[6em][r]{\strut\textbf{{\usebeamercolor[fg]{current page number in head/foot}\insertframenumber}\usebeamercolor*[fg]{page number in head/foot}\ifnum\insertframestartpage=\insertframeendpage\else{.\insertslidenumber}\fi}\,/\,\btdm@inserttotalframenumber}%
