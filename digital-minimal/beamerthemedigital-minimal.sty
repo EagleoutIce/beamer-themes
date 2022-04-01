@@ -173,7 +173,8 @@
 \addtolength\leftmarginii{\labelsep}}
 
 \updateitemize{\mdseries\faAngleRight}
-\updateitemizesub{\raisebox{1.5pt}{\scalebox{.45}{\mdseries\faCircleO}}}
+\newsavebox\btdm@itemize@sub \setbox\btdm@itemize@sub=\hbox{\raisebox{1.5pt}{\scalebox{.5}{\@declaredcolor{btdm@softtext}\mdseries\faCircle}}}
+\updateitemizesub{\copy\btdm@itemize@sub}
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
