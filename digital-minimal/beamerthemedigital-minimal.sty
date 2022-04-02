@@ -135,8 +135,6 @@
 \def\IfBtdmMode#1{\def\@tmp{#1}\ifx\@tmp\btdm@mode\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
 \def\IfBtdmDarkmode{\if@btdm@darkmode@\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
 
-% TODO: table of contents should be more lowered if there are noo subsections at all
-
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
 \setbeamerfont{structure}{series=\btdm@sbseries}
@@ -162,6 +160,10 @@
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
 \setbeamercolor{current page number in head/foot}{parent=footline,fg=btdm@foot@page}
+\setbeamercolor{enumerate item}{fg=btdm@primary}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
+\AtBeginEnvironment{enumerate}{\leftmargini.5cm \leftmarginii.5cm}
 
 \setbeamersize{text margin left=6mm,text margin right=6mm}
 
@@ -368,7 +370,7 @@
 \begin{frame}[c]%
 \label{btdm@slide@marker.\btdm@inserttotalframenumber}% the important end marker
 \fontseries{medium}%
-\btdm@outro\relax
+\vfil\btdm@outro\vfil\relax
 \btdm@postpage
 \end{frame}
 \endgroup
