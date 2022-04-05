@@ -140,6 +140,7 @@
 \setbeamerfont{structure}{series=\btdm@sbseries}
 \setbeamerfont{frametitle}{parent=structure,size=\Large}
 \setbeamerfont{section title}{parent=frametitle,size=\huge}
+\setbeamerfont{section text}{parent=normal text,size=\footnotesize,shape=\slshape}
 \setbeamerfont{title}{parent=structure,size=\Huge}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
 % active section in the footline, custom
@@ -156,6 +157,7 @@
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
 \setbeamercolor{section title}{parent=structure,fg=btdm@contrast}
+\setbeamercolor{section text}{parent=section title,fg=btdm@contrast!80!btdm@primary}
 % TODO: option to have no triangle
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
@@ -451,14 +453,15 @@
 }
 \let\btdm@footline@prefix\@empty
 
+\def\SetNextSectionText#1{\def\btdm@sec@text{#1}}
 \AtBeginSection[]{\ifsectionbanner\begingroup
     \setfootmarker{\btdm@footbottomleft@title}%
     \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
-    \begin{frame}[c]
+    \begin{frame}[t]\relax\relax
         \hypertarget{section.\thesection}{}%
-        \vskip4em\vfill
-        \centering\usebeamercolor[fg]{section title}\usebeamerfont{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\par
-        \vfill
+        \null\vskip-\headheight\relax\hfill\smash{\llap{\parbox{.6\linewidth}{\raggedleft\usebeamerfont{section text}\usebeamercolor[fg]{section text}\btdm@sec@text}}}\vskip\z@\@plus 1filll\relax
+        \centering\usebeamerfont{section title}\usebeamercolor[fg]{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\par
+        \vskip\z@\@plus 1filll\relax
     \end{frame}
-\endgroup\fi}
+\endgroup\fi\let\btdm@sec@text\@empty}
 \endinput
