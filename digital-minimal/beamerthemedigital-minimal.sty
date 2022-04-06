@@ -456,7 +456,8 @@
 \newcommand\SetNextSectionText[2][.45\linewidth]{\def\btdm@sec@width{#1}\def\btdm@sec@text{#2}}
 \AtBeginSection[]{\ifsectionbanner\begingroup
     \setfootmarker{\btdm@footbottomleft@title}%
-    \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
+    \if@btdm@darkmode@\gdef\btdm@footline@prefix{% do not show sub in foots:
+    \@btdm@footer@has@sub@false\global\let\btdm@footline@prefix\@empty} \else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
     \begin{frame}[t]\relax\relax
         \hypertarget{section.\thesection}{}%
         \null\hfill\llap{\smash{\raisebox{-\height+.6cm}{\parbox{\btdm@sec@width}{\raggedleft\usebeamerfont{section text}\usebeamercolor[fg]{section text}\btdm@sec@text}}}}\vskip3em\vfill\centering\usebeamerfont{section title}\usebeamercolor[fg]{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\vfill
