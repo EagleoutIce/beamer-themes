@@ -140,7 +140,7 @@
 \setbeamerfont{structure}{series=\btdm@sbseries}
 \setbeamerfont{frametitle}{parent=structure,size=\Large}
 \setbeamerfont{section title}{parent=frametitle,size=\huge}
-\setbeamerfont{section text}{parent=normal text,size=\footnotesize,shape=\slshape}
+\setbeamerfont{section text}{parent=normal text,size=\scriptsize,shape=\slshape}
 \setbeamerfont{title}{parent=structure,size=\Huge}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
 % active section in the footline, custom
@@ -157,7 +157,7 @@
 \setbeamercolor{normal text}{fg=btdm@text}
 \setbeamercolor{frametitle}{parent=structure,fg=btdm@frametitle,bg=btdm@border@up}
 \setbeamercolor{section title}{parent=structure,fg=btdm@contrast}
-\setbeamercolor{section text}{parent=section title,fg=btdm@contrast!80!btdm@primary}
+\setbeamercolor{section text}{parent=section title,fg=btdm@contrast!70!btdm@primary}
 % TODO: option to have no triangle
 \setbeamercolor{footline}{bg=btdm@border@down,fg=btdm@foot}
 \setbeamercolor{page number in head/foot}{parent=footline,fg=btdm@foot!75!darkgray}
@@ -453,13 +453,13 @@
 }
 \let\btdm@footline@prefix\@empty
 
-\def\SetNextSectionText#1{\def\btdm@sec@text{#1}}
+\newcommand\SetNextSectionText[2][.45\linewidth]{\def\btdm@sec@width{#1}\def\btdm@sec@text{#2}}
 \AtBeginSection[]{\ifsectionbanner\begingroup
     \setfootmarker{\btdm@footbottomleft@title}%
     \if@btdm@darkmode@\else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
     \begin{frame}[t]\relax\relax
         \hypertarget{section.\thesection}{}%
-        \null\hfill\llap{\smash{\parbox{.45\linewidth}{\raggedleft\usebeamerfont{section text}\usebeamercolor[fg]{section text}\btdm@sec@text}}}\vskip3em\vfill\centering\usebeamerfont{section title}\usebeamercolor[fg]{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\vfill
+        \null\hfill\llap{\smash{\raisebox{-\height+.6cm}{\parbox{\btdm@sec@width}{\raggedleft\usebeamerfont{section text}\usebeamercolor[fg]{section text}\btdm@sec@text}}}}\vskip3em\vfill\centering\usebeamerfont{section title}\usebeamercolor[fg]{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsectionhead\strut\vfill
     \end{frame}
 \endgroup\fi\let\btdm@sec@text\@empty}
 \endinput
