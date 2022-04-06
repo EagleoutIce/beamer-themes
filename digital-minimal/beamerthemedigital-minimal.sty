@@ -167,6 +167,10 @@
 \setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
 \AtBeginEnvironment{enumerate}{\leftmargini.5cm \leftmarginii.5cm}
 
+\setbeamercolor{bibliography entry author}{fg=btdm@text}
+\setbeamercolor{bibliography entry title}{fg=btdm@primary}
+
+
 \setbeamersize{text margin left=6mm,text margin right=6mm}
 
 \def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
@@ -303,7 +307,7 @@
 \endbeamercolorbox\fi\endgroup}
 
 \let\btdmbibfont\footnotesize
-\def\printBibCommand{\renewcommand*{\bibfont}{\btdmbibfont}\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth]}
+\def\printBibCommand{\let\bibfont\btdmbibfont\printbibliography[title={},heading=none,notcategory={@hide},locallabelwidth,defernumbers=true]}
 
 \AtEndPreamble{%
 \@ifundefined{ver@biblatex.sty}{}{%
