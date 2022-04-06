@@ -126,7 +126,7 @@
 \newcommand*\UpdateBtdmColor{\@ifstar\update@btdm@full\update@btdm@main}
 \newcommand*\update@btdm@main[2][\btdm@mode]{\update@btdm@full[#1]{#2}\relax}
 % the third argument allows for manual color modifications
-\newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle}
+\newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle\btdm@updatesubbox}
 % we update the triangle as it is cached
 % TODO: custom pages for new tasks
 
@@ -181,7 +181,8 @@
 \addtolength\leftmarginii{\labelsep}}
 
 \updateitemize{\mdseries\faAngleRight}
-\newsavebox\btdm@itemize@sub \setbox\btdm@itemize@sub=\hbox{\raisebox{1.5pt}{\scalebox{.5}{\@declaredcolor{btdm@softtext}\mdseries\faCircle}}}
+\newsavebox\btdm@itemize@sub
+\def\btdm@updatesubbox{\setbox\btdm@itemize@sub=\hbox{\raisebox{1.5pt}{\scalebox{.5}{\@declaredcolor{btdm@softtext}\mdseries\faCircle}}}}
 \updateitemizesub{\copy\btdm@itemize@sub}
 
 % this code is based on that of dividing-lines but modified.
