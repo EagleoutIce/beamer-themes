@@ -276,7 +276,7 @@
 
 \def\btdmcustomauxdef#1#2{\expandafter\gdef\csname btdm@section@#1@content\endcsname{#2}}
 % we do not record star sections
-\def\section{\@ifstar{\oldsection*}{\@xdblarg\btdm@section}}
+\def\section{\@ifstar{\oldsection*}{\@dblarg\btdm@section}}
 \def\btdm@section[#1]#2{%
     \write\@auxout{\noexpand\btdmcustomauxdef{\thesection}{#1}}%
     \hypertarget{btdm@section.\the\numexpr\value{section}+1}{}%hook to the next section
