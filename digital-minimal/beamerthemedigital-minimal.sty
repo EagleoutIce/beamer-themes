@@ -239,7 +239,8 @@
 \newif\if@btdm@footer@has@sub@
 \@btdm@footer@has@sub@true
 % allow to disable if not wanted
-\let\BtdmNoSubsInFooter\@btdm@footer@has@sub@true
+\let\BtdmNoSubsInFooter\@btdm@footer@has@sub@false
+\let\BtdmDoSubsInFooter\@btdm@footer@has@sub@true
 
 \def\btdm@typesetftocfooter{%
 \setbox\@tempboxa=\hbox{\vphantom{\textbf{A}}}%
