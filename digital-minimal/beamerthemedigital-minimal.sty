@@ -188,11 +188,13 @@
 % if i have the time i will regroup it as a package
 % idee, zeige Auszug 'C > D > E > F > G' für 'Abschnitt E',
 % zeige allgemein immer 5 und versuche aktuelle section zu zentrieren
+\def\btdmsetfootlinethreshold#1{\def\btdm@footline@threshold{#1}}
+\btdmsetfootlinethreshold{4}
 \AtBeginDocument{%
-    \ifnum\value{btdm@sectioncount}<4\relax
+    \ifnum\number\c@btdm@sectioncount<\btdm@footline@threshold\relax
         \let\btdm@sectionmax@target@preview\thebtdm@sectioncount
     \else
-        \edef\btdm@sectionmax@target@preview{4}%
+        \edef\btdm@sectionmax@target@preview{\btdm@footline@threshold}%
     \fi
 }
 
@@ -244,10 +246,10 @@
 
 \def\btdm@typesetftocfooter{%
 \setbox\@tempboxa=\hbox{\vphantom{\textbf{A}}}%
-\ifnum\btdm@sectionmax@target@preview>0
+\ifnum\btdm@sectionmax@target@preview<0\else
     % get start index as sec-2
-    \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\value{section}-2))}%
-    \pgfmathsetmacro\btdm@sectionmax@target@end{int(min(\value{btdm@sectioncount},\btdm@sectionmax@target@start+\btdm@sectionmax@target@preview))}%
+    \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\number\c@section-\btdm@footline@threshold/2))}%
+    \pgfmathsetmacro\btdm@sectionmax@target@end{int(min(\number\c@btdm@sectioncount,\btdm@sectionmax@target@start+\btdm@sectionmax@target@preview))}%
     % try to update lower if upper was capped
     \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\btdm@sectionmax@target@end-\btdm@sectionmax@target@preview))}%
     \btdm@footer@tsymb{1}~~\btdm@printshort@border
