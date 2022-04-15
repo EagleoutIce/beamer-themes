@@ -18,7 +18,8 @@ All preview images have been created with the bash-file [genpreview](genpreview)
 This theme is located [here](./digital-minimal) and _has_ BibLaTeX-Support.
 Valid Options (defaults are marked):
 
-- __`footfade`__/`nofootfade` (automatic foot fading for sections)
+- `footfade`/__`nofootfade`__ (automatic foot fading for sections)
+- `primary-foot`/__`gray-foot`__ (only with `nofootfade`, highlights current section with primary in foot)
 - `lightmode`/__`lightmode-fill`__/`darkmode`/`darkmode-soft` (switch default and internal color-themes)
 - __`libs`__/`nolibs` (automatically load necessary libraries)
 - __`small-triangle`__/`large-triangle` (switch between a smaller and a larger triangle for the upper right position)
