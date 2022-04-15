@@ -333,23 +333,7 @@
     \mbox{\textcolor{btdm@softtext}{\usebibmacro{date}}}%
     \newblock
     \usebibmacro{finentry}}}%
-\DeclareBibliographyAlias{article}{btdm@bibtheme}%
-\DeclareBibliographyAlias{book}{btdm@bibtheme}%
-\DeclareBibliographyAlias{booklet}{btdm@bibtheme}%
-\DeclareBibliographyAlias{collection}{btdm@bibtheme}%
-\DeclareBibliographyAlias{inbook}{btdm@bibtheme}%
-\DeclareBibliographyAlias{incollection}{btdm@bibtheme}%
-\DeclareBibliographyAlias{inproceedings}{btdm@bibtheme}%
-\DeclareBibliographyAlias{manual}{btdm@bibtheme}%
-\DeclareBibliographyAlias{misc}{btdm@bibtheme}%
-\DeclareBibliographyAlias{online}{btdm@bibtheme}%
-\DeclareBibliographyAlias{patent}{btdm@bibtheme}%
-\DeclareBibliographyAlias{periodical}{btdm@bibtheme}%
-\DeclareBibliographyAlias{proceedings}{btdm@bibtheme}%
-\DeclareBibliographyAlias{report}{btdm@bibtheme}%
-\DeclareBibliographyAlias{thesis}{btdm@bibtheme}%
-\DeclareBibliographyAlias{unpublished}{btdm@bibtheme}%
-\DeclareBibliographyAlias{*}{btdm@bibtheme}%
+    \@for\@type:={article,book,booklet,collection,inbook,incollection,inproceedings,manual,misc,online,patent,periodical,proceedings,report,thesis,unpublished,*}\do{\DeclareBibliographyAlias{\@type}{btdm@bibtheme}}%
 \DeclareNameFormat{btdm@blx@nf}{\namepartfamily}%
 \DeclareFieldFormat{btdm@sb@title}{\textit{##1}}%
 \DeclareCiteCommand\btdm@sb@rawcite
