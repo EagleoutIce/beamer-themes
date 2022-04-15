@@ -24,6 +24,9 @@
 \DeclareVoidOption{small-triangle}{\btdm@largetrig@false}
 \DeclareVoidOption{large-triangle}{\btdm@largetrig@true}
 
+\newif\ifbtdm@primaryfoot@
+\DeclareVoidOption{primary-foot}{\btdm@primaryfoot@true}
+\DeclareVoidOption{gray-foot}{\btdm@primaryfoot@false}
 % bibliography
 \newif\ifbtdm@bibliography@ \btdm@bibliography@true % default: yes/ifloaded
 \DeclareVoidOption{nobib}{\btdm@bibliography@false}
@@ -167,6 +170,12 @@
 \setbeamertemplate{enumerate subitem}{\insertenumlabel.\insertsubenumlabel}
 \AtBeginEnvironment{enumerate}{\leftmargini.5cm \leftmarginii.5cm}
 
+\ifbtdm@primaryfoot@
+\setbeamercolor{active section in head/foot}{fg=btdm@primary}
+\else
+\setbeamercolor{active section in head/foot}{parent=footline}
+\fi
+
 \setbeamercolor{bibliography entry author}{fg=btdm@text}
 \setbeamercolor{bibliography entry title}{fg=btdm@primary}
 
@@ -264,7 +273,7 @@
         \let\btdm@thesec\thesection
         \@tempdima=\dimexpr\wd\btdm@box@lowforsec+.5em\relax
         % we rlap them by setting them to the right
-        \if@btdm@footer@has@sub@\hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.13ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\fi\ifnum\value{section}=\i\ifnum\insertframenumber=\btdm@inserttotalframenumber \else \usebeamerfont{active section in head/foot}\fi\fi
+        \if@btdm@footer@has@sub@\hb@xt@\z@{\smash{\tiny\@declaredcolor{lightgray}\raisebox{\dimexpr-\ht\btdm@box@lowforsec+.13ex}{\hskip.5\@tempdima\relax\hb@xt@\z@{\hss\btdm@subsections@low{\i}\hss}}}\hss}\fi\ifnum\value{section}=\i\ifnum\insertframenumber=\btdm@inserttotalframenumber \else \usebeamerfont{active section in head/foot}\usebeamercolor[fg]{active section in head/foot}\fi\fi
         \parbox\@tempdima{\centering\hyperlink{btdm@section.\i}{\usebox\@tempboxa\smash{\btdm@printshort@lowforsec{\i}}}}% we erase all depth to allow sublinks to be clicked more easily
     }%
     \btdm@printshort@border~~\btdm@footer@tsymb{\btdm@inserttotalframenumber}%
@@ -440,6 +449,7 @@
 \gdef\btdm@footline@prefix{% do not show sub in foots:
 \@btdm@footer@has@sub@false\colorlet{btdm@border@down}{btdm@primary}%
 \colorlet{btdm@foot}{btdm@contrast}%
+\ifbtdm@primaryfoot@\setbeamercolor{active section in head/foot}{fg=btdm@contrast}\fi
 \colorlet{btdm@foot@page}{btdm@contrast}\global\let\btdm@footline@prefix\@empty}%
 }
 \let\btdm@footline@prefix\@empty
