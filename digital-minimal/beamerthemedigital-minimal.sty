@@ -205,7 +205,7 @@
 }
 
 \def\btdm@footer@tsymb#1{\hyperlink{btdm@slide@marker.#1}{\strut\ifnum\insertframenumber=#1\relax\(\blacklozenge\)\else\(\lozenge\)\fi}}
-\def\btdm@printshort@lowforsec#1{\@nameuse{btdm@section@#1@content}}
+\def\btdm@printshort@lowforsec#1{\csname btdm@section@#1@content\endcsname}
 
 \def\btdm@printshort@border{~~}
 \def\btdm@printshort@mid{~~}
