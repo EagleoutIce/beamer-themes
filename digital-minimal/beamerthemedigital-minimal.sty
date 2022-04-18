@@ -214,7 +214,7 @@
 \def\btdm@sub#1{\pgfpicture
 \color{btdm@foot!55!btdm@background}
 \pgfsetcornersarced{\pgfpoint{.2mm}{.2mm}}
-\pgfpathrectanglecorners{\pgfpoint{-.9mm}{-.2mm}}{\pgfpoint{.9mm}{.2mm}}
+\pgfpathrectanglecorners{\pgfpoint{-.85mm}{-.215mm}}{\pgfpoint{.85mm}{.215mm}}
 \pgfusepath{#1}
 \endpgfpicture}
 \newsavebox\btdm@subs@off \setbox\btdm@subs@off=\hbox{\btdm@sub{stroke}}
@@ -229,11 +229,11 @@
     \box\beamer@sectionbox\hskip1.25ex%
     \setbox\beamer@sectionbox=% we always disable on last
     \hbox{\beamer@link(##4){\ifnum\insertframenumber=\btdm@inserttotalframenumber \usebox\btdm@subs@off\else\ifnum\c@subsection=##2\ifnum##1=\c@section\relax\usebox\btdm@subs@on\else\usebox\btdm@subs@off\fi\else\usebox\btdm@subs@off\fi\fi}}%
-    \ht\beamer@sectionbox=.35ex%
+    \ht\beamer@sectionbox=.45ex%
     \dp\beamer@sectionbox=.25ex%
     \fi\fi\fi\ignorespaces}%
-\setbox\beamer@sectionbox=\hbox{}%
-\hskip-1.25ex\dohead
+\setbox\beamer@sectionbox=\null
+\hskip-1.25ex\relax\dohead
 \box\beamer@sectionbox\hfil}}
 
 \def\btdm@next@{\thinspace~\mdseries\faAngleRight~}
