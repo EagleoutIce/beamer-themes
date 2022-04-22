@@ -258,12 +258,9 @@
 \ifnum\btdm@sectionmax@target@preview<0\else
     % get start index as sec-2
     \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\number\c@section-\btdm@footline@threshold/2))}%
-    \edef\btdm@sectionmax@target@end{\the\numexpr\btdm@sectionmax@target@start+\btdm@sectionmax@target@preview}%
-    \ifnum\btdm@sectionmax@target@end<\number\c@btdm@sectioncount\relax \edef\btdm@sectionmax@target@end{\number\c@btdm@sectioncount}\fi
+    \pgfmathsetmacro\btdm@sectionmax@target@end{int(min(\number\c@btdm@sectioncount,\btdm@sectionmax@target@start+\btdm@sectionmax@target@preview))}%
     % try to update lower if upper was capped
-    % we max the difference with 1
-    \edef\btdm@sectionmax@target@start{\the\numexpr\btdm@sectionmax@target@end-\btdm@sectionmax@target@preview}%
-    \ifnum\btdm@sectionmax@target@start<1 \def\btdm@sectionmax@target@start{1}\fi
+    \pgfmathsetmacro\btdm@sectionmax@target@start{int(max(1,\btdm@sectionmax@target@end-\btdm@sectionmax@target@preview))}%
     \btdm@footer@tsymb{1}~~\btdm@printshort@border
     % start: \btdm@sectionmax@target@start, end: \btdm@sectionmax@target@end
     \foreach \i in {\btdm@sectionmax@target@start,...,\btdm@sectionmax@target@end} {%
