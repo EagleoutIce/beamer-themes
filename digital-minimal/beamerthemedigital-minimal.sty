@@ -33,43 +33,16 @@
 \ProcessKeyvalOptions*
 
 % \RequirePackage[defaultfam,light,tabular,lining]{montserrat}
-\RequirePackage[sfdefault,proportional,lining,medium,scaled=.95]{FiraSans}
+\RequirePackage{mathastext}
+\RequirePackage[default]{lato}
 \RequirePackage[scaled=.95]{FiraMono}
-
-\linespread{1.075}
+\AtBeginDocument{\fontseries{m}\selectfont}
 
 % mabye check Londrina Solid
-\def\btdm@sbseries{\fontseries{sb}\selectfont}
+\def\btdm@sbseries{\bfseries}
 
 
-% iwona math
-\makeatletter
-\DeclareMathVersion{iwona}
-\DeclareMathVersion{iwonabold}
-
-\SetSymbolFont{operators}{iwona}{T1}{FiraSans-TLF}{m}{n}
-\SetSymbolFont{letters}{iwona}{OML}{iwona} {m}{it}
-\SetSymbolFont{symbols}{iwona}{OMS}{iwona}{m}{n}
-\SetSymbolFont{largesymbols}{iwona}{OMX}{iwona}{m}{n}
-\SetSymbolFont{operators}{iwonabold}{T1}{FiraSans-TLF} {b}{n}
-\SetSymbolFont{letters}  {iwonabold}{OML}{iwona} {b}{it}
-\SetSymbolFont{symbols}  {iwonabold}{OMS}{iwona}{b}{n}
-\SetSymbolFont{largesymbols}{iwonabold}{OMX}{iwona}{b}{n}
-\SetMathAlphabet{\mathbf}{iwona}{OT1}{iwona}{bx}{n}
-\SetMathAlphabet{\mathsf}{iwona}{OT1}{iwona}{m}{n}
-\SetMathAlphabet{\mathit}{iwona}{OT1}{iwona}{m}{it}
-\SetMathAlphabet\mathit{iwonabold}{OT1}{iwona}{bx}{it}
-\mathversion{iwona}
-\ifx\define@iwona@mathversions a
-  \ifx\mv@cmr\@undefined
-    \let\mv@cmr\mv@normal
-    \let\mv@cmrbold\mv@bold
-  \fi
-  \let\mv@normal\mv@iwona
-  \let\mv@bold\mv@iwonabold
-\fi
-\let\define@iwona@mathversions\@undefined
-\RequirePackage{sfmath} % TODO: no-libs option
+\RequirePackage{sfmath,mathastext} % TODO: no-libs option
 % update math figures
 
 \RequirePackage{relsize}
@@ -168,10 +141,10 @@
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
 \setbeamerfont{structure}{series=\btdm@sbseries}
-\setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{frametitle}{parent=structure,size=\Large,series=\fontseries{ub}}
 \setbeamerfont{section title}{parent=frametitle,size=\huge}
 \setbeamerfont{section text}{parent=normal text,size=\scriptsize,shape=\slshape}
-\setbeamerfont{title}{parent=structure,size=\Huge}
+\setbeamerfont{title}{parent=structure,size=\Huge,series=\fontseries{ub}}
 \setbeamerfont{subtitle}{shape=\slshape,size=\LARGE}
 % active section in the footline, custom
 \setbeamerfont{active section in head/foot}{series=\btdm@sbseries}
