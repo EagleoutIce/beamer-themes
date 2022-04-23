@@ -41,6 +41,34 @@
 % mabye check Londrina Solid
 \def\btdm@sbseries{\fontseries{sb}\selectfont}
 
+
+% iwona math
+\makeatletter
+\DeclareMathVersion{iwona}
+\DeclareMathVersion{iwonabold}
+
+\SetSymbolFont{operators}{iwona}{T1}{FiraSans-TLF}{m}{n}
+\SetSymbolFont{letters}{iwona}{OML}{iwona} {m}{it}
+\SetSymbolFont{symbols}{iwona}{OMS}{iwona}{m}{n}
+\SetSymbolFont{largesymbols}{iwona}{OMX}{iwona}{m}{n}
+\SetSymbolFont{operators}{iwonabold}{T1}{FiraSans-TLF} {b}{n}
+\SetSymbolFont{letters}  {iwonabold}{OML}{iwona} {b}{it}
+\SetSymbolFont{symbols}  {iwonabold}{OMS}{iwona}{b}{n}
+\SetSymbolFont{largesymbols}{iwonabold}{OMX}{iwona}{b}{n}
+\SetMathAlphabet{\mathbf}{iwona}{OT1}{iwona}{bx}{n}
+\SetMathAlphabet{\mathsf}{iwona}{OT1}{iwona}{m}{n}
+\SetMathAlphabet{\mathit}{iwona}{OT1}{iwona}{m}{it}
+\SetMathAlphabet\mathit{iwonabold}{OT1}{iwona}{bx}{it}
+\mathversion{iwona}
+\ifx\define@iwona@mathversions a
+  \ifx\mv@cmr\@undefined
+    \let\mv@cmr\mv@normal
+    \let\mv@cmrbold\mv@bold
+  \fi
+  \let\mv@normal\mv@iwona
+  \let\mv@bold\mv@iwonabold
+\fi
+\let\define@iwona@mathversions\@undefined
 \RequirePackage{sfmath} % TODO: no-libs option
 % update math figures
 
