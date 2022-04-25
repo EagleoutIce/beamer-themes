@@ -417,11 +417,10 @@
 \vskip\btdm@vertshift% l margin is the left margin so it is aligned with the text
 \usebeamerfont{frametitle}\strut
 \beamercolorbox[wd=\paperwidth,leftskip=\z@,rightskip=\z@,center,ht=3.75ex,dp=.45ex,sep=2pt,shadow=false]{frametitle}% default color
-\strut\minipage{\dimexpr\paperwidth-.5cm}%
-\hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle
+\strut\smash{\minipage{\dimexpr\paperwidth-.5cm}%
+\hskip.5mm\usebeamercolor*[fg]{frametitle}\strut\insertframetitle\relax
 \hskip\dimexpr\wd\btdm@triangle+.45ex\null% account for the triangle if present
-\endminipage
-\strut\llap{\copy\btdm@triangle}\strut
+\endminipage}\strut\llap{\copy\btdm@triangle}\strut
 \endbeamercolorbox
 }
 
