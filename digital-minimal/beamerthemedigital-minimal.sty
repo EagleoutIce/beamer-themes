@@ -129,7 +129,7 @@
 \newcommand*\UpdateBtdmColor{\@ifstar\update@btdm@full\update@btdm@main}
 \newcommand*\update@btdm@main[2][\btdm@mode]{\update@btdm@full[#1]{#2}\relax}
 % the third argument allows for manual color modifications
-\newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle\btdm@update@subbox}
+\newcommand*\update@btdm@full[3][\btdm@mode]{\edef\btdm@color{#2}\edef\btdm@mode{#1}\btdm@update@mode\@bsphack#3\@esphack\btdm@update@triangle\btdm@update@subboxes}
 % we update the triangle as it is cached
 % TODO: custom pages for new tasks
 
@@ -188,10 +188,20 @@
 \def\updateitemizesub#1{\setbeamertemplate{itemize subitem}{#1}%
 \settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
 \addtolength\leftmarginii{\labelsep}}
+\def\updateitemizesubsub#1{\setbeamertemplate{itemize subsubitem}{#1}%
+\settowidth\leftmarginiii{\usebeamertemplate{itemize subsubitem}}%
+\addtolength\leftmarginiii{\labelsep}}
 
 \updateitemize{\mdseries\faAngleRight}
 \newsavebox\btdm@itemize@sub
-\def\btdm@update@subbox{\setbox\btdm@itemize@sub=\hbox{\raisebox{1.5pt}{\scalebox{.5}{\@declaredcolor{btdm@softtext}\mdseries\faCircle}}}\updateitemizesub{\copy\btdm@itemize@sub}}\AtBeginDocument{\btdm@update@subbox}%
+\newsavebox\btdm@itemize@sub@sub
+\def\btdm@update@subboxes{%
+    \setbox\btdm@itemize@sub=\hbox{\raisebox{1.5pt}{\scalebox{.5}{\@declaredcolor{btdm@softtext}\mdseries\faCircle}}}%
+    \setbox\btdm@itemize@sub@sub=\hbox{\scalebox{.77}{\copy\btdm@itemize@sub}}%
+    \updateitemizesub{\copy\btdm@itemize@sub}%
+    \updateitemizesubsub{\copy\btdm@itemize@sub@sub}%
+}\AtBeginDocument{\btdm@update@subboxes}%
+
 
 % this code is based on that of dividing-lines but modified.
 % if i have the time i will regroup it as a package
