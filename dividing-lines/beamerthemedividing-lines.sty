@@ -142,7 +142,8 @@
 \settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
 \addtolength\leftmarginii{\labelsep}}
 
-\updateitemize{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\def\defaultitemizeblock{\scalebox{.5}{\raisebox{3.66pt}{$\blacksquare$}}}
+\updateitemize{\defaultitemizeblock}
 \updateitemizesub{\tiny\tikz[baseline=-1.15ex]{\fill (0,0) circle (1.65pt);}}
 
 
