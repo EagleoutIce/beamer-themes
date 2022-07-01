@@ -442,8 +442,8 @@
 
 %% special frames
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
-\newenvironment{layout-imageonly}{\leavevmode
-\hspace*{-\btdl@imageonly@wd@add}\minipage[c][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
+\newenvironment{layout-imageonly}[1][c]{\leavevmode
+\hspace*{-\btdl@imageonly@wd@add}\minipage[#1][\textheight-\btdl@frametitle@ht-\btdl@frametitle@dp-1cm]{\linewidth+\btdl@imageonly@wd@add}%
 }{\endminipage}
 
 \newenvironment{layout-full}{\begingroup\leavevmode
