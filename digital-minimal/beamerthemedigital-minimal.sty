@@ -327,7 +327,7 @@
 
 \def\setfootmarker#1{\def\btdm@footbottomleft{#1}}
 \def\setfoottitlemarker#1{\def\btdm@footbottomleft@title{#1}}
-\setfoottitlemarker{\insertauthoremail~/ \insertshortdate}
+\setfoottitlemarker{\insertauthoremail\ifx\beamer@shortdate\@empty\else~/ \insertshortdate\fi}
 
 \def\btdm@bottomtoc@w{.7\paperwidth}
 \newdimen\btdmfootheight \btdmfootheight=13.96\p@
