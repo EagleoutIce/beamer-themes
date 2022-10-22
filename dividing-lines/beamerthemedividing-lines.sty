@@ -295,7 +295,7 @@
 
 \def\btdlcustomauxdef#1#2{\expandafter\gdef\csname btdl@section@#1@content\endcsname{#2}}
 
-\def\section{\@xdblarg\btdl@section}
+\def\section{\@dblarg\btdl@section}
 \def\btdl@section[#1]#2{%
     \write\@auxout{\noexpand\global\noexpand\stepcounter{btdl@sectioncount}\noexpand\btdlcustomauxdef{\thesection}{#1}}%
     \ifx!#1!\oldsection{#2}\else\oldsection[#1]{#2}\fi\hypertarget{btdl@section.\thesection}{}%
