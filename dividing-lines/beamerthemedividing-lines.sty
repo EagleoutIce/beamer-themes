@@ -19,8 +19,16 @@
 \ExecuteOptions{nocenterfoot}
 \ProcessOptions
 
+\RequirePackage{ifluatex}
+
 %% load packages
-\RequirePackage[defaultfam,light,tabular,lining]{montserrat}
+\ifluatex
+    \RequirePackage{fontspec}
+    \RequirePackage{unicode-math}
+\else
+    \PassOptionsToPackage{defaultfam}{montserrat}
+\fi
+\RequirePackage[light,tabular,lining]{montserrat}
 \def\sbfamily{\fontseries{sb}\selectfont}
 
 % load libs
