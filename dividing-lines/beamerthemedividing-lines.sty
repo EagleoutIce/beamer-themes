@@ -12,6 +12,8 @@
 % libs
 \newif\ifbtdl@loadlibs@ \btdl@loadlibs@true
 \DeclareOption{nolibs}{\btdl@loadlibs@false} \DeclareOption{libs}{\btdl@loadlibs@true}
+\newif\ifbtdl@loadfont@ \btdl@loadfont@true
+\DeclareOption{nofonts}{\btdl@loadfont@false} \DeclareOption{fonts}{\btdl@loadfont@true}
 % bibliography
 \newif\ifbtdl@bibliography@ \btdl@bibliography@true % default: yes/ifloaded
 \DeclareOption{nobib}{\btdl@bibliography@false} \DeclareOption{showbib}{\btdl@bibliography@true}
@@ -21,6 +23,7 @@
 
 \RequirePackage{ifluatex}
 
+\ifbtdl@loadfont@
 %% load packages
 \ifluatex
     \RequirePackage{fontspec}
@@ -29,6 +32,7 @@
     \PassOptionsToPackage{defaultfam}{montserrat}
 \fi
 \RequirePackage[light,tabular,lining]{montserrat}
+\fi
 \def\sbfamily{\fontseries{sb}\selectfont}
 
 % load libs
