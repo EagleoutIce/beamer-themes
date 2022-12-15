@@ -73,7 +73,6 @@
 \newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
-\colorlet{btdl@color@background}{btdl@color@primary!1!}
 \appto\DoColorUpdate{\setbeamercolor{background canvas}{bg=btdl@color@background}}
 \AtEndPreamble{\DoColorUpdate}
 
@@ -83,6 +82,7 @@
 \setbeamercolor{example text}{fg=btdl@color@white}
 \setbeamercolor{copyright text}{fg=btdl@color@wtext}
 \setbeamercolor{palette primary}{fg=btdl@color@btext}
+\colorlet{btdl@color@background}{btdl@color@primary!1!}
 
 \mode<beamer>{
 \setbeamercolor{alerted text}{fg=btdl@color@primary}
