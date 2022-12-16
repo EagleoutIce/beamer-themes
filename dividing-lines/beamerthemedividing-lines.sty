@@ -54,6 +54,7 @@
 \definecolor{btdl@color@primary}{RGB}{#1}%
 \definecolor{btdl@color@secondary}{RGB}{#2}%
 \definecolor{btdl@color@alerted}{RGB}{#3}%
+\colorlet{btdl@color@background}{btdl@color@primary!1!}
 }
 
 % RGB(249, 166, 2) RGB(249, 224, 176) RGB(137,64,75)
@@ -67,17 +68,18 @@
 \colorlet{btdl@color@btext}{btdl@color@black}
 \colorlet{btdl@color@text}{btdl@color@black!95!btdl@color@white}
 \colorlet{btdl@solidF}{btdl@color@primary!25!btdl@color@black}
+\colorlet{btdl@color@background}{btdl@color@primary!1!}
 
 %% shortcut commands for the user
 \newcommand\hl[1]{\textcolor{btdl@color@secondary}{#1}}
 \newcommand\imp[1]{\emph{#1}}
 
 %% beamer configuration
-\colorlet{btdl@color@background}{btdl@color@primary!1!}
-\setbeamercolor{background canvas}{bg=btdl@color@background}
+\appto\DoColorUpdate{\setbeamercolor{background canvas}{bg=btdl@color@background}}
+\AtEndPreamble{\DoColorUpdate}
 
 % General
-\setbeamercolor{normal text}{fg=btdl@color@btext}
+\appto\DoColorUpdate{\setbeamercolor{normal text}{fg=btdl@color@btext}
 \setbeamercolor{structure}{fg=btdl@color@text}
 \setbeamercolor{example text}{fg=btdl@color@white}
 \setbeamercolor{copyright text}{fg=btdl@color@wtext}
@@ -107,6 +109,17 @@
 % Page Number
 \setbeamercolor{page number in head/foot}{fg=btdl@color@btext!50!btdl@color@white}
 
+
+\setbeamercolor{description item}{fg=btdl@color@black}
+
+\setbeamercolor{enumerate item}{fg=btdl@color@black}
+\setbeamercolor{enumerate subitem}{fg=btdl@color@black}
+\setbeamercolor{enumerate subsubitem}{fg=btdl@color@black}}
+
+\setbeamerfont{section in toc}{size=\fontsize{12}{14}}
+\setbeamerfont{subsection in toc}{size=\fontsize{8}{12}}
+\setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
+
 \setbeamerfont{title}{size=\fontsize{24}{24},series=\sbfamily}
 \setbeamerfont{subtitle}{size=\fontsize{10}{12},series=\mdseries}
 \setbeamerfont{tag}{size=\fontsize{8}{10},series=\mdseries}
@@ -117,15 +130,6 @@
 
 \setbeamerfont{button}{series=\sbfamily}
 \setbeamerfont{description item}{series=\fontseries{medium}}
-\setbeamercolor{description item}{fg=btdl@color@black}
-
-\setbeamercolor{enumerate item}{fg=btdl@color@black}
-\setbeamercolor{enumerate subitem}{fg=btdl@color@black}
-\setbeamercolor{enumerate subsubitem}{fg=btdl@color@black}
-
-\setbeamerfont{section in toc}{size=\fontsize{12}{14}}
-\setbeamerfont{subsection in toc}{size=\fontsize{8}{12}}
-\setbeamerfont{disabled subsection in toc}{size=\fontsize{8}{12}}
 \setbeamertemplate{section in toc}{\medskip\vfill\hbox{}\inserttocsection\par}
 
 \setbeamertemplate{subsection in toc}{\qquad{\scalebox{.65}{\raisebox{1.25pt}{$\blacksquare$}}}\hspace{1em}\inserttocsubsection\par}
@@ -136,7 +140,7 @@
 \setbeamertemplate{bibliography entry location}{}
 \setbeamertemplate{bibliography entry note}{}
 \colorlet{bibcolor}{btdl@color@white}
-\setbeamercolor{bibliography item}{fg=bibcolor}
+\appto\DoColorUpdate{\setbeamercolor{bibliography item}{fg=bibcolor}
 \setbeamercolor*{bibliography entry title}{fg=bibcolor}
 \setbeamercolor{bibliography entry author}{fg=bibcolor}
 \setbeamercolor*{bibliography entry author}{fg=bibcolor}
@@ -144,7 +148,7 @@
 \setbeamercolor*{bibliography entry location}{fg=bibcolor}
 \setbeamercolor{bibliography entry note}{fg=bibcolor}
 \setbeamercolor*{bibliography entry note}{fg=bibcolor}
-\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{bibliography item}[text]}
 
 
 \def\updateitemize#1{\setbeamertemplate{itemize items}{#1}%
@@ -160,8 +164,8 @@
 
 \setbeamertemplate{description item}{\usebeamerfont{description item}\insertdescriptionitem:\hfill}
 
-\setbeamercolor{block title}{use=structure,fg=btdl@color@white,bg=btdl@solidF}
-\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+\appto\DoColorUpdate{\setbeamercolor{block title}{use=structure,fg=btdl@color@white,bg=btdl@solidF}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}}
 
 \setbeamertemplate{theorems}[numbered]
 
