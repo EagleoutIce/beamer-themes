@@ -4,7 +4,8 @@ for d in $(ls -d */); do
     cd $d
     ln ../example.bib ./example.bib
     ln ../exampletitleimage.png ./exampletitleimage.png
-    sltx -q raw-compile example.tex
+    latexmk -C
+    latexmk -shell-escape -pdf example.tex
     lastpage=$(($(pdfinfo example.pdf | awk '/^Pages:/ {print $2}')-1))
     convert -dither FloydSteinberg -density 300 "example.pdf[0,1,2,3,6,${lastpage}]" temp%d.png
     montage temp0.png temp1.png temp2.png temp3.png temp6.png temp${lastpage}.png -tile 3x2 -geometry +0+0 example.png
