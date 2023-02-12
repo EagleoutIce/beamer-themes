@@ -72,6 +72,7 @@
 \colorlet{btdm@border@down}{darkgray!90!black!99!btdm@primary}
 \colorlet{btdm@foot}{gray}
 \colorlet{btdm@foot@page}{btdm@primary}
+\colorlet{btdm@section@fill}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode}{
 \@btdm@darkmode@false
@@ -87,6 +88,7 @@
 \colorlet{btdm@block}{btdm@background}
 \colorlet{btdm@foot}{gray}
 \colorlet{btdm@foot@page}{btdm@primary}
+\colorlet{btdm@section@fill}{btdm@primary}
 }
 \@namedef{btdm@mode@lightmode-fill}{
 \@btdm@darkmode@false
@@ -102,6 +104,7 @@
 \colorlet{btdm@border@down}{lightgray!12!white}
 \colorlet{btdm@foot}{gray}
 \colorlet{btdm@foot@page}{btdm@primary}
+\colorlet{btdm@section@fill}{btdm@primary}
 }
 \@namedef{btdm@mode@darkmode-git}{
 \@btdm@darkmode@true
@@ -117,6 +120,7 @@
 \colorlet{btdm@block}{btdm@border@up!70!black!89!btdm@text}
 \colorlet{btdm@foot}{btdm@text!36!btdm@border@down}
 \colorlet{btdm@foot@page}{btdm@primary!70!btdm@background}
+\colorlet{btdm@section@fill}{btdm@primary}
 \colorlet{gray}{btdm@text!40!btdm@background}
 \colorlet{lightgray}{gray!70!btdm@background}
 }
@@ -137,6 +141,10 @@
 \long\def\@btdm@secondoftwo#1#2{#2}
 \def\IfBtdmMode#1{\def\@tmp{#1}\ifx\@tmp\btdm@mode\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
 \def\IfBtdmDarkmode{\if@btdm@darkmode@\expandafter\@btdm@firstoftwo\else\expandafter\@btdm@secondoftwo\fi}
+
+\let\BtdmSetDarkmode\@btdm@darkmode@true
+\let\BtdmSetLightmode\@btdm@darkmode@false
+
 
 \setbeamercolor{palette primary}{fg=btdm@primary}
 
@@ -486,7 +494,7 @@
 \AtBeginSection[]{\ifsectionbanner\begingroup
     \setfootmarker{\btdm@footbottomleft@title}%
     \if@btdm@darkmode@\gdef\btdm@footline@prefix{% do not show sub in foots:
-    \@btdm@footer@has@sub@false\global\let\btdm@footline@prefix\@empty} \else\setbeamercolor{background canvas}{bg=btdm@primary}\BtdmMakeNextFullBottom\fi
+    \@btdm@footer@has@sub@false\global\let\btdm@footline@prefix\@empty} \else\setbeamercolor{background canvas}{bg=btdm@section@fill}\BtdmMakeNextFullBottom\fi
     \begin{frame}[t]\relax\relax
         \hypertarget{section.\thesection}{}%
         \null\hfill\ifx\btdm@sec@text\@empty\else\llap{\smash{\raisebox{-\height+.6cm}{\parbox{\btdm@sec@width}{\raggedleft\usebeamerfont{section text}\usebeamercolor[fg]{section text}\btdm@sec@text}}}}\fi\vskip3em\vfill\centering\usebeamerfont{section title}\usebeamercolor[fg]{section title}\strut\if@btdm@darkmode@\color{btdm@primary}\fi\insertsection\strut\vfill
