@@ -460,6 +460,7 @@
 \let\btdm@authormailsuff\@empty
 \def\insertauthoremail{\ifx\btdm@email\@empty\insertauthor\else\href{mailto:\btdm@email\btdm@authormailsuff}{\insertauthor}\fi}
 
+\def\posttitlepage{}
 \newcommand\titleframe[1][]{% post tilepage
 % default reveal
 \begingroup % keep local
@@ -468,7 +469,7 @@
 \begin{frame}[c]
    \label{btdm@slide@marker.1}%
    \revealfooton{2}% can be overriden
-   \titlepage#1
+   \titlepage#1\posttitlepage
 \end{frame}
 \endgroup
 }
