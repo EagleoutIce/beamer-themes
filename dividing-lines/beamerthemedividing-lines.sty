@@ -25,12 +25,12 @@
 
 \ifbtdl@loadfont@
 %% load packages
-\ifluatex
-    \RequirePackage{fontspec}
-    \RequirePackage{unicode-math}
-\else
-    \PassOptionsToPackage{defaultfam}{montserrat}
-\fi
+    \ifluatex
+        \RequirePackage{fontspec}
+        \RequirePackage{unicode-math}
+    \else
+        \PassOptionsToPackage{defaultfam}{montserrat}
+    \fi
 \RequirePackage[light,tabular,lining]{montserrat}
 \fi
 \def\sbfamily{\fontseries{sb}\selectfont}
