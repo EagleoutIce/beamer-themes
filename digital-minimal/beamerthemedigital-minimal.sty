@@ -461,12 +461,12 @@
 \def\insertauthoremail{\ifx\btdm@email\@empty\insertauthor\else\href{mailto:\btdm@email\btdm@authormailsuff}{\insertauthor}\fi}
 
 \def\posttitlepage{}
-\newcommand\titleframe[1][]{% post tilepage
+\newcommand<>\titleframe[1][]{% post tilepage
 % default reveal
 \begingroup % keep local
 \setfootmarker{\btdm@footbottomleft@title}%
 \@btdm@footer@has@sub@false
-\begin{frame}[c]
+\begin{frame}#2[c]
    \label{btdm@slide@marker.1}%
    \revealfooton{2}% can be overriden
    \titlepage#1\posttitlepage
