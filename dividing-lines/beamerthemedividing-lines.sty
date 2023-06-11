@@ -187,10 +187,11 @@
 \newlength\btdl@frametitle@dp \btdl@frametitle@dp1.25ex
 
 \def\btdl@slideshade{35}
+\def\PlaceFramenumberUpperLeft{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}
 \setbeamertemplate{frametitle}{%
     \nointerlineskip
     \beamercolorbox[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\PlaceFramenumberUpperLeft}\insertframetitle\strut
     \endbeamercolorbox
 }
 
