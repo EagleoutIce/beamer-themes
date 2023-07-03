@@ -187,10 +187,11 @@
 \newlength\btdl@frametitle@dp \btdl@frametitle@dp1.25ex
 
 \def\btdl@slideshade{35}
+\def\PlaceFramenumberUpperLeft{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}
 \setbeamertemplate{frametitle}{%
     \nointerlineskip
     \beamercolorbox[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
-     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}\insertframetitle\strut
+     \strut\usebeamerfont{frametitle}\parbox{\dimexpr\btdl@leftindent\relax}{\PlaceFramenumberUpperLeft}\insertframetitle\strut
     \endbeamercolorbox
 }
 
@@ -350,11 +351,12 @@
     }%
 }
 
+\def\TitlepageSlideAlign{b}
 \def\PreTitlepage{}\def\PostTitlepage{}
 \def\DoTitlepage{\begingroup
-\begin{frame}[plain,b]%
+\begin{frame}[plain,\TitlepageSlideAlign]%
     \PreTitlepage%
-    \hypertarget{btdl@slide@marker.1}{}\hspace*{-\btdl@leftindent}\minipage[b][.75\textheight]{\textwidth+\btdl@leftindent}
+    \hypertarget{btdl@slide@marker.1}{}\hspace*{-\btdl@leftindent}\minipage[\TitlepageSlideAlign][.75\textheight]{\textwidth+\btdl@leftindent}
     \titlepage
     \endminipage
 \tikzpicture[overlay,remember picture]%
@@ -448,8 +450,8 @@
 }%
 \vfill\pgfmathsetmacro\btdl@extlenw{\textwidth+2em}
 \hspace*{-1em}\parbox{\btdl@extlenw pt}{\parbox[b]{.35\textwidth}{%
-    {\small\ifx\btdl@outro@right\@empty\textbf{\insertshortauthor}\else\href{mailto:\btdl@email}{\textbf{\insertshortauthor}}\fi}\\
-    {\footnotesize\btdl@outro{}}%
+        {\small\ifx\btdl@outro@right\@empty\textbf{\insertshortauthor}\else\href{mailto:\btdl@email}{\textbf{\insertshortauthor}}\fi}\ifx\btdl@outro\@empty\else\\\fi
+        {\footnotesize\btdl@outro{}}%
 }\hfill\parbox[b]{.35\textwidth}{%
 {\hbox{}\hfill\footnotesize\ifx\btdl@outro@right\@empty\href{mailto:\btdl@email}{\btdl@email}\else\btdl@outro@right\fi}%
 }}%
