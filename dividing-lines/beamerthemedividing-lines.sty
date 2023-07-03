@@ -329,9 +329,11 @@
 \def\titleimage#1{\def\inserttitleimage{#1}}
 \newlength\btdl@titleheight \btdl@titleheight7em
 
+\def\btdl@title@width{.95\linewidth}
+
 \setbeamertemplate{title page}{%
 \savebox\btdl@box@title{%
-    \pbox{.95\linewidth}{%
+    \pbox{\btdl@title@width}{%
         \usebeamerfont{title}\usebeamercolor{title}\MakeUppercase{\inserttitle}%
     }%
 }\parskip\z@ \parindent\z@
