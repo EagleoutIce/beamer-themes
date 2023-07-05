@@ -434,8 +434,7 @@
 \def\btdl@outro@right{} \def\outroright#1{\gdef\btdl@outro@right{#1}}
 \def\btdl@postpage{} \def\PostPage#1{\def\btdl@postpage{#1}}
 \def\btdl@outrocolor{btdl@color@primary}
-\AtEndDocument{%
-\begingroup
+\def\DoEndpage{\begingroup
 \setbeamercolor{background canvas}{bg=\btdl@outrocolor}%
 \begin{frame}[plain,t]%
 \hypertarget{btdl@slide@marker.\inserttotalframenumber}{}%
@@ -457,8 +456,9 @@
 }}%
 \endminipage\btdl@postpage
 \end{frame}
-\endgroup
-}
+\endgroup}
+
+\AtEndDocument{\DoEndpage}
 
 %% special frames
 \newlength\btdl@imageonly@wd@add \btdl@imageonly@wd@add=\dimexpr\btdl@leftindent-\btdl@leftindent/3\relax
