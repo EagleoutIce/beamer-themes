@@ -92,7 +92,7 @@
 \setbeamercolor{alerted text}{fg=btdl@color@text}
 \setbeamerfont{alerted text}{}}
 \mode<all>
-\setbeamercolor{button}{bg=btdl@color@primary!\btdl@slideshade!white}
+\setbeamercolor{button}{bg=btdl@color@primary!\btdl@slideshade!btdl@color@background}
 
 % Titlepage
 \setbeamercolor{title}{parent=normal text}
@@ -187,7 +187,7 @@
 \newlength\btdl@frametitle@dp \btdl@frametitle@dp1.25ex
 
 \def\btdl@slideshade{35}
-\def\PlaceFramenumberUpperLeft{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!white}.\insertslidenumber}\fi}}
+\def\PlaceFramenumberUpperLeft{\strut\textbf{\color{btdl@color@primary}\insertframenumber\ifnum\insertframestartpage=\insertframeendpage\else\rlap{\footnotesize\color{btdl@color@primary!\btdl@slideshade!btdl@color@background}.\insertslidenumber}\fi}}
 \setbeamertemplate{frametitle}{%
     \nointerlineskip
     \beamercolorbox[wd=\linewidth,ht=5ex,dp=1.25ex,leftskip=-\btdl@leftindent]{frametitle}%
