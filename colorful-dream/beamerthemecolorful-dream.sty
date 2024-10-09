@@ -251,16 +251,6 @@
     \gdef\btcd@emblem{\btcd@generate@emblem{#2}{\hspace*{-.025em}#3}{btcd@color@emblem}{btcd@color@emblem}{btcd@color@emblem}{50pt}{\btcd@font@eulerSmall}{.125}{.05}}%
 }
 
-\newcommand\InsertCredit[0]{
-% add credit to flo + this took way to long why is latex sometimes so weird :c
-\addtobeamertemplate{title page}{}{%
-\\[-0.5555555\baselineskip]% reverse \par
-\scriptsize\color{gray}\begin{tikzpicture}[overlay, remember picture]
-    \node[above left = 1em and 1em of current page.south east,align=center] (n0) {\LaTeX-Vorlage von\\\href{https://github.com/EagleoutIce}{Florian Sihler}};
-    \node[above = 0cm of n0] (n1) {\fancyqr[size=1.5cm,tight]{https://eagleoutice.github.io/beamer-themes/\#colorful-dream}};
-\end{tikzpicture}}
-}
-
 \DeclareFixedFont{\btcd@font@eulerNormal}{U}{eur}{b}{n}{\f@size}
 \DeclareFixedFont{\btcd@font@eulerSmall}{U}{eur}{b}{n}{9}
 \def\@@university@name{ulm university}
